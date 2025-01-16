@@ -1,0 +1,126 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import com.jfoenix.controls.JFXButton?>
+<?import com.jfoenix.controls.JFXCheckBox?>
+<?import com.jfoenix.controls.JFXPasswordField?>
+<?import com.jfoenix.controls.JFXTextField?>
+<?import javafx.scene.Group?>
+<?import javafx.scene.control.Hyperlink?>
+<?import javafx.scene.control.Label?>
+<?import javafx.scene.control.TextField?>
+<?import javafx.scene.image.Image?>
+<?import javafx.scene.image.ImageView?>
+<?import javafx.scene.layout.AnchorPane?>
+<?import javafx.scene.shape.Line?>
+<?import javafx.scene.text.Font?>
+
+<AnchorPane prefHeight="600.0" prefWidth="900.0" style="-fx-background-color: #EAEAEA;" xmlns="http://javafx.com/javafx/23.0.1" xmlns:fx="http://javafx.com/fxml/1" fx:controller="LoginController.LoginFormController">
+   <children>
+      <ImageView fitHeight="580.0" fitWidth="466.0" layoutX="-7.0" layoutY="14.0" pickOnBounds="true" preserveRatio="true">
+         <image>
+            <Image url="@../Img/pexels-jimmyelizarraras-30231495.jpg" />
+         </image>
+      </ImageView>
+      <AnchorPane fx:id="hypForget" layoutX="459.0" prefHeight="600.0" prefWidth="440.0" style="-fx-background-color: #EAEAEA;">
+         <children>
+            <TextField fx:id="txtOtp" layoutX="125.0" layoutY="236.0" prefHeight="27.0" prefWidth="200.0" />
+            <TextField fx:id="txtNewPass" layoutX="125.0" layoutY="294.0" prefHeight="27.0" prefWidth="200.0" />
+            <TextField fx:id="txtConPass" layoutX="125.0" layoutY="353.0" prefHeight="27.0" prefWidth="200.0" />
+            <Label layoutX="125.0" layoutY="217.0" text="OTP Code" textFill="#6e6e6e">
+               <font>
+                  <Font name="System Bold Italic" size="14.0" />
+               </font>
+            </Label>
+            <Label layoutX="125.0" layoutY="273.0" text="New Password" textFill="#6e6e6e">
+               <font>
+                  <Font name="System Bold Italic" size="14.0" />
+               </font>
+            </Label>
+            <Label layoutX="125.0" layoutY="332.0" text="Confirm Password" textFill="#6e6e6e">
+               <font>
+                  <Font name="System Bold Italic" size="14.0" />
+               </font>
+            </Label>
+            <Group layoutX="111.0" layoutY="530.0">
+               <children>
+                  <Label text="Copyright © 2025 KalumGunawardhana" textFill="#6e6e6e">
+                     <font>
+                        <Font name="System Bold Italic" size="12.0" />
+                     </font>
+                  </Label>
+                  <Label layoutX="62.0" layoutY="18.0" text="All rights reserved" textFill="#6e6e6e">
+                     <font>
+                        <Font name="System Bold Italic" size="12.0" />
+                     </font>
+                  </Label>
+               </children>
+            </Group>
+            <TextField fx:id="txtForgetEmail" layoutX="125.0" layoutY="86.0" prefHeight="27.0" prefWidth="200.0" />
+            <Label layoutX="125.0" layoutY="67.0" text="Email" textFill="#6e6e6e">
+               <font>
+                  <Font name="System Bold Italic" size="14.0" />
+               </font>
+            </Label>
+            <JFXButton layoutX="125.0" layoutY="125.0" onAction="#btnSentOnAction" prefHeight="30.0" prefWidth="200.0" style="-fx-background-color: #007BFF;" text="OTP" textFill="WHITE">
+               <font>
+                  <Font name="System Bold" size="14.0" />
+               </font>
+            </JFXButton>
+            <JFXButton layoutX="121.0" layoutY="413.0" onAction="#btnSubmitOnAction" prefHeight="30.0" prefWidth="200.0" style="-fx-background-color: #6e6e6e;" text="Submit" textFill="WHITE">
+               <font>
+                  <Font name="System Bold" size="14.0" />
+               </font>
+            </JFXButton>
+            <JFXButton layoutX="122.0" layoutY="452.0" onAction="#btnBackOnAction" prefHeight="30.0" prefWidth="200.0" style="-fx-background-color: #6e6e6e;" text="Back" textFill="WHITE">
+               <font>
+                  <Font name="System Bold" size="14.0" />
+               </font>
+            </JFXButton>
+         </children>
+      </AnchorPane>
+      <AnchorPane fx:id="hypLogin" layoutX="462.0" prefHeight="600.0" prefWidth="440.0" style="-fx-background-color: #EAEAEA;">
+         <children>
+            <Line endX="198.20001220703125" endY="3.814697265625E-6" layoutX="225.0" layoutY="53.0" startX="-212.20001220703125" startY="3.814697265625E-6" />
+            <Line endX="200.60003662109375" layoutX="225.0" layoutY="118.0" startX="-208.20001220703125" />
+            <Label layoutX="109.0" layoutY="59.0" text="Clothify Store" textFill="#333333">
+               <font>
+                  <Font name="System Bold Italic" size="36.0" />
+               </font>
+            </Label>
+            <JFXCheckBox checkedColor="#007bff" layoutX="74.0" layoutY="352.0" text="Remember Me" />
+            <Label layoutX="74.0" layoutY="212.0" text="Email" textFill="#333333">
+               <font>
+                  <Font name="System Bold Italic" size="14.0" />
+               </font>
+            </Label>
+            <Label layoutX="73.0" layoutY="274.0" text="Password" textFill="#333333">
+               <font>
+                  <Font name="System Bold Italic" size="14.0" />
+               </font>
+            </Label>
+            <JFXButton layoutX="74.0" layoutY="443.0" onAction="#btnLoginOnAction" prefHeight="34.0" prefWidth="306.0" style="-fx-background-color: #007BFF;" text="Login" textFill="WHITE">
+               <font>
+                  <Font name="System Bold" size="14.0" />
+               </font>
+            </JFXButton>
+            <Label layoutX="111.0" layoutY="512.0" text="Copyright © 2025 KalumGunawardhana" textFill="#6e6e6e">
+               <font>
+                  <Font name="System Bold Italic" size="12.0" />
+               </font>
+            </Label>
+            <Label layoutX="173.0" layoutY="530.0" text="All rights reserved" textFill="#6e6e6e">
+               <font>
+                  <Font name="System Bold Italic" size="12.0" />
+               </font>
+            </Label>
+            <JFXPasswordField fx:id="txtPassword" focusColor="#2196f3" layoutX="74.0" layoutY="295.0" prefHeight="26.0" prefWidth="306.0" />
+            <JFXTextField fx:id="txtEmail" focusColor="#2196f3" layoutX="74.0" layoutY="232.0" prefHeight="26.0" prefWidth="306.0" />
+            <Hyperlink layoutX="272.0" layoutY="348.0" onAction="#hypForgetPasswordOnAction" text="Forget Password">
+               <font>
+                  <Font name="System Italic" size="14.0" />
+               </font>
+            </Hyperlink>
+         </children>
+      </AnchorPane>
+   </children>
+</AnchorPane>
