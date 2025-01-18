@@ -1,0 +1,87 @@
+CREATE DATABASE Clothify_Store;
+USE Clothify_Store;
+
+CREATE TABLE user (
+    UserID INT AUTO_INCREMENT PRIMARY KEY,
+    Name VARCHAR(200) NOT NULL,
+    Email VARCHAR(200) NOT NULL UNIQUE,
+    Password VARCHAR(200) NOT NULL,
+    Role VARCHAR(50) NOT NULL,
+    RegDate TIMESTAMP DEFAULT CURRENT_TIMESTAMP
+);
+
+CREATE TABLE supplier (
+    SupplierID INT AUTO_INCREMENT PRIMARY KEY,
+    Name VARCHAR(200) NOT NULL,
+    Company VARCHAR(200) NOT NULL,
+    Email VARCHAR(200) NOT NULL UNIQUE,
+    Item VARCHAR(200) NOT NULL
+);
+
+CREATE TABLE product (
+    ProductID INT AUTO_INCREMENT PRIMARY KEY,
+    ProductName VARCHAR(200) NOT NULL,
+    Category VARCHAR(100) NOT NULL,
+    Size VARCHAR(50),
+    Price DECIMAL(10,2) NOT NULL,
+    Quantity INT NOT NULL,
+    Image VARCHAR(255),
+    SupplierID INT,
+    FOREIGN KEY (SupplierID) REFERENCES supplier(SupplierID) ON DELETE SET NULL
+);
+
+CREATE TABLE employee (
+    EmployeeID INT AUTO_INCREMENT PRIMARY KEY,
+    Name VARCHAR(200) NOT NULL,
+    Email VARCHAR(200) NOT NULL UNIQUE,
+    Role VARCHAR(50) NOT NULL,
+    AdminID INT,
+    FOREIGN KEY (AdminID) REFERENCES user(UserID) ON DELETE CASCADE
+);
+
+CREATE TABLE orders (
+    OrderID INT AUTO_INCREMENT PRIMARY KEY,
+    OrderDate DATE NOT NULL,
+    TotalCost DECIMAL(10,2) NOT NULL,
+    PaymentType VARCHAR(50) NOT NULL,
+    EmployeeID INT NOT NULL,
+    FOREIGN KEY (EmployeeID) REFERENCES employee(EmployeeID) ON DELETE CASCADE
+);
+
+CREATE TABLE orderproduct (
+    OrderProductID INT AUTO_INCREMENT PRIMARY KEY,
+    OrderID INT NOT NULL,
+    ProductID INT NOT NULL,
+    Quantity INT NOT NULL,
+    FOREIGN KEY (OrderID) REFERENCES orders(OrderID) ON DELETE CASCADE,
+    FOREIGN KEY (ProductID) REFERENCES product(ProductID) ON DELETE CASCADE
+);
+
+INSERT INTO user (Name, Email, Password, Role) VALUES
+('Admin', 'admin@clothify.lk', '1234', 'Admin'),
+('Kasun Perera', 'kasun@clothify.lk', '1234', 'Employee'),
+('Nimal Fernando', 'nimal@clothify.lk', '1234', 'Employee');
+
+INSERT INTO supplier (Name, Company, Email, Item) VALUES
+('Supun Clothing', 'Supun Textiles', 'supun@textiles.lk', 'Shirts'),
+('Ruwan Fabric', 'Ruwan Fabrics Ltd.', 'ruwan@fabrics.lk', 'Sarees'),
+('Dilshan Distributors', 'Dilshan Distributors', 'dilshan@distr.lk', 'Jeans');
+
+INSERT INTO product (ProductName, Category, Size, Price, Quantity, SupplierID) VALUES
+('Kandyan Saree', 'Ladies', 'Free Size', 2500.00, 20, 2),
+('Slim Fit Shirt', 'Gents', 'M', 1500.00, 15, 1),
+('Kids Party Dress', 'Kids', 'S', 1800.00, 10, NULL),
+('Blue Jeans', 'Gents', 'L', 2000.00, 25, 3);
+
+INSERT INTO employee (Name, Email, Role, AdminID) VALUES
+('Kasun Perera', 'kasun@clothify.lk', 'Sales Assistant', 1),
+('Nimal Fernando', 'nimal@clothify.lk', 'Cashier', 1);
+
+INSERT INTO orders (OrderDate, TotalCost, PaymentType, EmployeeID) VALUES
+('2025-01-10', 4000.00, 'Cash', 1),
+('2025-01-12', 2500.00, 'Card', 2);
+
+INSERT INTO orderproduct (OrderID, ProductID, Quantity) VALUES
+(1, 1, 1),
+(1, 2, 2),
+(2, 3, 1);

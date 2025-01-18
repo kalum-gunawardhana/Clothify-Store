@@ -3,9 +3,12 @@ package LoginController;
 import com.jfoenix.controls.JFXPasswordField;
 import com.jfoenix.controls.JFXTextField;
 import javafx.event.ActionEvent;
+import javafx.fxml.FXMLLoader;
+import javafx.scene.Scene;
 import javafx.scene.control.Alert;
 import javafx.scene.control.TextField;
 import javafx.scene.layout.AnchorPane;
+import javafx.stage.Stage;
 import org.apache.commons.lang3.RandomStringUtils;
 
 import javax.mail.*;
@@ -28,13 +31,17 @@ public class LoginFormController {
 
     public static String generated;
 
-    public void btnLoginOnAction(ActionEvent actionEvent) {
+    public void btnLoginOnAction(ActionEvent actionEvent) throws IOException {
         boolean loginInfo = LoginController.getInstance().getLoginInfo(txtEmail.getText(), txtPassword.getText());
         if (loginInfo){
             Alert alert = new Alert(Alert.AlertType.INFORMATION);
             alert.setTitle("Information");
             alert.setHeaderText("Login Successfully");
             alert.show();
+
+            Stage stage = new Stage();
+            stage.setScene(new Scene(FXMLLoader.load(getClass().getResource("/View/EmployeeDashboardForm.fxml"))));
+            stage.show();
         }else {
             Alert alert = new Alert(Alert.AlertType.ERROR);
             alert.setTitle("Information");
@@ -131,7 +138,7 @@ public class LoginFormController {
         return false;
     }
 
-    public void btnSubmitOnAction(ActionEvent actionEvent) {
+    public void btnSubmitOnAction(ActionEvent actionEvent) throws IOException {
         boolean checked = checkPassword();
         if (checked){
             //System.out.println("correct");
@@ -141,6 +148,7 @@ public class LoginFormController {
                 alert.setTitle("Information");
                 alert.setHeaderText("Password Updated Successfully");
                 alert.show();
+
             }else {
                 Alert alert = new Alert(Alert.AlertType.ERROR);
                 alert.setTitle("Information");
