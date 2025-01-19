@@ -1,0 +1,67 @@
+/* General Styles */
+.root {
+    -fx-font-family: 'System';
+    -fx-background-color: #EAEAEA;
+}
+
+.label {
+    -fx-font-size: 14px;
+    -fx-font-family: 'System Bold Italic';
+    -fx-text-fill: #6e6e6e;
+}
+
+.label.title {
+    -fx-font-size: 36px;
+    -fx-font-family: 'System Bold Italic';
+    -fx-text-fill: #333333;
+}
+
+.text-field, .password-field {
+    -fx-pref-height: 26px;
+    -fx-pref-width: 306px;
+    -fx-background-color: #ffffff;
+    -fx-border-color: #cccccc;
+    -fx-border-radius: 5px;
+    -fx-padding: 5px;
+    -fx-focus-color: #2196f3;
+}
+
+.text-field:focused, .password-field:focused {
+    -fx-border-color: #007bff;
+}
+
+.button {
+    -fx-background-color: #007bff;
+    -fx-text-fill: white;
+    -fx-font-size: 14px;
+    -fx-font-family: 'System Bold';
+    -fx-pref-height: 34px;
+    -fx-pref-width: 306px;
+    -fx-background-radius: 5px;
+}
+
+.button:hover {
+    -fx-background-color: #0056b3;
+}
+
+.jfx-checkbox {
+    -fx-text-fill: #333333;
+    -jfx-checked-color: #007bff;
+}
+
+.hyperlink {
+    -fx-text-fill: #007bff;
+    -fx-font-size: 14px;
+    -fx-font-family: 'System Italic';
+}
+
+.hyperlink:hover {
+    -fx-text-fill: #0056b3;
+}
+
+/* Footer Copyright Styles */
+.footer-label {
+    -fx-font-size: 12px;
+    -fx-font-family: 'System Bold Italic';
+    -fx-text-fill: #6e6e6e;
+}

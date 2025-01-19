@@ -85,3 +85,46 @@ INSERT INTO orderproduct (OrderID, ProductID, Quantity) VALUES
 (1, 1, 1),
 (1, 2, 2),
 (2, 3, 1);
+
+------------------------------------------------------------------------------------------------------------------
+CREATE TABLE category (
+    CategoryID INT AUTO_INCREMENT PRIMARY KEY,
+    CategoryName VARCHAR(100) NOT NULL UNIQUE
+);
+
+INSERT INTO category (CategoryName) VALUES
+('Mens'),
+('Womens'),
+('Kids'),
+('Sportswear'),
+('Accessories'),
+('Outerwear'),
+('Footwear'),
+('Formal Wear'),
+('Casual Wear'),
+('Sleepwear');
+
+CREATE TABLE size (
+    SizeID INT AUTO_INCREMENT PRIMARY KEY,
+    SizeName VARCHAR(50) NOT NULL UNIQUE
+);
+
+INSERT INTO size (SizeName) VALUES
+('XS'),
+('S'),
+('M'),
+('L'),
+('XL'),
+('XXL'),
+('3XL'),
+('4XL'),
+('28'),
+('30'),
+('32'),
+('34'),
+('36'),
+('38'),
+('Free Size');
+
+
+

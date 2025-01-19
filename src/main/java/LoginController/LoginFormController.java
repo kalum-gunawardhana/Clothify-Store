@@ -40,7 +40,7 @@ public class LoginFormController {
             alert.show();
 
             Stage stage = new Stage();
-            stage.setScene(new Scene(FXMLLoader.load(getClass().getResource("/View/EmployeeDashboardForm.fxml"))));
+            stage.setScene(new Scene(FXMLLoader.load(getClass().getResource("/View/OwnerDashboardForm.fxml"))));
             stage.show();
         }else {
             Alert alert = new Alert(Alert.AlertType.ERROR);
