@@ -62,10 +62,10 @@
          <children>
             <AnchorPane layoutX="13.0" layoutY="13.0" prefHeight="360.0" prefWidth="500.0" style="-fx-background-color: EDEDED;">
                <children>
-                  <TextField layoutX="42.0" layoutY="40.0" prefHeight="26.0" prefWidth="210.0" promptText="Name" />
-                  <TextField layoutX="42.0" layoutY="164.0" prefHeight="26.0" prefWidth="210.0" promptText="Price" />
-                  <TextField layoutX="42.0" layoutY="204.0" prefHeight="26.0" prefWidth="210.0" promptText="Quantity" />
-                  <JFXButton layoutX="395.0" layoutY="315.0" prefHeight="30.0" prefWidth="90.0" style="-fx-background-color: #2596be;" text="Add">
+                  <TextField fx:id="txtAddInventoryName" layoutX="42.0" layoutY="40.0" prefHeight="26.0" prefWidth="210.0" promptText="Name" />
+                  <TextField fx:id="txtAddInventoryPrice" layoutX="42.0" layoutY="164.0" prefHeight="26.0" prefWidth="210.0" promptText="Price" />
+                  <TextField fx:id="txtAddInventoryQty" layoutX="42.0" layoutY="204.0" prefHeight="26.0" prefWidth="210.0" promptText="Quantity" />
+                  <JFXButton layoutX="395.0" layoutY="315.0" onAction="#btnAddInventoryOnAction" prefHeight="30.0" prefWidth="90.0" style="-fx-background-color: #2596be;" text="Add">
                      <font>
                         <Font name="System Bold Italic" size="14.0" />
                      </font>
@@ -76,18 +76,18 @@
                      </font>
                   </JFXButton>
                   <TextField layoutX="42.0" layoutY="244.0" prefHeight="26.0" prefWidth="210.0" promptText="Upload Image" />
-                  <JFXComboBox layoutX="42.0" layoutY="80.0" prefHeight="28.0" prefWidth="210.0" promptText="Select Category" />
-                  <JFXComboBox layoutX="42.0" layoutY="121.0" prefHeight="28.0" prefWidth="210.0" promptText="Select Size" />
-                  <JFXComboBox layoutX="43.0" layoutY="283.0" prefHeight="28.0" prefWidth="210.0" promptText="Select Supplier" />
+                  <JFXComboBox fx:id="cbInventoryAddSelectCategory" layoutX="42.0" layoutY="80.0" prefHeight="28.0" prefWidth="210.0" promptText="Select Category" />
+                  <JFXComboBox fx:id="cbInventoryAddSelectSize" layoutX="42.0" layoutY="121.0" prefHeight="28.0" prefWidth="210.0" promptText="Select Size" />
+                  <JFXComboBox fx:id="cbInventoryAddSelectSupplier" layoutX="43.0" layoutY="283.0" prefHeight="28.0" prefWidth="210.0" promptText="Select Supplier" />
                </children>
             </AnchorPane>
             <AnchorPane layoutX="527.0" layoutY="13.0" prefHeight="360.0" prefWidth="500.0" style="-fx-background-color: EDEDED;">
                <children>
-                  <TextField layoutX="42.0" layoutY="91.0" prefHeight="26.0" prefWidth="210.0" promptText="Name" />
-                  <TextField layoutX="42.0" layoutY="131.0" prefHeight="26.0" prefWidth="210.0" promptText="Category" />
-                  <TextField layoutX="42.0" layoutY="170.0" prefHeight="26.0" prefWidth="210.0" promptText="Size" />
-                  <TextField layoutX="42.0" layoutY="208.0" prefHeight="26.0" prefWidth="210.0" promptText="Price" />
-                  <JFXButton layoutX="395.0" layoutY="315.0" prefHeight="30.0" prefWidth="90.0" style="-fx-background-color: #2596be;" text="Search">
+                  <TextField fx:id="txtInventorySearchName" layoutX="42.0" layoutY="91.0" prefHeight="26.0" prefWidth="210.0" promptText="Name" />
+                  <TextField fx:id="txtInventorySearchCategory" layoutX="42.0" layoutY="131.0" prefHeight="26.0" prefWidth="210.0" promptText="Category" />
+                  <TextField fx:id="txtInventorySearchSize" layoutX="42.0" layoutY="170.0" prefHeight="26.0" prefWidth="210.0" promptText="Size" />
+                  <TextField fx:id="txtInventorySearchPrice" layoutX="42.0" layoutY="208.0" prefHeight="26.0" prefWidth="210.0" promptText="Price" />
+                  <JFXButton layoutX="395.0" layoutY="315.0" onAction="#btnInventorySearchOnAction" prefHeight="30.0" prefWidth="90.0" style="-fx-background-color: #2596be;" text="Search">
                      <font>
                         <Font name="System Bold Italic" size="14.0" />
                      </font>
@@ -97,19 +97,15 @@
                         <Font name="System Bold Italic" size="14.0" />
                      </font>
                   </JFXButton>
-                  <TextField layoutX="42.0" layoutY="248.0" prefHeight="26.0" prefWidth="210.0" promptText="Quantity" />
-                  <JFXComboBox layoutX="42.0" layoutY="12.0" prefHeight="28.0" prefWidth="210.0" promptText="Select Product" />
-                  <TextField layoutX="42.0" layoutY="288.0" prefHeight="26.0" prefWidth="210.0" promptText="Supplier Id" />
+                  <TextField fx:id="txtInventorySearchQty" layoutX="42.0" layoutY="248.0" prefHeight="26.0" prefWidth="210.0" promptText="Quantity" />
+                  <JFXComboBox fx:id="cbInventorySearchSelectProduct" layoutX="42.0" layoutY="12.0" prefHeight="28.0" prefWidth="210.0" promptText="Select Product" />
+                  <TextField fx:id="txtInventorySearchSupplierId" layoutX="42.0" layoutY="288.0" prefHeight="26.0" prefWidth="210.0" promptText="Supplier Id" />
                </children>
             </AnchorPane>
             <AnchorPane layoutX="14.0" layoutY="393.0" prefHeight="360.0" prefWidth="500.0" style="-fx-background-color: EDEDED;">
                <children>
-                  <JFXComboBox layoutX="42.0" layoutY="11.0" prefHeight="28.0" prefWidth="210.0" promptText="Select Product" />
-                  <TextField layoutX="42.0" layoutY="53.0" prefHeight="26.0" prefWidth="210.0" promptText="Name" />
-                  <TextField layoutX="42.0" layoutY="176.0" prefHeight="26.0" prefWidth="210.0" promptText="Price" />
-                  <TextField layoutX="42.0" layoutY="215.0" prefHeight="26.0" prefWidth="210.0" promptText="Quantity" />
-                  <TextField layoutX="42.0" layoutY="255.0" prefHeight="26.0" prefWidth="210.0" promptText="Upload Image" />
-                  <JFXButton layoutX="395.0" layoutY="315.0" prefHeight="30.0" prefWidth="90.0" style="-fx-background-color: #2596be;" text="Update">
+                  <JFXComboBox fx:id="cbUpdateInventorySelectProduct" layoutX="42.0" layoutY="11.0" onAction="#cbUpdateInventoryOnAction" prefHeight="28.0" prefWidth="210.0" promptText="Select Product" />
+                  <JFXButton layoutX="395.0" layoutY="315.0" onAction="#btnUpdateInventotyOnAction" prefHeight="30.0" prefWidth="90.0" style="-fx-background-color: #2596be;" text="Update">
                      <font>
                         <Font name="System Bold Italic" size="14.0" />
                      </font>
@@ -119,14 +115,17 @@
                         <Font name="System Bold Italic" size="14.0" />
                      </font>
                   </JFXButton>
-                  <JFXComboBox layoutX="42.0" layoutY="92.0" prefHeight="28.0" prefWidth="210.0" promptText="Select Category" />
-                  <JFXComboBox layoutX="41.0" layoutY="134.0" prefHeight="28.0" prefWidth="210.0" promptText="Select Size" />
-                  <JFXComboBox layoutX="41.0" layoutY="293.0" prefHeight="28.0" prefWidth="210.0" promptText="Select Supplier" />
+                  <TextField fx:id="txtUpdateInventoryName" layoutX="42.0" layoutY="91.0" prefHeight="26.0" prefWidth="210.0" promptText="Name" />
+                  <TextField fx:id="txtInventoryUpdateCategory" layoutX="42.0" layoutY="131.0" prefHeight="26.0" prefWidth="210.0" promptText="Category" />
+                  <TextField fx:id="txtInventoryUpdateSize" layoutX="42.0" layoutY="170.0" prefHeight="26.0" prefWidth="210.0" promptText="Size" />
+                  <TextField fx:id="txtInventoryUpdatePrice" layoutX="42.0" layoutY="208.0" prefHeight="26.0" prefWidth="210.0" promptText="Price" />
+                  <TextField fx:id="txtInventoryUpdateQty" layoutX="42.0" layoutY="248.0" prefHeight="26.0" prefWidth="210.0" promptText="Quantity" />
+                  <TextField fx:id="txtInventoryUpdateSupplierId1" layoutX="42.0" layoutY="288.0" prefHeight="26.0" prefWidth="210.0" promptText="Supplier Id" />
                </children>
             </AnchorPane>
             <AnchorPane layoutX="526.0" layoutY="393.0" prefHeight="360.0" prefWidth="500.0" style="-fx-background-color: EDEDED;">
                <children>
-                  <JFXButton layoutX="395.0" layoutY="315.0" prefHeight="30.0" prefWidth="90.0" style="-fx-background-color: #2596be;" text="Delete">
+                  <JFXButton layoutX="395.0" layoutY="315.0" onAction="#btnDeleteInventotyOnAction" prefHeight="30.0" prefWidth="90.0" style="-fx-background-color: #2596be;" text="Delete">
                      <font>
                         <Font name="System Bold Italic" size="14.0" />
                      </font>
@@ -136,13 +135,13 @@
                         <Font name="System Bold Italic" size="14.0" />
                      </font>
                   </JFXButton>
-                  <TextField layoutX="39.0" layoutY="90.0" prefHeight="26.0" prefWidth="210.0" promptText="Name" />
-                  <TextField layoutX="39.0" layoutY="130.0" prefHeight="26.0" prefWidth="210.0" promptText="Category" />
-                  <TextField layoutX="39.0" layoutY="169.0" prefHeight="26.0" prefWidth="210.0" promptText="Size" />
-                  <TextField layoutX="39.0" layoutY="207.0" prefHeight="26.0" prefWidth="210.0" promptText="Price" />
-                  <TextField layoutX="39.0" layoutY="247.0" prefHeight="26.0" prefWidth="210.0" promptText="Quantity" />
-                  <JFXComboBox layoutX="39.0" layoutY="11.0" prefHeight="28.0" prefWidth="210.0" promptText="Select Product" />
-                  <TextField layoutX="39.0" layoutY="287.0" prefHeight="26.0" prefWidth="210.0" promptText="Supplier Id" />
+                  <TextField fx:id="txtDeleteInventoryName" layoutX="39.0" layoutY="90.0" prefHeight="26.0" prefWidth="210.0" promptText="Name" />
+                  <TextField fx:id="txtInventoryDeleteCategory" layoutX="39.0" layoutY="130.0" prefHeight="26.0" prefWidth="210.0" promptText="Category" />
+                  <TextField fx:id="txtInventoryDeleteSize" layoutX="39.0" layoutY="169.0" prefHeight="26.0" prefWidth="210.0" promptText="Size" />
+                  <TextField fx:id="txtInventoryDeletePrice" layoutX="39.0" layoutY="207.0" prefHeight="26.0" prefWidth="210.0" promptText="Price" />
+                  <TextField fx:id="txtInventoryDeleteQty" layoutX="39.0" layoutY="247.0" prefHeight="26.0" prefWidth="210.0" promptText="Quantity" />
+                  <JFXComboBox fx:id="cbDeleteInventorySelectProduct" layoutX="39.0" layoutY="11.0" onAction="#cbDeleteInventoryOnAction" prefHeight="28.0" prefWidth="210.0" promptText="Select Product" />
+                  <TextField fx:id="txtInventoryDeleteSupplierId" layoutX="39.0" layoutY="287.0" prefHeight="26.0" prefWidth="210.0" promptText="Supplier Id" />
                </children>
             </AnchorPane>
          </children>
@@ -151,36 +150,34 @@
          <children>
             <AnchorPane layoutX="14.0" layoutY="17.0" prefHeight="360.0" prefWidth="500.0" style="-fx-background-color: EDEDED;">
                <children>
-                  <TextField layoutX="42.0" layoutY="40.0" prefHeight="26.0" prefWidth="210.0" promptText="Name" />
-                  <TextField layoutX="42.0" layoutY="80.0" prefHeight="26.0" prefWidth="210.0" promptText="Company" />
-                  <TextField layoutX="42.0" layoutY="119.0" prefHeight="26.0" prefWidth="210.0" promptText="Email" />
-                  <TextField layoutX="42.0" layoutY="157.0" prefHeight="26.0" prefWidth="210.0" promptText="Item" />
-                  <JFXButton layoutX="395.0" layoutY="315.0" prefHeight="30.0" prefWidth="90.0" style="-fx-background-color: #2596be;" text="Add">
+                  <TextField fx:id="txtSupplierName" layoutX="42.0" layoutY="40.0" prefHeight="26.0" prefWidth="210.0" promptText="Name" />
+                  <TextField fx:id="txtSupplierCompany" layoutX="42.0" layoutY="80.0" prefHeight="26.0" prefWidth="210.0" promptText="Company" />
+                  <TextField fx:id="txtSupplierEmail" layoutX="42.0" layoutY="119.0" prefHeight="26.0" prefWidth="210.0" promptText="Email" />
+                  <TextField fx:id="txtSupplierItem" layoutX="42.0" layoutY="157.0" prefHeight="26.0" prefWidth="210.0" promptText="Item" />
+                  <JFXButton layoutX="395.0" layoutY="315.0" onAction="#btnAddSuppierOnAction" prefHeight="30.0" prefWidth="90.0" style="-fx-background-color: #2596be;" text="Add">
                      <font>
                         <Font name="System Bold Italic" size="14.0" />
                      </font>
                   </JFXButton>
-                  <JFXButton layoutX="294.0" layoutY="315.0" prefHeight="30.0" prefWidth="90.0" style="-fx-background-color: #2596be;" text="Clear">
+                  <JFXButton layoutX="294.0" layoutY="315.0" onAction="#btnClearSupplierOnAction" prefHeight="30.0" prefWidth="90.0" style="-fx-background-color: #2596be;" text="Clear">
                      <font>
                         <Font name="System Bold Italic" size="14.0" />
                      </font>
                   </JFXButton>
-                  <TextField layoutX="42.0" layoutY="197.0" prefHeight="26.0" prefWidth="210.0" promptText="Password" />
                </children>
             </AnchorPane>
             <AnchorPane layoutX="525.0" layoutY="17.0" prefHeight="360.0" prefWidth="500.0" style="-fx-background-color: EDEDED;">
                <children>
-                  <JFXComboBox layoutX="39.0" layoutY="31.0" prefHeight="28.0" prefWidth="210.0" promptText="Select Supplier" />
-                  <TextField layoutX="39.0" layoutY="123.0" prefHeight="26.0" prefWidth="210.0" promptText="Name" />
-                  <TextField layoutX="40.0" layoutY="163.0" prefHeight="26.0" prefWidth="210.0" promptText="Company" />
-                  <TextField layoutX="41.0" layoutY="202.0" prefHeight="26.0" prefWidth="210.0" promptText="Item" />
-                  <TextField layoutX="41.0" layoutY="241.0" prefHeight="26.0" prefWidth="210.0" promptText="Password" />
-                  <JFXButton layoutX="389.0" layoutY="315.0" prefHeight="30.0" prefWidth="90.0" style="-fx-background-color: #2596be;" text="Search">
+                  <JFXComboBox fx:id="cbSelectSupplier" layoutX="39.0" layoutY="31.0" prefHeight="28.0" prefWidth="210.0" promptText="Select Supplier" />
+                  <TextField fx:id="txtSearchSupplierName" layoutX="39.0" layoutY="123.0" prefHeight="26.0" prefWidth="210.0" promptText="Name" />
+                  <TextField fx:id="txtSearchSupplierCompany" layoutX="40.0" layoutY="163.0" prefHeight="26.0" prefWidth="210.0" promptText="Company" />
+                  <TextField fx:id="txtSearchSupplierItem" layoutX="41.0" layoutY="202.0" prefHeight="26.0" prefWidth="210.0" promptText="Item" />
+                  <JFXButton layoutX="389.0" layoutY="315.0" onAction="#btnSearchSuppierOnAction" prefHeight="30.0" prefWidth="90.0" style="-fx-background-color: #2596be;" text="Search">
                      <font>
                         <Font name="System Bold Italic" size="14.0" />
                      </font>
                   </JFXButton>
-                  <JFXButton layoutX="288.0" layoutY="315.0" prefHeight="30.0" prefWidth="90.0" style="-fx-background-color: #2596be;" text="Clear">
+                  <JFXButton layoutX="288.0" layoutY="315.0" onAction="#btnClearSupplierOnAction" prefHeight="30.0" prefWidth="90.0" style="-fx-background-color: #2596be;" text="Clear">
                      <font>
                         <Font name="System Bold Italic" size="14.0" />
                      </font>
@@ -189,17 +186,16 @@
             </AnchorPane>
             <AnchorPane layoutX="14.0" layoutY="394.0" prefHeight="360.0" prefWidth="500.0" style="-fx-background-color: EDEDED;">
                <children>
-                  <JFXComboBox layoutX="38.0" layoutY="24.0" prefHeight="28.0" prefWidth="210.0" promptText="Select Supplier" />
-                  <TextField layoutX="37.0" layoutY="110.0" prefHeight="26.0" prefWidth="210.0" promptText="Name" />
-                  <TextField layoutX="38.0" layoutY="150.0" prefHeight="26.0" prefWidth="210.0" promptText="Company" />
-                  <TextField layoutX="39.0" layoutY="189.0" prefHeight="26.0" prefWidth="210.0" promptText="Item" />
-                  <TextField layoutX="39.0" layoutY="228.0" prefHeight="26.0" prefWidth="210.0" promptText="Password" />
-                  <JFXButton layoutX="395.0" layoutY="315.0" prefHeight="30.0" prefWidth="90.0" style="-fx-background-color: #2596be;" text="Update">
+                  <JFXComboBox fx:id="cbUpdateSelectSupplier" layoutX="38.0" layoutY="24.0" onAction="#cbUpdateSuplierOnAction" prefHeight="28.0" prefWidth="210.0" promptText="Select Supplier" />
+                  <TextField fx:id="txtUpdateSupplierName" layoutX="37.0" layoutY="110.0" prefHeight="26.0" prefWidth="210.0" promptText="Name" />
+                  <TextField fx:id="txtUpdateSupplierComapny" layoutX="38.0" layoutY="150.0" prefHeight="26.0" prefWidth="210.0" promptText="Company" />
+                  <TextField fx:id="txtUpdateSupplierItem" layoutX="39.0" layoutY="189.0" prefHeight="26.0" prefWidth="210.0" promptText="Item" />
+                  <JFXButton layoutX="395.0" layoutY="315.0" onAction="#btnUpdateSupplierOnAction" prefHeight="30.0" prefWidth="90.0" style="-fx-background-color: #2596be;" text="Update">
                      <font>
                         <Font name="System Bold Italic" size="14.0" />
                      </font>
                   </JFXButton>
-                  <JFXButton layoutX="294.0" layoutY="315.0" prefHeight="30.0" prefWidth="90.0" style="-fx-background-color: #2596be;" text="Clear">
+                  <JFXButton layoutX="294.0" layoutY="315.0" onAction="#btnUpdateCleanSupplierOnAction" prefHeight="30.0" prefWidth="90.0" style="-fx-background-color: #2596be;" text="Clear">
                      <font>
                         <Font name="System Bold Italic" size="14.0" />
                      </font>
@@ -208,17 +204,16 @@
             </AnchorPane>
             <AnchorPane layoutX="525.0" layoutY="394.0" prefHeight="360.0" prefWidth="500.0" style="-fx-background-color: EDEDED;">
                <children>
-                  <JFXComboBox layoutX="28.0" layoutY="19.0" prefHeight="28.0" prefWidth="210.0" promptText="Select Supplier" />
-                  <TextField layoutX="27.0" layoutY="105.0" prefHeight="26.0" prefWidth="210.0" promptText="Name" />
-                  <TextField layoutX="28.0" layoutY="145.0" prefHeight="26.0" prefWidth="210.0" promptText="Company" />
-                  <TextField layoutX="29.0" layoutY="184.0" prefHeight="26.0" prefWidth="210.0" promptText="Item" />
-                  <TextField layoutX="29.0" layoutY="223.0" prefHeight="26.0" prefWidth="210.0" promptText="Password" />
-                  <JFXButton layoutX="395.0" layoutY="315.0" prefHeight="30.0" prefWidth="90.0" style="-fx-background-color: #2596be;" text="Delete">
+                  <JFXComboBox fx:id="cbDeleteSelectSupplier" layoutX="28.0" layoutY="19.0" onAction="#cbDeleteSelectSupplierOnAction" prefHeight="28.0" prefWidth="210.0" promptText="Select Supplier" />
+                  <TextField fx:id="txtDeleteSupplierName" layoutX="27.0" layoutY="105.0" prefHeight="26.0" prefWidth="210.0" promptText="Name" />
+                  <TextField fx:id="txtDeleteSupplierCompany" layoutX="28.0" layoutY="145.0" prefHeight="26.0" prefWidth="210.0" promptText="Company" />
+                  <TextField fx:id="txtDeleteSupplierItem" layoutX="29.0" layoutY="184.0" prefHeight="26.0" prefWidth="210.0" promptText="Item" />
+                  <JFXButton layoutX="395.0" layoutY="315.0" onAction="#btnDeleteSuplierOnAction" prefHeight="30.0" prefWidth="90.0" style="-fx-background-color: #2596be;" text="Delete">
                      <font>
                         <Font name="System Bold Italic" size="14.0" />
                      </font>
                   </JFXButton>
-                  <JFXButton layoutX="294.0" layoutY="315.0" prefHeight="30.0" prefWidth="90.0" style="-fx-background-color: #2596be;" text="Clear">
+                  <JFXButton layoutX="294.0" layoutY="315.0" onAction="#btnCleanSupplierDeleteOnAction" prefHeight="30.0" prefWidth="90.0" style="-fx-background-color: #2596be;" text="Clear">
                      <font>
                         <Font name="System Bold Italic" size="14.0" />
                      </font>
