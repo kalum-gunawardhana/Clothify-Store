@@ -1,26 +1,25 @@
-package OwnerController;
+package DashboardController;
 
 import DBConnection.DBConnection;
 import Model.Employee;
 import Model.Inventory;
 import Model.Supplier;
 
-import java.math.BigDecimal;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.util.ArrayList;
 import java.util.List;
 
-public class OwnerDashboardController implements OwnerDashboardService {
-    public static OwnerDashboardController instance;
+public class DashboardController implements DashboardService {
+    public static DashboardController instance;
 
-    private OwnerDashboardController() {
+    private DashboardController() {
     }
 
-    public static OwnerDashboardController getInstance() {
+    public static DashboardController getInstance() {
         if (instance == null) {
-            instance = new OwnerDashboardController();
+            instance = new DashboardController();
         }
         return instance;
     }

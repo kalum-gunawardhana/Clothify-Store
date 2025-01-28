@@ -1,13 +1,11 @@
-package OwnerController;
+package DashboardController;
 
 import Model.Employee;
 import Model.Inventory;
 import Model.Supplier;
 import com.jfoenix.controls.JFXComboBox;
 import javafx.event.ActionEvent;
-import javafx.fxml.FXMLLoader;
 import javafx.fxml.Initializable;
-import javafx.scene.Parent;
 import javafx.scene.control.Alert;
 import javafx.scene.control.TextField;
 import javafx.scene.layout.AnchorPane;
@@ -17,7 +15,7 @@ import java.net.URL;
 import java.util.List;
 import java.util.ResourceBundle;
 
-public class OwnerDashboardFormController implements Initializable {
+public class DashboardFormController implements Initializable {
     public AnchorPane apEmployee;
     public AnchorPane apAddEmployee;
     public AnchorPane apUpdateEmployee;
@@ -115,7 +113,7 @@ public class OwnerDashboardFormController implements Initializable {
     }
 
     public void btnAddEmpOnAction(ActionEvent actionEvent) {
-        boolean addedEmp = OwnerDashboardController.getInstance().addEmp(txtAddEmpName.getText(), txtAddEmpEma.getText(), txtAddEmpRol.getText(), Integer.valueOf(txtAddEmpAdmId.getText()));
+        boolean addedEmp = DashboardController.getInstance().addEmp(txtAddEmpName.getText(), txtAddEmpEma.getText(), txtAddEmpRol.getText(), Integer.valueOf(txtAddEmpAdmId.getText()));
         if (addedEmp){
             Alert alert = new Alert(Alert.AlertType.INFORMATION);
             alert.setTitle("Information");
@@ -148,7 +146,7 @@ public class OwnerDashboardFormController implements Initializable {
     }
 
     public void btnEmpSearchOnAction(ActionEvent actionEvent) {
-        Employee empData = (Employee) OwnerDashboardController.getInstance().getEmpData(selectEmail);
+        Employee empData = (Employee) DashboardController.getInstance().getEmpData(selectEmail);
         txtEmpSeaName.setText(empData.getName());
         txtEmpSeaRole.setText(empData.getRole());
         txtEmpSeaAdminID.setText(String.valueOf(empData.getAdminId()));
@@ -162,7 +160,7 @@ public class OwnerDashboardFormController implements Initializable {
     }
 
     public void setEmpEmail(){
-        List<String> empEmail = OwnerDashboardController.getInstance().getEmpEmail();
+        List<String> empEmail = DashboardController.getInstance().getEmpEmail();
         cbSearchEmpEmail.getItems().addAll(empEmail);
         cbSelectEmpUpdate.getItems().addAll(empEmail);
         cbEmpDelete.getItems().addAll(empEmail);
@@ -184,7 +182,7 @@ public class OwnerDashboardFormController implements Initializable {
     }
 
     public void btnUpdateOnAction(ActionEvent actionEvent) {
-        boolean updated = OwnerDashboardController.getInstance().updateEmp(selectUpdateEmail, txtEmpNameUpdate.getText(), txtEmpRoleUpdate.getText(), Integer.parseInt(txtEmpAdmIDUpdate.getText()));
+        boolean updated = DashboardController.getInstance().updateEmp(selectUpdateEmail, txtEmpNameUpdate.getText(), txtEmpRoleUpdate.getText(), Integer.parseInt(txtEmpAdmIDUpdate.getText()));
         if (updated){
             Alert alert = new Alert(Alert.AlertType.INFORMATION);
             alert.setTitle("Information");
@@ -214,7 +212,7 @@ public class OwnerDashboardFormController implements Initializable {
 
     public void selectEmpEmailUpdateOnAction(ActionEvent actionEvent) {
         selectUpdateEmail = cbSelectEmpUpdate.getSelectionModel().getSelectedItem().toString();
-        Employee empData = (Employee) OwnerDashboardController.getInstance().getEmpData(selectUpdateEmail);
+        Employee empData = (Employee) DashboardController.getInstance().getEmpData(selectUpdateEmail);
         txtEmpNameUpdate.setText(empData.getName());
         txtEmpRoleUpdate.setText(empData.getRole());
         txtEmpAdmIDUpdate.setText(String.valueOf(empData.getAdminId()));
@@ -222,14 +220,14 @@ public class OwnerDashboardFormController implements Initializable {
 
     public void selectEmpDeleteOnAction(ActionEvent actionEvent) {
         selectEmpDeletEmail = cbEmpDelete.getSelectionModel().getSelectedItem().toString();
-        Employee empData = (Employee) OwnerDashboardController.getInstance().getEmpData(selectEmpDeletEmail);
+        Employee empData = (Employee) DashboardController.getInstance().getEmpData(selectEmpDeletEmail);
         txtEmpDeleteName.setText(empData.getName());
         txtEmpDeleteRole.setText(empData.getRole());
         txtEmpDeleteOnAction.setText(String.valueOf(empData.getAdminId()));
     }
 
     public void btnEmpDeletOnAction(ActionEvent actionEvent) {
-        boolean deleted = OwnerDashboardController.getInstance().deleteEmployeeByEmail(cbEmpDelete.getSelectionModel().getSelectedItem().toString());
+        boolean deleted = DashboardController.getInstance().deleteEmployeeByEmail(cbEmpDelete.getSelectionModel().getSelectedItem().toString());
         if (deleted){
             Alert alert = new Alert(Alert.AlertType.INFORMATION);
             alert.setTitle("Information");
@@ -267,7 +265,7 @@ public class OwnerDashboardFormController implements Initializable {
     }
 
     public void btnAddSuppierOnAction(ActionEvent actionEvent) {
-        boolean addSupplier = OwnerDashboardController.getInstance().addSupplier(txtSupplierName.getText(), txtSupplierCompany.getText(), txtSupplierEmail.getText(), txtSupplierItem.getText());
+        boolean addSupplier = DashboardController.getInstance().addSupplier(txtSupplierName.getText(), txtSupplierCompany.getText(), txtSupplierEmail.getText(), txtSupplierItem.getText());
         if (addSupplier){
             Alert alert = new Alert(Alert.AlertType.INFORMATION);
             alert.setTitle("Information");
@@ -296,28 +294,28 @@ public class OwnerDashboardFormController implements Initializable {
     }
 
     public void btnSearchSuppierOnAction(ActionEvent actionEvent) {
-        Supplier supplierData = (Supplier) OwnerDashboardController.getInstance().getSupplierData(cbSelectSupplier.getSelectionModel().getSelectedItem().toString());
+        Supplier supplierData = (Supplier) DashboardController.getInstance().getSupplierData(cbSelectSupplier.getSelectionModel().getSelectedItem().toString());
         txtSearchSupplierName.setText(supplierData.getName());
         txtSearchSupplierCompany.setText(supplierData.getCompany());
         txtSearchSupplierItem.setText(supplierData.getItem());
     }
 
     public void setSupplierEmail(){
-        List<String> supplierEmails = OwnerDashboardController.getInstance().getSupplierEmails();
+        List<String> supplierEmails = DashboardController.getInstance().getSupplierEmails();
         cbSelectSupplier.getItems().addAll(supplierEmails);
         cbUpdateSelectSupplier.getItems().addAll(supplierEmails);
         cbDeleteSelectSupplier.getItems().addAll(supplierEmails);
     }
 
     public void cbUpdateSuplierOnAction(ActionEvent actionEvent) {
-        Supplier supplierData = (Supplier) OwnerDashboardController.getInstance().getSupplierData(cbUpdateSelectSupplier.getSelectionModel().getSelectedItem().toString());
+        Supplier supplierData = (Supplier) DashboardController.getInstance().getSupplierData(cbUpdateSelectSupplier.getSelectionModel().getSelectedItem().toString());
         txtUpdateSupplierName.setText(supplierData.getName());
         txtUpdateSupplierComapny.setText(supplierData.getCompany());
         txtUpdateSupplierItem.setText(supplierData.getItem());
     }
 
     public void btnUpdateSupplierOnAction(ActionEvent actionEvent) {
-        boolean updatedSupllier = OwnerDashboardController.getInstance().updateSupllier(cbUpdateSelectSupplier.getSelectionModel().getSelectedItem().toString(), txtUpdateSupplierName.getText(), txtUpdateSupplierComapny.getText(), txtUpdateSupplierItem.getText());
+        boolean updatedSupllier = DashboardController.getInstance().updateSupllier(cbUpdateSelectSupplier.getSelectionModel().getSelectedItem().toString(), txtUpdateSupplierName.getText(), txtUpdateSupplierComapny.getText(), txtUpdateSupplierItem.getText());
         if (updatedSupllier){
             Alert alert = new Alert(Alert.AlertType.INFORMATION);
             alert.setTitle("Information");
@@ -344,14 +342,14 @@ public class OwnerDashboardFormController implements Initializable {
     }
 
     public void cbDeleteSelectSupplierOnAction(ActionEvent actionEvent) {
-        Supplier supplierData = (Supplier) OwnerDashboardController.getInstance().getSupplierData(cbDeleteSelectSupplier.getSelectionModel().getSelectedItem().toString());
+        Supplier supplierData = (Supplier) DashboardController.getInstance().getSupplierData(cbDeleteSelectSupplier.getSelectionModel().getSelectedItem().toString());
         txtDeleteSupplierName.setText(supplierData.getName());
         txtDeleteSupplierCompany.setText(supplierData.getCompany());
         txtDeleteSupplierItem.setText(supplierData.getItem());
     }
 
     public void btnDeleteSuplierOnAction(ActionEvent actionEvent) {
-        boolean deleteSupplier = OwnerDashboardController.getInstance().deleteSupplier(cbDeleteSelectSupplier.getSelectionModel().getSelectedItem().toString());
+        boolean deleteSupplier = DashboardController.getInstance().deleteSupplier(cbDeleteSelectSupplier.getSelectionModel().getSelectedItem().toString());
         if (deleteSupplier){
             Alert alert = new Alert(Alert.AlertType.INFORMATION);
             alert.setTitle("Information");
@@ -378,7 +376,7 @@ public class OwnerDashboardFormController implements Initializable {
     }
 
     public void btnAddInventoryOnAction(ActionEvent actionEvent) {
-        boolean addInventory = OwnerDashboardController.getInstance().addInventory(txtAddInventoryName.getText(), cbInventoryAddSelectCategory.getSelectionModel().getSelectedItem().toString(), cbInventoryAddSelectSize.getSelectionModel().getSelectedItem().toString(), Double.parseDouble(txtAddInventoryPrice.getText()), Integer.parseInt(txtAddInventoryQty.getText()), cbInventoryAddSelectSupplier.getSelectionModel().getSelectedItem().toString());
+        boolean addInventory = DashboardController.getInstance().addInventory(txtAddInventoryName.getText(), cbInventoryAddSelectCategory.getSelectionModel().getSelectedItem().toString(), cbInventoryAddSelectSize.getSelectionModel().getSelectedItem().toString(), Double.parseDouble(txtAddInventoryPrice.getText()), Integer.parseInt(txtAddInventoryQty.getText()), cbInventoryAddSelectSupplier.getSelectionModel().getSelectedItem().toString());
         if (addInventory){
             Alert alert = new Alert(Alert.AlertType.INFORMATION);
             alert.setTitle("Information");
@@ -410,29 +408,29 @@ public class OwnerDashboardFormController implements Initializable {
     }
 
     public void setCategory(){
-        List<String> setCategory = OwnerDashboardController.getInstance().setCategory();
+        List<String> setCategory = DashboardController.getInstance().setCategory();
         cbInventoryAddSelectCategory.getItems().addAll(setCategory);
     }
 
     public void setSize(){
-        List<String> setSize = OwnerDashboardController.getInstance().setSize();
+        List<String> setSize = DashboardController.getInstance().setSize();
         cbInventoryAddSelectSize.getItems().addAll(setSize);
     }
 
     public void setSupplier(){
-        List<String> setSupplier = OwnerDashboardController.getInstance().setSupplier();
+        List<String> setSupplier = DashboardController.getInstance().setSupplier();
         cbInventoryAddSelectSupplier.getItems().addAll(setSupplier);
     }
 
     public void setProduct(){
-        List<String> product = OwnerDashboardController.getInstance().getProduct();
+        List<String> product = DashboardController.getInstance().getProduct();
         cbInventorySearchSelectProduct.getItems().addAll(product);
         cbUpdateInventorySelectProduct.getItems().addAll(product);
         cbDeleteInventorySelectProduct.getItems().addAll(product);
     }
 
     public void btnInventorySearchOnAction(ActionEvent actionEvent) {
-        Inventory searchProduct = OwnerDashboardController.getInstance().searchProduct(cbInventorySearchSelectProduct.getSelectionModel().getSelectedItem().toString());
+        Inventory searchProduct = DashboardController.getInstance().searchProduct(cbInventorySearchSelectProduct.getSelectionModel().getSelectedItem().toString());
         txtInventorySearchName.setText(searchProduct.getName());
         txtInventorySearchCategory.setText(searchProduct.getCategory());
         txtInventorySearchSize.setText(searchProduct.getSize());
@@ -442,7 +440,7 @@ public class OwnerDashboardFormController implements Initializable {
     }
 
     public void cbUpdateInventoryOnAction(ActionEvent actionEvent) {
-        Inventory searchProduct = OwnerDashboardController.getInstance().searchProduct(cbUpdateInventorySelectProduct.getSelectionModel().getSelectedItem().toString());
+        Inventory searchProduct = DashboardController.getInstance().searchProduct(cbUpdateInventorySelectProduct.getSelectionModel().getSelectedItem().toString());
         txtUpdateInventoryName.setText(searchProduct.getName());
         txtInventoryUpdateCategory.setText(searchProduct.getCategory());
         txtInventoryUpdateSize.setText(searchProduct.getSize());
@@ -452,7 +450,7 @@ public class OwnerDashboardFormController implements Initializable {
     }
 
     public void btnUpdateInventotyOnAction(ActionEvent actionEvent) {
-        boolean updateInventory = OwnerDashboardController.getInstance().updateInventory(txtUpdateInventoryName.getText(), txtInventoryUpdateCategory.getText(), txtInventoryUpdateSize.getText(), Double.parseDouble(txtInventoryUpdatePrice.getText()), Integer.parseInt(txtInventoryUpdateQty.getText()), txtInventoryUpdateSupplierId1.getText());
+        boolean updateInventory = DashboardController.getInstance().updateInventory(txtUpdateInventoryName.getText(), txtInventoryUpdateCategory.getText(), txtInventoryUpdateSize.getText(), Double.parseDouble(txtInventoryUpdatePrice.getText()), Integer.parseInt(txtInventoryUpdateQty.getText()), txtInventoryUpdateSupplierId1.getText());
         if (updateInventory){
             Alert alert = new Alert(Alert.AlertType.INFORMATION);
             alert.setTitle("Information");
@@ -490,7 +488,7 @@ public class OwnerDashboardFormController implements Initializable {
     }
 
     public void btnDeleteInventotyOnAction(ActionEvent actionEvent) {
-        boolean deleteInventory = OwnerDashboardController.getInstance().deleteInventory(cbDeleteInventorySelectProduct.getSelectionModel().getSelectedItem().toString());
+        boolean deleteInventory = DashboardController.getInstance().deleteInventory(cbDeleteInventorySelectProduct.getSelectionModel().getSelectedItem().toString());
         if (deleteInventory){
             Alert alert = new Alert(Alert.AlertType.INFORMATION);
             alert.setTitle("Information");
@@ -533,7 +531,7 @@ public class OwnerDashboardFormController implements Initializable {
     }
 
     public void cbDeleteInventoryOnAction(ActionEvent actionEvent) {
-        Inventory searchProduct = OwnerDashboardController.getInstance().searchProduct(cbDeleteInventorySelectProduct.getSelectionModel().getSelectedItem().toString());
+        Inventory searchProduct = DashboardController.getInstance().searchProduct(cbDeleteInventorySelectProduct.getSelectionModel().getSelectedItem().toString());
         txtDeleteInventoryName.setText(searchProduct.getName());
         txtInventoryDeleteCategory.setText(searchProduct.getCategory());
         txtInventoryDeleteSize.setText(searchProduct.getSize());

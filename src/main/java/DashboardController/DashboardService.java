@@ -1,11 +1,10 @@
-package OwnerController;
+package DashboardController;
 
 import Model.Inventory;
-import Model.Supplier;
 
 import java.util.List;
 
-public interface OwnerDashboardService {
+public interface DashboardService {
     boolean addEmp(String name, String email, String role, Integer adminId);
     List<String> getEmpEmail();
     Object getEmpData(String email);
