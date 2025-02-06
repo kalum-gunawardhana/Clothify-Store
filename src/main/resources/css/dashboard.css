@@ -1,0 +1,152 @@
+/* Main Application Styles */
+.root {
+    -fx-background-color: #f5f5f5;
+    -fx-font-family: 'Segoe UI', Arial, sans-serif;
+}
+
+/* Sidebar Styles */
+.rectangle {
+    -fx-fill: #ffffff;
+    -fx-effect: dropshadow(three-pass-box, rgba(0,0,0,0.1), 10, 0, 0, 0);
+    -fx-arc-height: 15;
+    -fx-arc-width: 15;
+}
+
+/* Navigation Buttons */
+.jfx-button {
+    -fx-background-color: #2596be;
+    -fx-text-fill: white;
+    -fx-font-size: 14px;
+    -fx-font-weight: bold;
+    -fx-background-radius: 5;
+    -fx-cursor: hand;
+    -fx-padding: 10 20;
+    -fx-effect: dropshadow(three-pass-box, rgba(0,0,0,0.2), 5, 0, 0, 1);
+}
+
+.jfx-button:hover {
+    -fx-background-color: #1a7fa3;
+    -fx-effect: dropshadow(three-pass-box, rgba(0,0,0,0.4), 8, 0, 0, 2);
+    -fx-translate-y: -1;
+}
+
+/* Header Section */
+#welcomeHeader {
+    -fx-background-color: white;
+    -fx-effect: dropshadow(three-pass-box, rgba(0,0,0,0.1), 5, 0, 0, 2);
+    -fx-background-radius: 5;
+}
+
+/* Content Panels */
+.anchor-pane {
+    -fx-background-color: white;
+    -fx-background-radius: 10;
+    -fx-effect: dropshadow(three-pass-box, rgba(0,0,0,0.1), 8, 0, 0, 0);
+    -fx-padding: 15;
+}
+
+/* Form Controls */
+.text-field {
+    -fx-background-color: #f8f9fa;
+    -fx-border-color: #e0e0e0;
+    -fx-border-radius: 5;
+    -fx-background-radius: 5;
+    -fx-padding: 8;
+    -fx-font-size: 13px;
+}
+
+.text-field:focused {
+    -fx-border-color: #2596be;
+    -fx-background-color: white;
+}
+
+.jfx-combo-box {
+    -fx-background-color: #f8f9fa;
+    -fx-border-color: #e0e0e0;
+    -fx-border-radius: 5;
+    -fx-background-radius: 5;
+    -fx-font-size: 13px;
+}
+
+.jfx-combo-box:focused {
+    -fx-border-color: #2596be;
+}
+
+/* Action Buttons */
+.action-button {
+    -fx-background-color: #2596be;
+    -fx-text-fill: white;
+    -fx-font-weight: bold;
+    -fx-background-radius: 5;
+}
+
+.clear-button {
+    -fx-background-color: #6c757d;
+    -fx-text-fill: white;
+}
+
+.delete-button {
+    -fx-background-color: #dc3545;
+}
+
+/* Labels */
+.label {
+    -fx-font-size: 14px;
+    -fx-text-fill: #495057;
+}
+
+.header-label {
+    -fx-font-size: 24px;
+    -fx-font-weight: bold;
+    -fx-text-fill: #212529;
+}
+
+/* Panel Headers */
+.card-header {
+    -fx-background-color: #f8f9fa;
+    -fx-padding: 10;
+    -fx-background-radius: 5 5 0 0;
+    -fx-border-color: #e0e0e0;
+    -fx-border-width: 0 0 1 0;
+}
+
+/* Hover Effects */
+.anchor-pane:hover {
+    -fx-effect: dropshadow(three-pass-box, rgba(37,150,190,0.2), 10, 0, 0, 0);
+}
+
+/* Specific Component Styles */
+#apInventory, #apSupplier, #apEmployee {
+    -fx-background-color: transparent;
+}
+
+/* Modern ScrollPane Style */
+.scroll-pane {
+    -fx-background-color: transparent;
+}
+
+.scroll-pane > .viewport {
+    -fx-background-color: transparent;
+}
+
+.scroll-bar:vertical {
+    -fx-background-color: transparent;
+}
+
+.scroll-bar:vertical .thumb {
+    -fx-background-color: #2596be;
+    -fx-background-radius: 5;
+}
+
+/* Status Indicators */
+.status-success {
+    -fx-background-color: #28a745;
+}
+
+.status-warning {
+    -fx-background-color: #ffc107;
+}
+
+.status-error {
+    -fx-background-color: #dc3545;
+}
