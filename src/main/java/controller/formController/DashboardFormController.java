@@ -1,8 +1,8 @@
-package DashboardController;
+package controller;
 
-import Model.Employee;
-import Model.Inventory;
-import Model.Supplier;
+import model.Employee;
+import model.Inventory;
+import model.Supplier;
 import com.jfoenix.controls.JFXComboBox;
 import javafx.event.ActionEvent;
 import javafx.fxml.Initializable;

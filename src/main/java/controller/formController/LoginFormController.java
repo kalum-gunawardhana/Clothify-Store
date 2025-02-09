@@ -1,4 +1,4 @@
-package LoginController;
+package controller;
 
 import com.jfoenix.controls.JFXPasswordField;
 import com.jfoenix.controls.JFXTextField;
@@ -40,7 +40,7 @@ public class LoginFormController {
             alert.show();
 
             Stage stage = new Stage();
-            stage.setScene(new Scene(FXMLLoader.load(getClass().getResource("/View/OwnerDashboardForm.fxml"))));
+            stage.setScene(new Scene(FXMLLoader.load(getClass().getResource("/fxml/OwnerDashboardForm.fxml"))));
             stage.show();
         }else {
             Alert alert = new Alert(Alert.AlertType.ERROR);

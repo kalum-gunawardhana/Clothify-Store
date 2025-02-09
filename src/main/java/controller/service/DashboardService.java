@@ -1,6 +1,6 @@
-package DashboardController;
+package controller;
 
-import Model.Inventory;
+import model.Inventory;
 
 import java.util.List;
 

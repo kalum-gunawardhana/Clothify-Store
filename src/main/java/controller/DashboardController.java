@@ -1,9 +1,9 @@
-package DashboardController;
+package service;
 
-import DBConnection.DBConnection;
-import Model.Employee;
-import Model.Inventory;
-import Model.Supplier;
+import db.DBConnection;
+import model.Employee;
+import model.Inventory;
+import model.Supplier;
 
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;

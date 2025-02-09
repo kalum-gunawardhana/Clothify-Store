@@ -14,11 +14,11 @@
 <?import javafx.scene.shape.Line?>
 <?import javafx.scene.text.Font?>
 
-<AnchorPane prefHeight="600.0" prefWidth="900.0" style="-fx-background-color: #EAEAEA;" xmlns="http://javafx.com/javafx/23.0.1" xmlns:fx="http://javafx.com/fxml/1" fx:controller="LoginController.LoginFormController">
+<AnchorPane prefHeight="600.0" prefWidth="900.0" style="-fx-background-color: #EAEAEA;" xmlns="http://javafx.com/javafx/23.0.1" xmlns:fx="http://javafx.com/fxml/1" fx:controller="controller.formController.LoginFormController">
    <children>
       <ImageView fitHeight="580.0" fitWidth="466.0" layoutX="-7.0" layoutY="14.0" pickOnBounds="true" preserveRatio="true">
          <image>
-            <Image url="@../Img/pexels-jimmyelizarraras-30231495.jpg" />
+            <Image url="@../img/pexels-jimmyelizarraras-30231495.jpg" />
          </image>
       </ImageView>
       <AnchorPane fx:id="hypForget" layoutX="459.0" prefHeight="600.0" prefWidth="440.0" style="-fx-background-color: #EAEAEA;">
