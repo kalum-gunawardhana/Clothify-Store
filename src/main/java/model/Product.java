@@ -5,15 +5,18 @@ import lombok.Data;
 import lombok.NoArgsConstructor;
 import lombok.ToString;
 
+import java.awt.*;
+
 @Data
 @AllArgsConstructor
 @NoArgsConstructor
 @ToString
-public class Inventory {
-    private String name;
+public class Product {
+    private String productId;
+    private String productName;
     private String category;
     private String size;
     private Double price;
-    private Integer Qty;
-    private String supplier;
+    private Integer qty;
+    private Integer supplierId;
 }

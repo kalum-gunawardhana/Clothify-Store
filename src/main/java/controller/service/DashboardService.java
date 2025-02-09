@@ -1,7 +1,13 @@
-package controller;
+package controller.service;
 
+import javafx.collections.ObservableList;
 import model.Inventory;
+import model.Order;
+import model.OrderProduct;
+import model.Product;
 
+import java.sql.SQLException;
+import java.util.ArrayList;
 import java.util.List;
 
 public interface DashboardService {
@@ -23,4 +29,15 @@ public interface DashboardService {
     Inventory searchProduct(String name);
     boolean updateInventory(String name,String category,String size,Double price,Integer Qty,String supplier);
     boolean deleteInventory(String ProductName);
+    List<String> getOrderId();
+    List<String> getEmployeeId();
+    String selectEmployoleeName(String id);
+    List<String> getProductId();
+    List<String> getSelectProduct(String id);
+    boolean placeOrder(Order order) throws SQLException;
+    List<String> getCustomerId();
+    String getSelectCustomerName(String id);
+    boolean addOrderProduct(ArrayList<OrderProduct> orderProducts);
+    boolean addToOrderProductTable(OrderProduct orderProduct);
+    boolean updateProductStock(ArrayList<OrderProduct> orderProducts);
 }

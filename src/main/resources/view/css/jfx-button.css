@@ -1,0 +1,17 @@
+.jfx-button {
+    -fx-background-color: #2596be;
+    -fx-text-fill: white;
+    -fx-font-size: 14px;
+    -fx-font-weight: bold;
+    -fx-border-radius: 5px;
+    -fx-padding: 10px;
+    -fx-cursor: hand;
+}
+
+.jfx-button:hover {
+    -fx-background-color: #1e7ca4;
+}
+
+.jfx-button:pressed {
+    -fx-background-color: #155d7a;
+}

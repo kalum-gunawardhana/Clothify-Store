@@ -1,7 +1,9 @@
-package controller;
+package controller.formController;
 
 import com.jfoenix.controls.JFXPasswordField;
 import com.jfoenix.controls.JFXTextField;
+import controller.DashboardController;
+import controller.LoginController;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXMLLoader;
 import javafx.scene.Scene;
@@ -15,6 +17,7 @@ import javax.mail.*;
 import javax.mail.internet.InternetAddress;
 import javax.mail.internet.MimeMessage;
 import java.io.IOException;
+import java.util.List;
 import java.util.Properties;
 
 public class LoginFormController {
@@ -40,7 +43,7 @@ public class LoginFormController {
             alert.show();
 
             Stage stage = new Stage();
-            stage.setScene(new Scene(FXMLLoader.load(getClass().getResource("/fxml/OwnerDashboardForm.fxml"))));
+            stage.setScene(new Scene(FXMLLoader.load(getClass().getResource("/view/fxml/OwnerDashboardForm.fxml"))));
             stage.show();
         }else {
             Alert alert = new Alert(Alert.AlertType.ERROR);
@@ -162,4 +165,5 @@ public class LoginFormController {
         txtNewPass.clear();
         txtConPass.clear();
     }
+
 }

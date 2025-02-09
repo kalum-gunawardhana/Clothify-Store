@@ -1,8 +1,13 @@
-package controller;
+package controller.formController;
 
-import model.Employee;
-import model.Inventory;
-import model.Supplier;
+import com.jfoenix.controls.JFXTextField;
+import controller.DashboardController;
+import javafx.collections.FXCollections;
+import javafx.collections.ObservableList;
+import javafx.scene.control.TableColumn;
+import javafx.scene.control.TableView;
+import javafx.scene.control.cell.PropertyValueFactory;
+import model.*;
 import com.jfoenix.controls.JFXComboBox;
 import javafx.event.ActionEvent;
 import javafx.fxml.Initializable;
@@ -12,6 +17,10 @@ import javafx.scene.layout.AnchorPane;
 
 import java.io.IOException;
 import java.net.URL;
+import java.sql.SQLException;
+import java.time.LocalDateTime;
+import java.time.format.DateTimeFormatter;
+import java.util.ArrayList;
 import java.util.List;
 import java.util.ResourceBundle;
 
@@ -100,6 +109,28 @@ public class DashboardFormController implements Initializable {
     public TextField txtInventoryDeleteQty;
     public JFXComboBox cbDeleteInventorySelectProduct;
     public TextField txtInventoryDeleteSupplierId;
+    public AnchorPane apPlaceOrder;
+    public JFXTextField txtPlaceOrderOrderId;
+    public JFXTextField txtPlaceOrderDateAndTime;
+
+    public JFXComboBox cbPlaceOrderEmployee;
+    public JFXTextField txtEmployeeName;
+    public JFXComboBox cbPlaceOrderSelectProduct;
+    public JFXTextField txtPlaceOrderProductName;
+    public JFXTextField txtPlaceOrderProductSIze;
+    public JFXTextField txtPlaceOrderProductPrice;
+    public JFXTextField txtPlaceOrderProductQty;
+    public JFXComboBox cbPlaceOrderPaymentType;
+    public TableView tableViewProducts;
+    public TableColumn colProductId;
+    public TableColumn colProductName;
+    public TableColumn colSize;
+    public TableColumn colQty;
+    public TableColumn colPrice;
+    public JFXTextField txtPlaceOrderTotal;
+    public JFXComboBox cbPlaceOrderSelectCustomer;
+    public JFXTextField txtSelectCustomerName;
+    public JFXTextField txtPlaceOrderSupplierId;
 
     public void btnEmployeeOnAction(ActionEvent actionEvent) throws IOException {
         /*URL resource = this.getClass().getResource("/View/OwnerDashboardForm.fxml");
@@ -174,6 +205,12 @@ public class DashboardFormController implements Initializable {
         setSize();
         setSupplier();
         setProduct();
+        setOrderId();
+        setDateAndTime();
+        setEmployeeId();
+        setProductId();
+        setPaymentType();
+        setCustomerIdCombo();
     }
 
     public void cbSelectEmpSearchEmail(ActionEvent actionEvent) {
@@ -538,5 +575,132 @@ public class DashboardFormController implements Initializable {
         txtInventoryDeletePrice.setText(String.valueOf(searchProduct.getPrice()));
         txtInventoryDeleteQty.setText(String.valueOf(searchProduct.getQty()));
         txtInventoryDeleteSupplierId.setText(searchProduct.getSupplier());
+    }
+
+    public void btnPlaceOrderOnAction(ActionEvent actionEvent) {
+        apPlaceOrder.toFront();
+    }
+
+    private void setOrderId(){
+        List<String> orderIdList = DashboardController.getInstance().getOrderId();
+        txtPlaceOrderOrderId.setText(String.valueOf((Integer.valueOf(orderIdList.get(orderIdList.size() - 1)))+1));
+    }
+
+    private void setDateAndTime(){
+        DateTimeFormatter formatter = DateTimeFormatter.ofPattern("yyyy-MM-dd HH:mm:ss");
+        txtPlaceOrderDateAndTime.setText(LocalDateTime.now().format(formatter));
+    }
+
+    public void btnPlaceOrderEmployeeOnAction(ActionEvent actionEvent) {
+        txtEmployeeName.setText(DashboardController.getInstance().selectEmployoleeName(cbPlaceOrderEmployee.getValue().toString()));
+    }
+
+    private void setEmployeeId(){
+        List<String> employeeIdList = DashboardController.getInstance().getEmployeeId();
+        cbPlaceOrderEmployee.getItems().addAll(employeeIdList);
+    }
+
+    public void btnPlaceOrderProductOnAction(ActionEvent actionEvent) {
+        List<String> selectProductList = DashboardController.getInstance().getSelectProduct(cbPlaceOrderSelectProduct.getValue().toString());
+        txtPlaceOrderProductName.setText(selectProductList.get(0));
+        txtPlaceOrderProductSIze.setText(selectProductList.get(1));
+        txtPlaceOrderProductPrice.setText(selectProductList.get(2));
+        txtPlaceOrderSupplierId.setText(selectProductList.get(3));
+    }
+
+    private void setProductId(){
+        List<String> productIdList = DashboardController.getInstance().getProductId();
+        System.out.println(productIdList.toString());
+        cbPlaceOrderSelectProduct.getItems().addAll(productIdList);
+    }
+
+    private void setPaymentType() {
+        ObservableList<String> paymentTypes = FXCollections.observableArrayList("Cash", "Card");
+        cbPlaceOrderPaymentType.setItems(paymentTypes);
+
+    }
+
+    private ObservableList<OrderTable> orderTableObservableList = FXCollections.observableArrayList();
+
+    public void btnPlaceOrderAddToCardOnAction(ActionEvent actionEvent) {
+        addOrderTable(Integer.valueOf(cbPlaceOrderSelectProduct.getSelectionModel().getSelectedItem().toString()), txtPlaceOrderProductName.getText(), txtPlaceOrderProductSIze.getText(), Integer.valueOf(txtPlaceOrderProductQty.getText()), Double.parseDouble(txtPlaceOrderProductPrice.getText()));
+        loadTable();
+        calculateTotal();
+    }
+
+    private void loadTable(){
+        colProductId.setCellValueFactory(new PropertyValueFactory<>("productId"));
+        colProductName.setCellValueFactory(new PropertyValueFactory<>("productName"));
+        colSize.setCellValueFactory(new PropertyValueFactory<>("productSize"));
+        colQty.setCellValueFactory(new PropertyValueFactory<>("productQty"));
+        colPrice.setCellValueFactory(new PropertyValueFactory<>("productPrice"));
+
+        tableViewProducts.setItems(orderTableObservableList);
+
+    }
+
+    private void addOrderTable(Integer productId, String productName, String productSize, Integer productQty, Double productPrice) {
+        OrderTable orderTable = new OrderTable(productId, productName, productSize, productQty, productPrice);
+
+        if (orderTableObservableList.isEmpty()) {
+            orderTableObservableList.add(orderTable);
+        } else {
+            boolean productExists = false;
+
+            for (OrderTable product : orderTableObservableList) {
+                if (product.getProductId().equals(productId)) {
+                    product.setProductQty(product.getProductQty() + productQty);
+                    product.setProductPrice(product.getProductPrice() + productPrice);
+                    productExists = true;
+                    break;
+                }
+            }
+
+            if (!productExists) {
+                orderTableObservableList.add(orderTable);
+            }
+        }
+    }
+
+
+    private void calculateTotal(){
+        Double total=0.0;
+        for (OrderTable orderTablePrice: orderTableObservableList){
+            total+=(orderTablePrice.getProductPrice())*(orderTablePrice.getProductQty());
+        }
+        txtPlaceOrderTotal.setText(String.valueOf(total));
+    }
+
+    public void btnPlaceOrdersOnAction(ActionEvent actionEvent) throws SQLException {
+        ArrayList<OrderProduct> orderDetails = new ArrayList<>();
+
+        for (OrderTable productList:orderTableObservableList){
+            OrderProduct orderProduct = new OrderProduct(Integer.valueOf(txtPlaceOrderOrderId.getText()), productList.getProductId(), productList.getProductQty());
+            orderDetails.add(orderProduct);
+        }
+
+        Integer orderIdText = Integer.valueOf(txtPlaceOrderOrderId.getText());
+        Integer customerIdText = Integer.valueOf(cbPlaceOrderSelectCustomer.getSelectionModel().getSelectedItem().toString());
+        Integer employeeIdText = Integer.valueOf(cbPlaceOrderEmployee.getSelectionModel().getSelectedItem().toString());
+        String dateAndTimeText = txtPlaceOrderDateAndTime.getText();
+        Double orderTotalText = Double.valueOf(txtPlaceOrderTotal.getText());
+        String paymentTypeText = cbPlaceOrderPaymentType.getSelectionModel().getSelectedItem().toString();
+
+        Order order = new Order(orderIdText, customerIdText, employeeIdText, dateAndTimeText, orderTotalText, paymentTypeText, orderDetails);
+        boolean placedOrder = DashboardController.getInstance().placeOrder(order);
+        if (placedOrder){
+            Alert alert = new Alert(Alert.AlertType.INFORMATION);
+            alert.setTitle("Order Confirmation");
+            alert.setContentText("Order placed successfully!");
+            alert.showAndWait();
+        }
+    }
+
+    public void cbPlaceOrderSelectCustomerOnAction(ActionEvent actionEvent) {
+        txtSelectCustomerName.setText(DashboardController.getInstance().getSelectCustomerName(cbPlaceOrderSelectCustomer.getSelectionModel().getSelectedItem().toString()));
+    }
+
+    private void setCustomerIdCombo(){
+        cbPlaceOrderSelectCustomer.getItems().addAll(DashboardController.getInstance().getCustomerId());
     }
 }

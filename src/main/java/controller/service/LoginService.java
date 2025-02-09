@@ -1,4 +1,4 @@
-package controller;
+package controller.service;
 
 public interface LoginService {
      boolean getLoginInfo(String email, String password);

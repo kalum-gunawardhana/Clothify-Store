@@ -1,0 +1,9 @@
+.label {
+    -fx-text-fill: #333333;
+    -fx-font-size: 14px;
+    -fx-font-weight: bold;
+}
+
+.label:hover {
+    -fx-text-fill: #0078D7;
+}

@@ -1,0 +1,9 @@
+.jfx-text-field {
+    -fx-background-color: #ffffff; /* white background */
+    -fx-border-width: 2px; /* border width */
+    -fx-border-radius: 5px; /* rounded corners */
+    -fx-padding: 2px; /* inner padding */
+    -fx-font-size: 12px; /* font size */
+    -fx-text-fill: #333333; /* text color */
+}
+

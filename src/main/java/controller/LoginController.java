@@ -1,12 +1,13 @@
-package service;
+package controller;
 
-import db.DBConnection;
+import controller.service.LoginService;
+import model.db.DBConnection;
 
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
 
-public class LoginController implements LoginService{
+public class LoginController implements LoginService {
     public static LoginController instance;
 
     private LoginController() {}

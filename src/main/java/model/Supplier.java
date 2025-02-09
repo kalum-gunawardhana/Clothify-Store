@@ -1,4 +1,4 @@
-package Model;
+package model;
 
 import lombok.AllArgsConstructor;
 import lombok.Data;
@@ -10,9 +10,9 @@ import lombok.ToString;
 @NoArgsConstructor
 @ToString
 public class Supplier {
-    private Integer supplierID; // Primary key
-    private String name;    // Supplier's name
-    private String company; // Company name
-    private String email;   // Unique email
-    private String item;    // Item supplied
+    private Integer supplierID;
+    private String name;
+    private String company;
+    private String email;
+    private String item;
 }

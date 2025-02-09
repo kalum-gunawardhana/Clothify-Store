@@ -9,11 +9,8 @@ import lombok.ToString;
 @AllArgsConstructor
 @NoArgsConstructor
 @ToString
-public class Inventory {
-    private String name;
-    private String category;
-    private String size;
-    private Double price;
-    private Integer Qty;
-    private String supplier;
+public class OrderProduct {
+    private Integer orderID;
+    private Integer productID;
+    private Integer quantity;
 }

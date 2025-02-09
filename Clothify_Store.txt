@@ -1,0 +1,189 @@
+CREATE DATABASE Clothify_Store;
+
+USE Clothify_Store;
+
+CREATE TABLE user (
+    UserID INT AUTO_INCREMENT PRIMARY KEY,
+    Name VARCHAR(200) NOT NULL,
+    Email VARCHAR(200) NOT NULL UNIQUE,
+    Password VARCHAR(200) NOT NULL,
+    Role VARCHAR(50) NOT NULL,
+    RegDate TIMESTAMP DEFAULT CURRENT_TIMESTAMP
+);
+
+INSERT INTO user (Name, Email, Password, Role) VALUES
+('Samantha Jayawardene', 'samantha@clothify.lk', 'password1', 'Employee'),
+('Amara Silva', 'amara@clothify.lk', 'password2', 'Admin'),
+('Ruwan Wijesinghe', 'ruwan@clothify.lk', 'password3', 'Employee'),
+('Chamari Fernando', 'chamari@clothify.lk', 'password4', 'Employee'),
+('Manjula Perera', 'manjula@clothify.lk', 'password5', 'Employee'),
+('Suresh Kumar', 'suresh@clothify.lk', 'password6', 'Admin'),
+('Nadeeka Fernando', 'nadeeka@clothify.lk', 'password7', 'Employee'),
+('Dinesh Hettiarachchi', 'dinesh@clothify.lk', 'password8', 'Employee'),
+('Kasun Fernando', 'kasun.fernando@clothify.lk', 'password9', 'Admin'),
+('Dilani Perera', 'dilani@clothify.lk', 'password10', 'Employee');
+
+CREATE TABLE supplier (
+    SupplierID INT AUTO_INCREMENT PRIMARY KEY,
+    Name VARCHAR(200) NOT NULL,
+    Company VARCHAR(200) NOT NULL,
+    Email VARCHAR(200) NOT NULL UNIQUE,
+    Item VARCHAR(200) NOT NULL
+);
+
+INSERT INTO supplier (Name, Company, Email, Item) VALUES
+('Kandyan Textiles', 'Kandy Textiles Ltd', 'info@kandytextiles.lk', 'Sarees'),
+('Colombo Couture', 'Colombo Couture Pvt Ltd', 'contact@colombocouture.lk', 'Dresses'),
+('Galle Garments', 'Galle Garments Co', 'support@gallegarments.lk', 'Trousers'),
+('Negombo Threads', 'Negombo Threads Ltd', 'sales@negombothreads.lk', 'Blouses'),
+('Jaffna Fabrics', 'Jaffna Fabrics Ltd', 'inquiries@jaffnafabrics.lk', 'Shawls'),
+('Matara Merchants', 'Matara Merchants Pvt Ltd', 'hello@mataramerchants.lk', 'Skirts'),
+('Trinco Tailors', 'Trincomalee Tailors Ltd', 'service@trincomaleetailors.lk', 'Jackets'),
+('Batticaloa Bags', 'Batticaloa Bags Ltd', 'orders@batticaloabags.lk', 'Bags'),
+('Nuwara Eliya Knits', 'Nuwara Eliya Knits Co', 'info@nuwaraeliyaknits.lk', 'Sweaters'),
+('Ratnapura Ribbons', 'Ratnapura Ribbons Ltd', 'admin@ratnapuraribbons.lk', 'Ribbons');
+
+CREATE TABLE product (
+    ProductID INT AUTO_INCREMENT PRIMARY KEY,
+    ProductName VARCHAR(200) NOT NULL,
+    Category VARCHAR(100) NOT NULL,
+    Size VARCHAR(50),
+    Price DECIMAL(10,2) NOT NULL,
+    Quantity INT NOT NULL,
+    Image VARCHAR(255),
+    SupplierID INT,
+    FOREIGN KEY (SupplierID) REFERENCES supplier(SupplierID) ON DELETE SET NULL
+);
+
+CREATE TABLE employee (
+    EmployeeID INT AUTO_INCREMENT PRIMARY KEY,
+    Name VARCHAR(200) NOT NULL,
+    Email VARCHAR(200) NOT NULL UNIQUE,
+    Role VARCHAR(50) NOT NULL,
+    AdminID INT,
+    FOREIGN KEY (AdminID) REFERENCES user(UserID) ON DELETE CASCADE
+);
+
+INSERT INTO employee (Name, Email, Role, AdminID) VALUES
+('Samantha Jayawardene', 'samantha@clothify.lk', 'Store Manager', 1),
+('Amara Silva', 'amara@clothify.lk', 'Inventory Clerk', 1),
+('Ruwan Wijesinghe', 'ruwan@clothify.lk', 'Customer Service Rep', 1),
+('Chamari Fernando', 'chamari@clothify.lk', 'Sales Representative', 1),
+('Manjula Perera', 'manjula@clothify.lk', 'Accountant', 1),
+('Suresh Kumar', 'suresh@clothify.lk', 'Marketing Specialist', 1),
+('Nadeeka Fernando', 'nadeeka@clothify.lk', 'IT Support', 1),
+('Dinesh Hettiarachchi', 'dinesh@clothify.lk', 'Operations Manager', 1),
+('Kasun Fernando', 'kasun.fernando@clothify.lk', 'HR Assistant', 1),
+('Dilani Perera', 'dilani@clothify.lk', 'Receptionist', 1);
+
+CREATE TABLE orders (
+    OrderID INT AUTO_INCREMENT PRIMARY KEY,
+    OrderDate DATE NOT NULL,
+    TotalCost DECIMAL(10,2) NOT NULL,
+    PaymentType VARCHAR(50) NOT NULL,
+    EmployeeID INT NOT NULL,
+    CustomerID INT,
+    FOREIGN KEY (EmployeeID) REFERENCES employee(EmployeeID) ON DELETE CASCADE,
+    FOREIGN KEY (CustomerID) REFERENCES Customer(id) ON DELETE CASCADE
+);
+
+INSERT INTO orders (OrderDate, TotalCost, PaymentType, EmployeeID, CustomerID) VALUES
+('2025-02-10', 4500.00, 'Cash', 1, 1),
+('2025-02-12', 3200.00, 'Card', 2, 2),
+('2025-02-14', 2800.00, 'Cash', 3, 3),
+('2025-02-16', 3600.00, 'Card', 4, 4),
+('2025-02-18', 4100.00, 'Cash', 1, 5),
+('2025-02-20', 3700.00, 'Card', 2, 6),
+('2025-02-22', 3900.00, 'Cash', 3, 7),
+('2025-02-24', 3100.00, 'Card', 4, 8),
+('2025-02-26', 5000.00, 'Cash', 1, 9),
+('2025-02-28', 5400.00, 'Card', 2, 10);
+
+CREATE TABLE Customer (
+	id INT PRIMARY KEY AUTO_INCREMENT,
+	name VARCHAR(100) NOT NULL,
+	email VARCHAR(100) UNIQUE NOT NULL,
+	address VARCHAR(150)
+);
+
+INSERT INTO Customer (name, email, address) VALUES
+('Nimal Wickramasinghe', 'nimalw@gmail.com', 'Colombo 7'),
+('Pasan Gunasekara', 'pasang@gmail.com', 'Hikkaduwa'),
+('Thilini Herath', 'thilinih@gmail.com', 'Kurunegala'),
+('Suresh Rathnayake', 'sureshr@gmail.com', 'Kotte'),
+('Dilanka Fernando', 'dilankaf@gmail.com', 'Kalutara'),
+('Shanika Perera', 'shanikap@gmail.com', 'Negombo'),
+('Pradeep Jayawardena', 'pradeepj@gmail.com', 'Wattala'),
+('Nadeeka Kumari', 'nadeekak@gmail.com', 'Dehiwala'),
+('Lakmal Silva', 'lakmals@gmail.com', 'Moratuwa'),
+('Chathuri Jayasinghe', 'chathurij@gmail.com', 'Battaramulla');
+
+CREATE TABLE orderproduct (
+    OrderProductID INT AUTO_INCREMENT PRIMARY KEY,
+    OrderID INT NOT NULL,
+    ProductID INT NOT NULL,
+    Quantity INT NOT NULL,
+    FOREIGN KEY (OrderID) REFERENCES orders(OrderID) ON DELETE CASCADE,
+    FOREIGN KEY (ProductID) REFERENCES product(ProductID) ON DELETE CASCADE
+);
+
+INSERT INTO orderproduct (OrderID, ProductID, Quantity) VALUES
+(1, 1, 2),
+(1, 2, 1),
+(2, 3, 3),
+(2, 4, 1),
+(3, 5, 2),
+(3, 6, 1),
+(4, 7, 2),
+(4, 8, 3),
+(5, 9, 1),
+(5, 10, 2),
+(6, 1, 1),
+(6, 2, 2),
+(7, 3, 1),
+(7, 4, 3),
+(8, 5, 2),
+(8, 6, 1),
+(9, 7, 2),
+(9, 8, 1),
+(10, 9, 3),
+(10, 10, 1);
+
+CREATE TABLE category (
+    CategoryID INT AUTO_INCREMENT PRIMARY KEY,
+    CategoryName VARCHAR(100) NOT NULL UNIQUE
+);
+
+INSERT INTO category (CategoryName) VALUES
+('Ladies Wear'),
+('Gents Wear'),
+('Kids Wear'),
+('Footwear'),
+('Accessories'),
+('Traditional Wear'),
+('Casual Wear'),
+('Formal Wear'),
+('Sports Wear'),
+('Winter Wear');
+
+CREATE TABLE size (
+    SizeID INT AUTO_INCREMENT PRIMARY KEY,
+    SizeName VARCHAR(50) NOT NULL UNIQUE
+);
+
+INSERT INTO size (SizeName) VALUES
+('XS'),
+('S'),
+('M'),
+('L'),
+('XL'),
+('XXL'),
+('3XL'),
+('4XL'),
+('28'),
+('30'),
+('32'),
+('34'),
+('36'),
+('38');
+

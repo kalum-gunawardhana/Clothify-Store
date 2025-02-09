@@ -1,0 +1,17 @@
+.jfx-combo-box {
+    -fx-background-color: #ffffff;
+    -fx-border-width: 2px;
+    -fx-border-radius: 2px;
+    -fx-font-size: 12px;
+    -fx-text-fill: #333333;
+    -fx-padding: 2px;
+}
+
+.jfx-combo-box .arrow-button {
+    -fx-background-color: #2596be;
+    -fx-background-radius: 2px;
+}
+
+.jfx-combo-box .arrow-button .arrow {
+    -fx-background-color: white;
+}

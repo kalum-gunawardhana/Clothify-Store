@@ -1,4 +1,5 @@
 CREATE DATABASE Clothify_Store;
+
 USE Clothify_Store;
 
 CREATE TABLE user (
@@ -62,10 +63,38 @@ INSERT INTO user (Name, Email, Password, Role) VALUES
 ('Kasun Perera', 'kasun@clothify.lk', '1234', 'Employee'),
 ('Nimal Fernando', 'nimal@clothify.lk', '1234', 'Employee');
 
+//----------------------------------------------------------
+INSERT INTO user (Name, Email, Password, Role) VALUES
+('Samantha Jayawardene', 'samantha@clothify.lk', 'password1', 'Employee'),
+('Amara Silva', 'amara@clothify.lk', 'password2', 'Admin'),
+('Ruwan Wijesinghe', 'ruwan@clothify.lk', 'password3', 'Employee'),
+('Chamari Fernando', 'chamari@clothify.lk', 'password4', 'Employee'),
+('Manjula Perera', 'manjula@clothify.lk', 'password5', 'Employee'),
+('Suresh Kumar', 'suresh@clothify.lk', 'password6', 'Admin'),
+('Nadeeka Fernando', 'nadeeka@clothify.lk', 'password7', 'Employee'),
+('Dinesh Hettiarachchi', 'dinesh@clothify.lk', 'password8', 'Employee'),
+('Kasun Fernando', 'kasun.fernando@clothify.lk', 'password9', 'Admin'),
+('Dilani Perera', 'dilani@clothify.lk', 'password10', 'Employee');
+//----------------------------------------------------------
+
 INSERT INTO supplier (Name, Company, Email, Item) VALUES
 ('Supun Clothing', 'Supun Textiles', 'supun@textiles.lk', 'Shirts'),
 ('Ruwan Fabric', 'Ruwan Fabrics Ltd.', 'ruwan@fabrics.lk', 'Sarees'),
 ('Dilshan Distributors', 'Dilshan Distributors', 'dilshan@distr.lk', 'Jeans');
+
+//----------------------------------------------------------------------------
+INSERT INTO supplier (Name, Company, Email, Item) VALUES
+('Kandyan Textiles', 'Kandy Textiles Ltd', 'info@kandytextiles.lk', 'Sarees'),
+('Colombo Couture', 'Colombo Couture Pvt Ltd', 'contact@colombocouture.lk', 'Dresses'),
+('Galle Garments', 'Galle Garments Co', 'support@gallegarments.lk', 'Trousers'),
+('Negombo Threads', 'Negombo Threads Ltd', 'sales@negombothreads.lk', 'Blouses'),
+('Jaffna Fabrics', 'Jaffna Fabrics Ltd', 'inquiries@jaffnafabrics.lk', 'Shawls'),
+('Matara Merchants', 'Matara Merchants Pvt Ltd', 'hello@mataramerchants.lk', 'Skirts'),
+('Trinco Tailors', 'Trincomalee Tailors Ltd', 'service@trincomaleetailors.lk', 'Jackets'),
+('Batticaloa Bags', 'Batticaloa Bags Ltd', 'orders@batticaloabags.lk', 'Bags'),
+('Nuwara Eliya Knits', 'Nuwara Eliya Knits Co', 'info@nuwaraeliyaknits.lk', 'Sweaters'),
+('Ratnapura Ribbons', 'Ratnapura Ribbons Ltd', 'admin@ratnapuraribbons.lk', 'Ribbons');
+//----------------------------------------------------------------------------
 
 INSERT INTO product (ProductName, Category, Size, Price, Quantity, SupplierID) VALUES
 ('Kandyan Saree', 'Ladies', 'Free Size', 2500.00, 20, 2),
@@ -73,18 +102,74 @@ INSERT INTO product (ProductName, Category, Size, Price, Quantity, SupplierID) V
 ('Kids Party Dress', 'Kids', 'S', 1800.00, 10, NULL),
 ('Blue Jeans', 'Gents', 'L', 2000.00, 25, 3);
 
+//----------------------------------------------
+INSERT INTO product (ProductName, Category, Size, Price, Quantity, SupplierID) VALUES
+('Silk Saree', 'Ladies', 'XXL', 3000.00, 18, 2),
+('Casual T-Shirt', 'Gents', 'M', 1200.00, 25, 1),
+('School Uniform', 'Kids', 'M', 1000.00, 30, 3),
+('Formal Pants', 'Gents', 'L', 2200.00, 10, 3),
+('Cotton Saree', 'Ladies', 'XL', 2700.00, 15, 2),
+('Denim Jacket', 'Gents', 'XL', 3500.00, 8, 1),
+('Party Frock', 'Ladies', 'S', 3200.00, 12, 2),
+('Athletic Shorts', 'Gents', 'L', 1300.00, 20, 1),
+('Baby Romper', 'Kids', 'S', 1500.00, 15, 5),
+('Vintage Blouse', 'Ladies', 'L', 2000.00, 22, 2);
+//----------------------------------------------
+
 INSERT INTO employee (Name, Email, Role, AdminID) VALUES
 ('Kasun Perera', 'kasun@clothify.lk', 'Sales Assistant', 1),
 ('Nimal Fernando', 'nimal@clothify.lk', 'Cashier', 1);
+
+//-----------------------------------------------------
+INSERT INTO employee (Name, Email, Role, AdminID) VALUES
+('Samantha Jayawardene', 'samantha@clothify.lk', 'Store Manager', 1),
+('Amara Silva', 'amara@clothify.lk', 'Inventory Clerk', 1),
+('Ruwan Wijesinghe', 'ruwan@clothify.lk', 'Customer Service Rep', 1),
+('Chamari Fernando', 'chamari@clothify.lk', 'Sales Representative', 1),
+('Manjula Perera', 'manjula@clothify.lk', 'Accountant', 1),
+('Suresh Kumar', 'suresh@clothify.lk', 'Marketing Specialist', 1),
+('Nadeeka Fernando', 'nadeeka@clothify.lk', 'IT Support', 1),
+('Dinesh Hettiarachchi', 'dinesh@clothify.lk', 'Operations Manager', 1),
+('Kasun Fernando', 'kasun.fernando@clothify.lk', 'HR Assistant', 1),
+('Dilani Perera', 'dilani@clothify.lk', 'Receptionist', 1);
+//-----------------------------------------------------
 
 INSERT INTO orders (OrderDate, TotalCost, PaymentType, EmployeeID) VALUES
 ('2025-01-10', 4000.00, 'Cash', 1),
 ('2025-01-12', 2500.00, 'Card', 2);
 
+//------------------------------------------------
+INSERT INTO orders (OrderDate, TotalCost, PaymentType, EmployeeID) VALUES
+('2025-01-14', 3200.00, 'Cash', 3),
+('2025-01-16', 5400.00, 'Card', 4),
+('2025-01-18', 2800.00, 'Cash', 1),
+('2025-01-20', 3100.00, 'Card', 2),
+('2025-01-22', 4500.00, 'Cash', 3),
+('2025-01-24', 3900.00, 'Card', 4),
+('2025-01-26', 4200.00, 'Cash', 1),
+('2025-01-28', 3400.00, 'Card', 2),
+('2025-01-30', 3700.00, 'Cash', 3),
+('2025-02-01', 5000.00, 'Card', 4);
+//------------------------------------------------
+
 INSERT INTO orderproduct (OrderID, ProductID, Quantity) VALUES
 (1, 1, 1),
 (1, 2, 2),
 (2, 3, 1);
+
+//---------------------------------------
+INSERT INTO orderproduct (OrderID, ProductID, Quantity) VALUES
+(2, 4, 2),
+(3, 5, 1),
+(3, 6, 3),
+(4, 7, 2),
+(4, 8, 1),
+(5, 9, 2),
+(5, 10, 1),
+(6, 1, 1),
+(6, 2, 3),
+(7, 3, 1);
+//---------------------------------------
 
 ------------------------------------------------------------------------------------------------------------------
 CREATE TABLE category (
@@ -123,8 +208,7 @@ INSERT INTO size (SizeName) VALUES
 ('32'),
 ('34'),
 ('36'),
-('38'),
-('Free Size');
+('38');
 
 
 
