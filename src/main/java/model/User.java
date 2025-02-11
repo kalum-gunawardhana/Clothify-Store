@@ -1,9 +1,6 @@
 package model;
 
-import lombok.AllArgsConstructor;
-import lombok.Data;
-import lombok.NoArgsConstructor;
-import lombok.ToString;
+import lombok.*;
 
 import java.sql.Timestamp;
 
@@ -11,6 +8,8 @@ import java.sql.Timestamp;
 @ToString
 @AllArgsConstructor
 @NoArgsConstructor
+@Getter
+@Setter
 public class User {
     private int userId;
     private String name;

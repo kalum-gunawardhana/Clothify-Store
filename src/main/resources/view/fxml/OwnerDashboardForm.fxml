@@ -15,21 +15,12 @@
 <AnchorPane prefHeight="832.0" prefWidth="1280.0" style="-fx-background-color: DBDBDB;" xmlns="http://javafx.com/javafx/23.0.1" xmlns:fx="http://javafx.com/fxml/1" fx:controller="controller.formController.DashboardFormController">
    <children>
       <Rectangle arcHeight="5.0" arcWidth="5.0" fill="#ededed" height="806.0" layoutX="16.0" layoutY="14.0" stroke="BLACK" strokeType="INSIDE" strokeWidth="0.0" style="-fx-arc-height: EDEDED;" width="180.0" />
-      <Rectangle arcHeight="5.0" arcWidth="5.0" fill="#ededed" height="40.0" layoutX="242.0" layoutY="15.0" stroke="BLACK" strokeType="INSIDE" strokeWidth="0.0" style="-fx-arc-height: EDEDED;" width="1012.0" />
-      <Group layoutX="249.0" layoutY="19.0" stylesheets="@../css/label.css">
-         <children>
-            <Label layoutX="1.0" text="Welcome, Admin">
-               <font>
-                  <Font name="System Bold Italic" size="14.0" />
-               </font>
-            </Label>
-            <Label layoutY="16.0" text="Here's what happening in your store">
-               <font>
-                  <Font name="System Bold Italic" size="12.0" />
-               </font>
-            </Label>
-         </children>
-      </Group>
+      <Rectangle arcHeight="5.0" arcWidth="5.0" fill="#ededed" height="40.0" layoutX="215.0" layoutY="14.0" stroke="BLACK" strokeType="INSIDE" strokeWidth="0.0" style="-fx-arc-height: EDEDED;" width="1050.0" />
+      <Label layoutX="512.0" layoutY="16.0" prefHeight="35.0" prefWidth="470.0" text="Where Fashion Meets You – Welcome Back to Clothify!" textAlignment="CENTER" textFill="#2596be">
+         <font>
+            <Font name="System Bold Italic" size="18.0" />
+         </font>
+      </Label>
       <Group layoutX="40.0" layoutY="34.0" stylesheets="@../css/jfx-button.css">
          <children>
             <JFXButton contentDisplay="BOTTOM" onAction="#btnEmployeeOnAction" prefHeight="40.0" prefWidth="130.0" style="-fx-background-color: #2596be;" text="Employee" textAlignment="CENTER" textFill="WHITE">
@@ -67,9 +58,66 @@
                   <Font name="System Bold Italic" size="14.0" />
                </font>
             </JFXButton>
+            <JFXButton contentDisplay="BOTTOM" layoutY="255.0" onAction="#btnUserOnAction" prefHeight="40.0" prefWidth="130.0" style="-fx-background-color: #2596be;" text="User" textAlignment="CENTER" textFill="WHITE">
+               <font>
+                  <Font name="System Bold Italic" size="14.0" />
+               </font>
+            </JFXButton>
          </children>
       </Group>
-      <AnchorPane fx:id="apInventory" layoutX="228.0" layoutY="55.0" prefHeight="766.0" prefWidth="1039.0">
+      <AnchorPane fx:id="apUser" layoutX="215.0" layoutY="65.0" prefHeight="755.0" prefWidth="1050.0" style="-fx-background-color: EDEDED;">
+         <children>
+            <JFXTextField fx:id="txtUserName" layoutX="840.0" layoutY="115.0" prefHeight="26.0" prefWidth="180.0" promptText="Name" stylesheets="@../css/jfx-text-field.css" />
+            <TableView fx:id="tblUser" layoutX="32.0" layoutY="88.0" prefHeight="640.0" prefWidth="765.0" stylesheets="@../css/table-view.css">
+              <columns>
+                <TableColumn fx:id="colUserName" prefWidth="162.39993286132812" text="Name" />
+                <TableColumn fx:id="colUserEmail" prefWidth="215.20004272460938" text="Email" />
+                  <TableColumn fx:id="colUserPassword" prefWidth="138.39996337890625" text="Password" />
+                  <TableColumn fx:id="colUserRole" prefWidth="105.60003662109375" text="Role" />
+                  <TableColumn fx:id="colUserRegDate" prefWidth="130.39996337890625" text="RegDate" />
+              </columns>
+            </TableView>
+            <JFXTextField fx:id="txtUserEmail" layoutX="840.0" layoutY="161.0" prefHeight="26.0" prefWidth="180.0" promptText="Email" stylesheets="@../css/jfx-text-field.css" />
+            <JFXTextField fx:id="txtUserPassword" layoutX="840.0" layoutY="209.0" prefHeight="26.0" prefWidth="180.0" promptText="Password" stylesheets="@../css/jfx-text-field.css" />
+            <JFXButton layoutX="842.0" layoutY="426.0" onAction="#btnUserAddOnAction" prefHeight="34.0" prefWidth="180.0" style="-fx-background-color: #2596be;" stylesheets="@../css/jfx-button.css" text="Add" textFill="WHITE">
+               <font>
+                  <Font name="System Bold" size="14.0" />
+               </font>
+            </JFXButton>
+            <JFXButton layoutX="843.0" layoutY="473.0" onAction="#btnUserSearchOnAction" prefHeight="34.0" prefWidth="180.0" style="-fx-background-color: #2596be;" stylesheets="@../css/jfx-button.css" text="Search" textFill="WHITE">
+               <font>
+                  <Font name="System Bold" size="14.0" />
+               </font>
+            </JFXButton>
+            <JFXButton layoutX="844.0" layoutY="520.0" onAction="#btnUserUpdateOnAction" prefHeight="34.0" prefWidth="180.0" style="-fx-background-color: #2596be;" stylesheets="@../css/jfx-button.css" text="Update" textFill="WHITE">
+               <font>
+                  <Font name="System Bold" size="14.0" />
+               </font>
+            </JFXButton>
+            <JFXButton layoutX="844.0" layoutY="568.0" onAction="#btnUserDeleteOnAction" prefHeight="34.0" prefWidth="180.0" style="-fx-background-color: #2596be;" stylesheets="@../css/jfx-button.css" text="Delete" textFill="WHITE">
+               <font>
+                  <Font name="System Bold" size="14.0" />
+               </font>
+            </JFXButton>
+            <JFXButton layoutX="844.0" layoutY="663.0" onAction="#btnClearAreasOnAction" prefHeight="34.0" prefWidth="180.0" style="-fx-background-color: #2596be;" stylesheets="@../css/jfx-button.css" text="Clear" textFill="WHITE">
+               <font>
+                  <Font name="System Bold" size="14.0" />
+               </font>
+            </JFXButton>
+            <JFXComboBox fx:id="cbUserRole" layoutX="841.0" layoutY="253.0" prefHeight="28.0" prefWidth="180.0" promptText="Select Role" stylesheets="@../css/jfx-combo-box.css" />
+            <Label layoutX="43.0" layoutY="15.0" prefHeight="35.0" prefWidth="230.0" text="User Management">
+               <font>
+                  <Font name="System Bold" size="18.0" />
+               </font>
+            </Label>
+            <Label layoutX="42.0" layoutY="39.0" prefHeight="35.0" prefWidth="430.0" text="Manage your team members and their account permissions here">
+               <font>
+                  <Font name="System Bold Italic" size="14.0" />
+               </font>
+            </Label>
+         </children>
+      </AnchorPane>
+      <AnchorPane fx:id="apInventory" layoutX="228.0" layoutY="55.0" prefHeight="766.0" prefWidth="1039.0" visible="false">
          <children>
             <AnchorPane layoutX="13.0" layoutY="13.0" prefHeight="360.0" prefWidth="500.0" style="-fx-background-color: EDEDED;">
                <children>
@@ -157,7 +205,7 @@
             </AnchorPane>
          </children>
       </AnchorPane>
-      <AnchorPane fx:id="apSupplier" layoutX="226.0" layoutY="51.0" prefHeight="766.0" prefWidth="1039.0">
+      <AnchorPane fx:id="apSupplier" layoutX="226.0" layoutY="51.0" prefHeight="766.0" prefWidth="1039.0" visible="false">
          <children>
             <AnchorPane layoutX="14.0" layoutY="17.0" prefHeight="360.0" prefWidth="500.0" style="-fx-background-color: EDEDED;">
                <children>
@@ -233,7 +281,7 @@
             </AnchorPane>
          </children>
       </AnchorPane>
-      <AnchorPane fx:id="apEmployee" layoutX="226.0" layoutY="51.0" prefHeight="766.0" prefWidth="1039.0">
+      <AnchorPane fx:id="apEmployee" layoutX="226.0" layoutY="51.0" prefHeight="766.0" prefWidth="1039.0" visible="false">
          <children>
             <AnchorPane fx:id="apAddEmployee" layoutX="17.0" layoutY="388.0" prefHeight="360.0" prefWidth="500.0" style="-fx-background-color: EDEDED;" AnchorPane.leftAnchor="17.0">
                <children>
@@ -308,7 +356,7 @@
                </children>
             </AnchorPane>
          </children></AnchorPane>
-      <AnchorPane fx:id="apPlaceOrder" layoutX="241.0" layoutY="63.0" prefHeight="757.0" prefWidth="1012.0" style="-fx-background-color: EDEDED;">
+      <AnchorPane fx:id="apPlaceOrder" layoutX="241.0" layoutY="63.0" prefHeight="757.0" prefWidth="1012.0" style="-fx-background-color: EDEDED;" visible="false">
          <children>
             <Label layoutX="61.0" layoutY="67.0" stylesheets="@../css/label.css" text="Order ID">
                <font>

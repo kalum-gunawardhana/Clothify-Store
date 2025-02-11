@@ -131,6 +131,19 @@ public class DashboardFormController implements Initializable {
     public JFXComboBox cbPlaceOrderSelectCustomer;
     public JFXTextField txtSelectCustomerName;
     public JFXTextField txtPlaceOrderSupplierId;
+    public AnchorPane apUser;
+    public JFXTextField txtUserName;
+    public TableView tblUser;
+    public TableColumn colUserName;
+    public TableColumn colUserEmail;
+    public TableColumn colUserPassword;
+    public TableColumn colUserRole;
+    public TableColumn colUserRegDate;
+    public JFXTextField txtUserEmail;
+    public JFXTextField txtUserPassword;
+    public JFXTextField txtUserRole;
+    public JFXTextField txtUserRegDate;
+    public JFXComboBox cbUserRole;
 
     public void btnEmployeeOnAction(ActionEvent actionEvent) throws IOException {
         /*URL resource = this.getClass().getResource("/View/OwnerDashboardForm.fxml");
@@ -211,6 +224,8 @@ public class DashboardFormController implements Initializable {
         setProductId();
         setPaymentType();
         setCustomerIdCombo();
+        loardUserTable();
+        loardUserRoleCOmbo();
     }
 
     public void cbSelectEmpSearchEmail(ActionEvent actionEvent) {
@@ -628,14 +643,7 @@ public class DashboardFormController implements Initializable {
         calculateTotal();
     }
 
-    private void loadTable(){
-        colProductId.setCellValueFactory(new PropertyValueFactory<>("productId"));
-        colProductName.setCellValueFactory(new PropertyValueFactory<>("productName"));
-        colSize.setCellValueFactory(new PropertyValueFactory<>("productSize"));
-        colQty.setCellValueFactory(new PropertyValueFactory<>("productQty"));
-        colPrice.setCellValueFactory(new PropertyValueFactory<>("productPrice"));
-
-        tableViewProducts.setItems(orderTableObservableList);
+    private void loadTable() {
 
     }
 
@@ -702,5 +710,83 @@ public class DashboardFormController implements Initializable {
 
     private void setCustomerIdCombo(){
         cbPlaceOrderSelectCustomer.getItems().addAll(DashboardController.getInstance().getCustomerId());
+    }
+
+    public void btnUserOnAction(ActionEvent actionEvent) {
+        apUser.toFront();
+    }
+
+    public void btnUserAddOnAction(ActionEvent actionEvent) {
+        boolean addedUser = DashboardController.getInstance().addUser(txtUserName.getText(), txtUserEmail.getText(), txtUserPassword.getText(), cbUserRole.getSelectionModel().getSelectedItem().toString());
+        if (addedUser){
+            Alert alert = new Alert(Alert.AlertType.INFORMATION);
+            alert.setTitle("User Confirmation");
+            alert.setContentText("User Added Successfully!");
+            alert.showAndWait();
+            loardUserTable();
+            clearAreas();
+        }
+    }
+
+    public void btnUserSearchOnAction(ActionEvent actionEvent) {
+        User searchUser = DashboardController.getInstance().searchUser(txtUserEmail.getText());
+        txtUserName.setText(searchUser.getName());
+        txtUserEmail.setText(searchUser.getEmail());
+        txtUserPassword.setText(searchUser.getPassword());
+        cbUserRole.setValue(searchUser.getRole());
+    }
+
+    public void btnUserUpdateOnAction(ActionEvent actionEvent) {
+        boolean updatedUser = DashboardController.getInstance().updateUser(txtUserName.getText(), txtUserEmail.getText(), txtUserPassword.getText(), cbUserRole.getSelectionModel().getSelectedItem().toString());
+        if (updatedUser){
+            Alert alert = new Alert(Alert.AlertType.INFORMATION);
+            alert.setTitle("User Confirmation");
+            alert.setContentText("User Updated Successfully!");
+            alert.showAndWait();
+            loardUserTable();
+            clearAreas();
+        }
+    }
+
+    public void btnUserDeleteOnAction(ActionEvent actionEvent) {
+        boolean deletedUser = DashboardController.getInstance().deleteUser(txtUserEmail.getText());
+        if (deletedUser){
+            Alert alert = new Alert(Alert.AlertType.INFORMATION);
+            alert.setTitle("User Confirmation");
+            alert.setContentText("User Deleted Successfully!");
+            alert.showAndWait();
+            loardUserTable();
+            clearAreas();
+        }
+    }
+
+    private void loardUserTable(){
+        ObservableList<UserTable> users = DashboardController.getInstance().getUsers();
+
+        colUserName.setCellValueFactory(new PropertyValueFactory<>("name"));
+        colUserEmail.setCellValueFactory(new PropertyValueFactory<>("email"));
+        colUserPassword.setCellValueFactory(new PropertyValueFactory<>("password"));
+        colUserRole.setCellValueFactory(new PropertyValueFactory<>("role"));
+        colUserRegDate.setCellValueFactory(new PropertyValueFactory<>("regdate"));
+
+        tblUser.setItems(users);
+    }
+
+    private void loardUserRoleCOmbo(){
+        cbUserRole.getItems().addAll("Admin","Employee");
+    }
+
+    private void clearAreas(){
+        txtUserName.clear();
+        txtUserEmail.clear();
+        txtUserPassword.clear();
+        cbUserRole.setValue("Select Role");
+    }
+
+    public void btnClearAreasOnAction(ActionEvent actionEvent) {
+        txtUserName.clear();
+        txtUserEmail.clear();
+        txtUserPassword.clear();
+        cbUserRole.setValue("Select Role");
     }
 }

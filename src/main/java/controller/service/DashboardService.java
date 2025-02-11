@@ -1,10 +1,7 @@
 package controller.service;
 
 import javafx.collections.ObservableList;
-import model.Inventory;
-import model.Order;
-import model.OrderProduct;
-import model.Product;
+import model.*;
 
 import java.sql.SQLException;
 import java.util.ArrayList;
@@ -40,4 +37,9 @@ public interface DashboardService {
     boolean addOrderProduct(ArrayList<OrderProduct> orderProducts);
     boolean addToOrderProductTable(OrderProduct orderProduct);
     boolean updateProductStock(ArrayList<OrderProduct> orderProducts);
+    ObservableList<UserTable> getUsers();
+    boolean addUser(String name, String email, String password, String role);
+    User searchUser(String email);
+    boolean updateUser(String name, String email, String password, String role);
+    boolean deleteUser(String email);
 }
