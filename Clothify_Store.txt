@@ -187,3 +187,29 @@ INSERT INTO size (SizeName) VALUES
 ('36'),
 ('38');
 
+CREATE TABLE item (
+    item_id INT AUTO_INCREMENT PRIMARY KEY,
+    item_name VARCHAR(50) NOT NULL
+);
+
+INSERT INTO item (item_name) VALUES
+('Silk Saree'),
+('Cotton Saree'),
+('Kurta Shirt'),
+('Sarong'),
+('Pattu Dress'),
+('Frock'),
+('Shawl'),
+('Denim Jacket'),
+('Handbag'),
+('Beeralu Lace Ribbon'),
+('Jumpsuit'),
+('Trousers'),
+('Blouse'),
+('Skirt'),
+('Sweater'),
+('Jeans'),
+('Tunic Dress'),
+('Lungi'),
+('Wedding Saree'),
+('Casual T-Shirt');

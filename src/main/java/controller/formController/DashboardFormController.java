@@ -14,7 +14,9 @@ import javafx.fxml.Initializable;
 import javafx.scene.control.Alert;
 import javafx.scene.control.TextField;
 import javafx.scene.layout.AnchorPane;
+import model.db.DBConnection;
 
+import javax.crypto.interfaces.DHKey;
 import java.io.IOException;
 import java.net.URL;
 import java.sql.SQLException;
@@ -56,59 +58,8 @@ public class DashboardFormController implements Initializable {
     public TextField txtEmpDeleteOnAction;
 
     public AnchorPane apSupplier;
-    public AnchorPane apDefault;
     public AnchorPane apInventory;
 
-    public TextField txtSupplierName;
-    public TextField txtSupplierCompany;
-    public TextField txtSupplierEmail;
-    public TextField txtSupplierItem;
-
-    public JFXComboBox cbSelectSupplier;
-    public TextField txtSearchSupplierName;
-    public TextField txtSearchSupplierCompany;
-    public TextField txtSearchSupplierItem;
-    
-    public JFXComboBox cbUpdateSelectSupplier;
-    public TextField txtUpdateSupplierName;
-    public TextField txtUpdateSupplierComapny;
-    public TextField txtUpdateSupplierItem;
-
-    public JFXComboBox cbDeleteSelectSupplier;
-    public TextField txtDeleteSupplierName;
-    public TextField txtDeleteSupplierCompany;
-    public TextField txtDeleteSupplierItem;
-
-    public TextField txtAddInventoryName;
-    public TextField txtAddInventoryPrice;
-    public TextField txtAddInventoryQty;
-    public JFXComboBox cbInventoryAddSelectCategory;
-    public JFXComboBox cbInventoryAddSelectSize;
-    public JFXComboBox cbInventoryAddSelectSupplier;
-
-    public TextField txtInventorySearchName;
-    public TextField txtInventorySearchCategory;
-    public TextField txtInventorySearchSize;
-    public TextField txtInventorySearchPrice;
-    public TextField txtInventorySearchQty;
-    public JFXComboBox cbInventorySearchSelectProduct;
-    public TextField txtInventorySearchSupplierId;
-
-    public JFXComboBox cbUpdateInventorySelectProduct;
-    
-    public TextField txtUpdateInventoryName;
-    public TextField txtInventoryUpdateCategory;
-    public TextField txtInventoryUpdateSize;
-    public TextField txtInventoryUpdatePrice;
-    public TextField txtInventoryUpdateQty;
-    public TextField txtInventoryUpdateSupplierId1;
-    public TextField txtDeleteInventoryName;
-    public TextField txtInventoryDeleteCategory;
-    public TextField txtInventoryDeleteSize;
-    public TextField txtInventoryDeletePrice;
-    public TextField txtInventoryDeleteQty;
-    public JFXComboBox cbDeleteInventorySelectProduct;
-    public TextField txtInventoryDeleteSupplierId;
     public AnchorPane apPlaceOrder;
     public JFXTextField txtPlaceOrderOrderId;
     public JFXTextField txtPlaceOrderDateAndTime;
@@ -141,9 +92,33 @@ public class DashboardFormController implements Initializable {
     public TableColumn colUserRegDate;
     public JFXTextField txtUserEmail;
     public JFXTextField txtUserPassword;
-    public JFXTextField txtUserRole;
-    public JFXTextField txtUserRegDate;
     public JFXComboBox cbUserRole;
+
+    public TableView tblProduct;
+    public TableColumn colProductName1;
+    public TableColumn colProducCategory;
+    public TableColumn colProductSize;
+    public TableColumn colProductPrize;
+    public TableColumn colProductQuantity;
+    public TableColumn colProductSupplierId;
+    public JFXTextField txtProductName;
+    public JFXComboBox cbProductCategory;
+    public JFXComboBox cbProductSize;
+    public JFXTextField txtProductPrice;
+    public JFXTextField txtProductQuantity;
+    public JFXComboBox cbProductSupplierId;
+    public TableColumn colProductId1;
+    
+    public JFXTextField txtSupplierName;
+    public TableView tblSupplier;
+    public TableColumn colSupplierId;
+    public TableColumn colSupplierName;
+    public TableColumn colSupplierCompany;
+    public TableColumn colSupplierEmail;
+    public TableColumn colSupplierItem;
+    public JFXTextField txtSupplierComapany;
+    public JFXTextField txtSupplierEmail;
+    public JFXComboBox cbSupplierItem;
 
     public void btnEmployeeOnAction(ActionEvent actionEvent) throws IOException {
         /*URL resource = this.getClass().getResource("/View/OwnerDashboardForm.fxml");
@@ -213,11 +188,6 @@ public class DashboardFormController implements Initializable {
     @Override
     public void initialize(URL url, ResourceBundle resourceBundle) {
         setEmpEmail();
-        setSupplierEmail();
-        setCategory();
-        setSize();
-        setSupplier();
-        setProduct();
         setOrderId();
         setDateAndTime();
         setEmployeeId();
@@ -226,11 +196,16 @@ public class DashboardFormController implements Initializable {
         setCustomerIdCombo();
         loardUserTable();
         loardUserRoleCOmbo();
+        loardProductTable();
+        loardProductCategoryCombo();
+        loardProductSizeCombo();
+        loardProductSupplerIdCombo();
+        loardSupplierTable();
+        loardItemNamesCombo();
     }
 
     public void cbSelectEmpSearchEmail(ActionEvent actionEvent) {
         selectEmail = cbSearchEmpEmail.getSelectionModel().getSelectedItem().toString();
-        //System.out.println(selectEmail);
     }
 
     public void btnUpdateOnAction(ActionEvent actionEvent) {
@@ -316,282 +291,6 @@ public class DashboardFormController implements Initializable {
         apInventory.toFront();
     }
 
-    public void btnAddSuppierOnAction(ActionEvent actionEvent) {
-        boolean addSupplier = DashboardController.getInstance().addSupplier(txtSupplierName.getText(), txtSupplierCompany.getText(), txtSupplierEmail.getText(), txtSupplierItem.getText());
-        if (addSupplier){
-            Alert alert = new Alert(Alert.AlertType.INFORMATION);
-            alert.setTitle("Information");
-            alert.setHeaderText("Supplier Added Successfully");
-            alert.show();
-
-            txtSupplierName.clear();
-            txtSupplierCompany.clear();
-            txtSupplierEmail.clear();
-            txtSupplierItem.clear();
-        }else {
-            Alert alert = new Alert(Alert.AlertType.INFORMATION);
-            alert.setTitle("Information");
-            alert.setHeaderText("Supplier Added Fail");
-            alert.show();
-
-            txtSupplierName.clear();
-            txtSupplierCompany.clear();
-            txtSupplierEmail.clear();
-            txtSupplierItem.clear();
-        }
-    }
-
-    public void btnClearSupplierOnAction(ActionEvent actionEvent) {
-
-    }
-
-    public void btnSearchSuppierOnAction(ActionEvent actionEvent) {
-        Supplier supplierData = (Supplier) DashboardController.getInstance().getSupplierData(cbSelectSupplier.getSelectionModel().getSelectedItem().toString());
-        txtSearchSupplierName.setText(supplierData.getName());
-        txtSearchSupplierCompany.setText(supplierData.getCompany());
-        txtSearchSupplierItem.setText(supplierData.getItem());
-    }
-
-    public void setSupplierEmail(){
-        List<String> supplierEmails = DashboardController.getInstance().getSupplierEmails();
-        cbSelectSupplier.getItems().addAll(supplierEmails);
-        cbUpdateSelectSupplier.getItems().addAll(supplierEmails);
-        cbDeleteSelectSupplier.getItems().addAll(supplierEmails);
-    }
-
-    public void cbUpdateSuplierOnAction(ActionEvent actionEvent) {
-        Supplier supplierData = (Supplier) DashboardController.getInstance().getSupplierData(cbUpdateSelectSupplier.getSelectionModel().getSelectedItem().toString());
-        txtUpdateSupplierName.setText(supplierData.getName());
-        txtUpdateSupplierComapny.setText(supplierData.getCompany());
-        txtUpdateSupplierItem.setText(supplierData.getItem());
-    }
-
-    public void btnUpdateSupplierOnAction(ActionEvent actionEvent) {
-        boolean updatedSupllier = DashboardController.getInstance().updateSupllier(cbUpdateSelectSupplier.getSelectionModel().getSelectedItem().toString(), txtUpdateSupplierName.getText(), txtUpdateSupplierComapny.getText(), txtUpdateSupplierItem.getText());
-        if (updatedSupllier){
-            Alert alert = new Alert(Alert.AlertType.INFORMATION);
-            alert.setTitle("Information");
-            alert.setHeaderText("Supplier Updated Successfully");
-            alert.show();
-
-            txtUpdateSupplierName.clear();
-            txtUpdateSupplierComapny.clear();
-            txtUpdateSupplierItem.clear();
-        }else {
-            Alert alert = new Alert(Alert.AlertType.INFORMATION);
-            alert.setTitle("Information");
-            alert.setHeaderText("Supplier Updated Fail");
-            alert.show();
-
-            txtUpdateSupplierName.clear();
-            txtUpdateSupplierComapny.clear();
-            txtUpdateSupplierItem.clear();
-        }
-    }
-
-    public void btnUpdateCleanSupplierOnAction(ActionEvent actionEvent) {
-
-    }
-
-    public void cbDeleteSelectSupplierOnAction(ActionEvent actionEvent) {
-        Supplier supplierData = (Supplier) DashboardController.getInstance().getSupplierData(cbDeleteSelectSupplier.getSelectionModel().getSelectedItem().toString());
-        txtDeleteSupplierName.setText(supplierData.getName());
-        txtDeleteSupplierCompany.setText(supplierData.getCompany());
-        txtDeleteSupplierItem.setText(supplierData.getItem());
-    }
-
-    public void btnDeleteSuplierOnAction(ActionEvent actionEvent) {
-        boolean deleteSupplier = DashboardController.getInstance().deleteSupplier(cbDeleteSelectSupplier.getSelectionModel().getSelectedItem().toString());
-        if (deleteSupplier){
-            Alert alert = new Alert(Alert.AlertType.INFORMATION);
-            alert.setTitle("Information");
-            alert.setHeaderText("Supplier Deleted Successfully");
-            alert.show();
-
-            txtDeleteSupplierName.clear();
-            txtDeleteSupplierCompany.clear();
-            txtDeleteSupplierItem.clear();
-        }else {
-            Alert alert = new Alert(Alert.AlertType.INFORMATION);
-            alert.setTitle("Information");
-            alert.setHeaderText("Supplier Deleted Fail");
-            alert.show();
-
-            txtDeleteSupplierName.clear();
-            txtDeleteSupplierName.clear();
-            txtDeleteSupplierItem.clear();
-        }
-    }
-
-    public void btnCleanSupplierDeleteOnAction(ActionEvent actionEvent) {
-
-    }
-
-    public void btnAddInventoryOnAction(ActionEvent actionEvent) {
-        boolean addInventory = DashboardController.getInstance().addInventory(txtAddInventoryName.getText(), cbInventoryAddSelectCategory.getSelectionModel().getSelectedItem().toString(), cbInventoryAddSelectSize.getSelectionModel().getSelectedItem().toString(), Double.parseDouble(txtAddInventoryPrice.getText()), Integer.parseInt(txtAddInventoryQty.getText()), cbInventoryAddSelectSupplier.getSelectionModel().getSelectedItem().toString());
-        if (addInventory){
-            Alert alert = new Alert(Alert.AlertType.INFORMATION);
-            alert.setTitle("Information");
-            alert.setHeaderText("Inventory Added Successfully");
-            alert.show();
-
-            txtAddInventoryName.clear();
-            cbInventoryAddSelectCategory.setValue(null);
-            cbInventoryAddSelectSize.setValue(null);
-            txtAddInventoryPrice.clear();
-            txtAddInventoryQty.clear();
-            cbInventoryAddSelectSupplier.setValue(null);
-
-            /*txtDeleteSupplierCompany.clear();
-            txtDeleteSupplierItem.clear();*/
-        }else{
-            Alert alert = new Alert(Alert.AlertType.ERROR);
-            alert.setTitle("Information");
-            alert.setHeaderText("Inventory Added Fail");
-            alert.show();
-
-            txtAddInventoryName.clear();
-            cbInventoryAddSelectCategory.setValue(null);
-            cbInventoryAddSelectSize.setValue(null);
-            txtAddInventoryPrice.clear();
-            txtAddInventoryQty.clear();
-            cbInventoryAddSelectSupplier.setValue(null);
-        }
-    }
-
-    public void setCategory(){
-        List<String> setCategory = DashboardController.getInstance().setCategory();
-        cbInventoryAddSelectCategory.getItems().addAll(setCategory);
-    }
-
-    public void setSize(){
-        List<String> setSize = DashboardController.getInstance().setSize();
-        cbInventoryAddSelectSize.getItems().addAll(setSize);
-    }
-
-    public void setSupplier(){
-        List<String> setSupplier = DashboardController.getInstance().setSupplier();
-        cbInventoryAddSelectSupplier.getItems().addAll(setSupplier);
-    }
-
-    public void setProduct(){
-        List<String> product = DashboardController.getInstance().getProduct();
-        cbInventorySearchSelectProduct.getItems().addAll(product);
-        cbUpdateInventorySelectProduct.getItems().addAll(product);
-        cbDeleteInventorySelectProduct.getItems().addAll(product);
-    }
-
-    public void btnInventorySearchOnAction(ActionEvent actionEvent) {
-        Inventory searchProduct = DashboardController.getInstance().searchProduct(cbInventorySearchSelectProduct.getSelectionModel().getSelectedItem().toString());
-        txtInventorySearchName.setText(searchProduct.getName());
-        txtInventorySearchCategory.setText(searchProduct.getCategory());
-        txtInventorySearchSize.setText(searchProduct.getSize());
-        txtInventorySearchPrice.setText(String.valueOf(searchProduct.getPrice()));
-        txtInventorySearchQty.setText(String.valueOf(searchProduct.getQty()));
-        txtInventorySearchSupplierId.setText(searchProduct.getSupplier());
-    }
-
-    public void cbUpdateInventoryOnAction(ActionEvent actionEvent) {
-        Inventory searchProduct = DashboardController.getInstance().searchProduct(cbUpdateInventorySelectProduct.getSelectionModel().getSelectedItem().toString());
-        txtUpdateInventoryName.setText(searchProduct.getName());
-        txtInventoryUpdateCategory.setText(searchProduct.getCategory());
-        txtInventoryUpdateSize.setText(searchProduct.getSize());
-        txtInventoryUpdatePrice.setText(String.valueOf(searchProduct.getPrice()));
-        txtInventoryUpdateQty.setText(String.valueOf(searchProduct.getQty()));
-        txtInventoryUpdateSupplierId1.setText(searchProduct.getSupplier());
-    }
-
-    public void btnUpdateInventotyOnAction(ActionEvent actionEvent) {
-        boolean updateInventory = DashboardController.getInstance().updateInventory(txtUpdateInventoryName.getText(), txtInventoryUpdateCategory.getText(), txtInventoryUpdateSize.getText(), Double.parseDouble(txtInventoryUpdatePrice.getText()), Integer.parseInt(txtInventoryUpdateQty.getText()), txtInventoryUpdateSupplierId1.getText());
-        if (updateInventory){
-            Alert alert = new Alert(Alert.AlertType.INFORMATION);
-            alert.setTitle("Information");
-            alert.setHeaderText("Inventory Updated Successfully");
-            alert.show();
-
-            txtUpdateInventoryName.clear();
-            //cbInventoryAddSelectCategory.setValue(null);
-            //cbInventoryAddSelectSize.setValue(null);
-            txtInventoryUpdateCategory.clear();
-            txtInventoryUpdateSize.clear();
-            //cbInventoryAddSelectSupplier.setValue(null);
-            txtInventoryUpdatePrice.clear();
-            txtInventoryUpdateQty.clear();
-            txtInventoryUpdateSupplierId1.clear();
-
-            /*txtDeleteSupplierCompany.clear();
-            txtDeleteSupplierItem.clear();*/
-        }else{
-            Alert alert = new Alert(Alert.AlertType.ERROR);
-            alert.setTitle("Information");
-            alert.setHeaderText("Inventory Updated Fail");
-            alert.show();
-
-            txtUpdateInventoryName.clear();
-            //cbInventoryAddSelectCategory.setValue(null);
-            //cbInventoryAddSelectSize.setValue(null);
-            txtInventoryUpdateCategory.clear();
-            txtInventoryUpdateSize.clear();
-            //cbInventoryAddSelectSupplier.setValue(null);
-            txtInventoryUpdatePrice.clear();
-            txtInventoryUpdateQty.clear();
-            txtInventoryUpdateSupplierId1.clear();
-        }
-    }
-
-    public void btnDeleteInventotyOnAction(ActionEvent actionEvent) {
-        boolean deleteInventory = DashboardController.getInstance().deleteInventory(cbDeleteInventorySelectProduct.getSelectionModel().getSelectedItem().toString());
-        if (deleteInventory){
-            Alert alert = new Alert(Alert.AlertType.INFORMATION);
-            alert.setTitle("Information");
-            alert.setHeaderText("Inventory Deleted Successfully");
-            alert.show();
-
-            txtDeleteInventoryName.clear();
-            //cbInventoryAddSelectCategory.setValue(null);
-            //cbInventoryAddSelectSize.setValue(null);
-            txtInventoryDeleteCategory.clear();
-            txtInventoryUpdateSize.clear();
-            //cbInventoryAddSelectSupplier.setValue(null);
-            //txtInventoryDeleteSize.clear();
-            txtInventoryDeletePrice.clear();
-            txtInventoryDeleteSupplierId.clear();
-            txtInventoryDeleteQty.clear();
-
-            /*txtDeleteSupplierCompany.clear();
-            txtDeleteSupplierItem.clear();*/
-        }else{
-            Alert alert = new Alert(Alert.AlertType.ERROR);
-            alert.setTitle("Information");
-            alert.setHeaderText("Inventory Deleted Fail");
-            alert.show();
-
-            txtDeleteInventoryName.clear();
-            //cbInventoryAddSelectCategory.setValue(null);
-            //cbInventoryAddSelectSize.setValue(null);
-            txtInventoryDeleteCategory.clear();
-            txtInventoryUpdateSize.clear();
-            //cbInventoryAddSelectSupplier.setValue(null);
-            //txtInventoryDeleteSize.clear();
-            txtInventoryDeletePrice.clear();
-            txtInventoryDeleteSupplierId.clear();
-            txtInventoryDeleteQty.clear();
-
-            /*txtDeleteSupplierCompany.clear();
-            txtDeleteSupplierItem.clear();*/
-        }
-    }
-
-    public void cbDeleteInventoryOnAction(ActionEvent actionEvent) {
-        Inventory searchProduct = DashboardController.getInstance().searchProduct(cbDeleteInventorySelectProduct.getSelectionModel().getSelectedItem().toString());
-        txtDeleteInventoryName.setText(searchProduct.getName());
-        txtInventoryDeleteCategory.setText(searchProduct.getCategory());
-        txtInventoryDeleteSize.setText(searchProduct.getSize());
-        txtInventoryDeletePrice.setText(String.valueOf(searchProduct.getPrice()));
-        txtInventoryDeleteQty.setText(String.valueOf(searchProduct.getQty()));
-        txtInventoryDeleteSupplierId.setText(searchProduct.getSupplier());
-    }
-
     public void btnPlaceOrderOnAction(ActionEvent actionEvent) {
         apPlaceOrder.toFront();
     }
@@ -644,7 +343,13 @@ public class DashboardFormController implements Initializable {
     }
 
     private void loadTable() {
+        colProductId.setCellValueFactory(new PropertyValueFactory<>("productId"));
+        colProductName.setCellValueFactory(new PropertyValueFactory<>("productName"));
+        colSize.setCellValueFactory(new PropertyValueFactory<>("productSize"));
+        colQty.setCellValueFactory(new PropertyValueFactory<>("productQty"));
+        colPrice.setCellValueFactory(new PropertyValueFactory<>("productPrice"));
 
+        tableViewProducts.setItems(orderTableObservableList);
     }
 
     private void addOrderTable(Integer productId, String productName, String productSize, Integer productQty, Double productPrice) {
@@ -788,5 +493,181 @@ public class DashboardFormController implements Initializable {
         txtUserEmail.clear();
         txtUserPassword.clear();
         cbUserRole.setValue("Select Role");
+    }
+
+    public void btnProductAddOnAction(ActionEvent actionEvent) {
+        boolean addedProducts = DashboardController.getInstance().addProducts(new Product(null, txtProductName.getText(), cbProductCategory.getSelectionModel().getSelectedItem().toString(), cbProductSize.getSelectionModel().getSelectedItem().toString(), Double.parseDouble(txtProductPrice.getText()), Integer.parseInt(txtProductQuantity.getText()), Integer.parseInt(cbProductSupplierId.getSelectionModel().getSelectedItem().toString())));
+        if (addedProducts){
+            Alert alert = new Alert(Alert.AlertType.INFORMATION);
+            alert.setTitle("Product Confirmation");
+            alert.setContentText("Product Added Successfully!");
+            alert.showAndWait();
+            loardProductTable();
+            clearProductDetailAreas();
+        }
+    }
+
+    private ProductTable selectedProduct;
+
+    public void btnProductSearchOnAction(ActionEvent actionEvent) {
+        selectedProduct = (ProductTable) tblProduct.getSelectionModel().getSelectedItem();
+        if (selectedProduct != null) {
+            // Update UI fields with selected product details
+            txtProductName.setText(selectedProduct.getProductName());
+            cbProductCategory.setValue(selectedProduct.getCategory().toString());
+            cbProductSize.setValue(selectedProduct.getSize().toString());
+            txtProductPrice.setText(String.valueOf(selectedProduct.getPrice()));
+            txtProductQuantity.setText(String.valueOf(selectedProduct.getQty()));
+            cbProductSupplierId.setValue(selectedProduct.getSupplierId().toString());
+        }
+    }
+
+    public void btnProductUpdateOnAction(ActionEvent actionEvent) {
+        //System.out.println(selectedProduct.toString());
+        boolean updatedProduct = DashboardController.getInstance().updateProduct(new Product(selectedProduct.getProductID(),txtProductName.getText(),cbProductCategory.getSelectionModel().getSelectedItem().toString(),cbProductSize.getSelectionModel().getSelectedItem().toString(),Double.parseDouble(txtProductPrice.getText()),Integer.parseInt(txtProductQuantity.getText()),Integer.parseInt(cbProductSupplierId.getSelectionModel().getSelectedItem().toString())));
+        if (updatedProduct){
+            Alert alert = new Alert(Alert.AlertType.INFORMATION);
+            alert.setTitle("Product Confirmation");
+            alert.setContentText("Product Updated Successfully!");
+            alert.showAndWait();
+            loardProductTable();
+            clearProductDetailAreas();
+        }
+    }
+
+    public void btnProductDeleteOnAction(ActionEvent actionEvent) {
+        boolean deletedProduct = DashboardController.getInstance().deleteProduct(selectedProduct.getProductID());
+        if (deletedProduct){
+            Alert alert = new Alert(Alert.AlertType.INFORMATION);
+            alert.setTitle("Product Confirmation");
+            alert.setContentText("Product Deleted Successfully!");
+            alert.showAndWait();
+            loardProductTable();
+            clearProductDetailAreas();
+        }
+    }
+
+    private void loardProductTable(){
+        ObservableList<ProductTable> allProducts = DashboardController.getInstance().getAllProducts();
+        colProductId1.setCellValueFactory(new PropertyValueFactory<>("ProductID"));
+        colProductName1.setCellValueFactory(new PropertyValueFactory<>("productName"));
+        colProducCategory.setCellValueFactory(new PropertyValueFactory<>("category"));
+        colProductSize.setCellValueFactory(new PropertyValueFactory<>("size"));
+        colProductPrize.setCellValueFactory(new PropertyValueFactory<>("price"));
+        colProductQuantity.setCellValueFactory(new PropertyValueFactory<>("qty"));
+        colProductSupplierId.setCellValueFactory(new PropertyValueFactory<>("supplierId"));
+
+        tblProduct.setItems(allProducts);
+    }
+
+    private void loardProductCategoryCombo(){
+        List<String> allCategorys = DashboardController.getInstance().getAllCategorys();
+        cbProductCategory.getItems().addAll(allCategorys);
+    }
+
+    private void loardProductSizeCombo(){
+        List<String> allsizes = DashboardController.getInstance().getAllCSizes();
+        cbProductSize.getItems().addAll(allsizes);
+    }
+
+    private void loardProductSupplerIdCombo(){
+        List<String> allids = DashboardController.getInstance().getAllCSupllierIds();
+        cbProductSupplierId.getItems().addAll(allids);
+    }
+
+    private void clearProductDetailAreas(){
+        txtProductName.clear();
+        cbProductCategory.setValue("Select Category");
+        cbProductSize.setValue("Select Size");
+        txtProductPrice.clear();
+        txtProductQuantity.clear();
+        cbProductSupplierId.setValue("Select Supplier");
+    }
+
+    public void btnProductClearOnAction(ActionEvent actionEvent) {
+        txtProductName.clear();
+        cbProductCategory.setValue("Select Category");
+        cbProductSize.setValue("Select Size");
+        txtProductPrice.clear();
+        txtProductQuantity.clear();
+        cbProductSupplierId.setValue("Select Supplier");
+    }
+
+    public void btnSupplierAddOnAction(ActionEvent actionEvent) {
+        boolean addedSupplier = DashboardController.getInstance().addSupplier(new Supplier(null, txtSupplierName.getText(), txtSupplierComapany.getText(), txtSupplierEmail.getText(), cbSupplierItem.getSelectionModel().getSelectedItem().toString()));
+        if (addedSupplier){
+            Alert alert = new Alert(Alert.AlertType.INFORMATION);
+            alert.setTitle("Supplier Confirmation");
+            alert.setContentText("Supplier Added Successfully!");
+            alert.showAndWait();
+            loardSupplierTable();
+            clearSupplierDetailAreas();
+        }
+    }
+
+    private SupplierTable getSelectedProduct;
+
+    public void btnSupplierSearchOnAction(ActionEvent actionEvent) {
+        getSelectedProduct = (SupplierTable) tblSupplier.getSelectionModel().getSelectedItem();
+        //System.out.println(selectedItem.toString());
+        txtSupplierName.setText(getSelectedProduct.getName());
+        txtSupplierComapany.setText(getSelectedProduct.getCompany());
+        txtSupplierEmail.setText(getSelectedProduct.getEmail());
+        cbSupplierItem.setValue(getSelectedProduct.getItem());
+    }
+
+    public void btnSupplierUpdateOnAction(ActionEvent actionEvent) {
+        boolean updatedSupplier = DashboardController.getInstance().updateSupplier(new Supplier(getSelectedProduct.getSupplierID(), txtSupplierName.getText(), txtSupplierComapany.getText(), txtSupplierEmail.getText(), cbSupplierItem.getSelectionModel().getSelectedItem().toString()));
+        if (updatedSupplier){
+            Alert alert = new Alert(Alert.AlertType.INFORMATION);
+            alert.setTitle("Supplier Confirmation");
+            alert.setContentText("Supplier Updated Successfully!");
+            alert.showAndWait();
+            loardSupplierTable();
+            clearSupplierDetailAreas();
+        }
+    }
+
+    public void btnSupplierDeleteOnAction(ActionEvent actionEvent) {
+        boolean deletedSupplier = DashboardController.getInstance().deleteSupplier(getSelectedProduct.getSupplierID());
+        if (deletedSupplier){
+            Alert alert = new Alert(Alert.AlertType.INFORMATION);
+            alert.setTitle("Supplier Confirmation");
+            alert.setContentText("Supplier Deleted Successfully!");
+            alert.showAndWait();
+            loardSupplierTable();
+            clearSupplierDetailAreas();
+        }
+    }
+
+    public void btnSupplierClearOnAction(ActionEvent actionEvent) {
+        txtSupplierName.clear();
+        txtSupplierComapany.clear();
+        txtSupplierEmail.clear();
+        cbSupplierItem.setValue("Select Item");
+    }
+    
+    private void loardSupplierTable(){
+        ObservableList<SupplierTable> allSupplier = DashboardController.getInstance().getAllSupplier();
+
+        colSupplierId.setCellValueFactory(new PropertyValueFactory<>("supplierID"));
+        colSupplierName.setCellValueFactory(new PropertyValueFactory<>("name"));
+        colSupplierCompany.setCellValueFactory(new PropertyValueFactory<>("company"));
+        colSupplierEmail.setCellValueFactory(new PropertyValueFactory<>("email"));
+        colSupplierItem.setCellValueFactory(new PropertyValueFactory<>("item"));
+
+        tblSupplier.setItems(allSupplier);
+    }
+
+    private void loardItemNamesCombo(){
+        List<String> allItemNames = DashboardController.getInstance().getAllItemNames();
+        cbSupplierItem.getItems().addAll(allItemNames);
+    }
+
+    private void clearSupplierDetailAreas(){
+        txtSupplierName.clear();
+        txtSupplierComapany.clear();
+        txtSupplierEmail.clear();
+        cbSupplierItem.setValue("Select Item");
     }
 }

@@ -5,14 +5,12 @@ import lombok.Data;
 import lombok.NoArgsConstructor;
 import lombok.ToString;
 
-import java.awt.*;
-
 @Data
 @AllArgsConstructor
 @NoArgsConstructor
 @ToString
-public class Product {
-    private Integer productId;
+public class ProductTable {
+    private Integer productID;
     private String productName;
     private String category;
     private String size;

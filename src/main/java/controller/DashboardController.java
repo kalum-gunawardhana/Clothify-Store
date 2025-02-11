@@ -629,4 +629,193 @@ public class DashboardController implements DashboardService {
             throw new RuntimeException(e);
         }
     }
+
+    @Override
+    public ObservableList<ProductTable> getAllProducts() {
+        ObservableList<ProductTable> observableList = FXCollections.observableArrayList();
+        try {
+            PreparedStatement preparedStatement = DBConnection.getInstance().getConnection().prepareStatement("select * from product");
+            ResultSet resultSet = preparedStatement.executeQuery();
+            while (resultSet.next()){
+                Integer productID = resultSet.getInt("ProductID");
+                String productName = resultSet.getString("ProductName");
+                String category = resultSet.getString("Category");
+                String size = resultSet.getString("Size");
+                Double price = resultSet.getDouble("Price");
+                Integer quantity = resultSet.getInt("Quantity");
+                Integer supplierID = resultSet.getInt("SupplierID");
+
+                observableList.add(new ProductTable(productID,productName,category,size,price,quantity,supplierID));
+            }
+            return observableList;
+        } catch (SQLException e) {
+            throw new RuntimeException(e);
+        }
+    }
+
+    @Override
+    public List<String> getAllCategorys() {
+        List<String> allCategoryList=new ArrayList<>();
+        try {
+            PreparedStatement preparedStatement = DBConnection.getInstance().getConnection().prepareStatement("select CategoryName from category");
+            ResultSet resultSet = preparedStatement.executeQuery();
+            while (resultSet.next()){
+                allCategoryList.add(resultSet.getString("CategoryName"));
+            }
+            return allCategoryList;
+        } catch (SQLException e) {
+            throw new RuntimeException(e);
+        }
+    }
+
+    @Override
+    public List<String> getAllCSizes() {
+        List<String> allSizeList=new ArrayList<>();
+        try {
+            PreparedStatement preparedStatement = DBConnection.getInstance().getConnection().prepareStatement("select SizeName from size");
+            ResultSet resultSet = preparedStatement.executeQuery();
+            while (resultSet.next()){
+                allSizeList.add(resultSet.getString("SizeName"));
+            }
+            return allSizeList;
+        } catch (SQLException e) {
+            throw new RuntimeException(e);
+        }
+    }
+
+    @Override
+    public List<String> getAllCSupllierIds() {
+        List<String> allIdList=new ArrayList<>();
+        try {
+            PreparedStatement preparedStatement = DBConnection.getInstance().getConnection().prepareStatement("select SupplierID from supplier order by SupplierID asc");
+            ResultSet resultSet = preparedStatement.executeQuery();
+            while (resultSet.next()){
+                allIdList.add(resultSet.getString("SupplierID"));
+            }
+            return allIdList;
+        } catch (SQLException e) {
+            throw new RuntimeException(e);
+        }
+    }
+
+    @Override
+    public boolean addProducts(Product product) {
+        try {
+            PreparedStatement preparedStatement = DBConnection.getInstance().getConnection().prepareStatement("INSERT INTO product (ProductName, Category, Size, Price, Quantity, SupplierID) VALUES (?, ?, ?, ?, ?, ?)");
+            preparedStatement.setObject(1,product.getProductName());
+            preparedStatement.setObject(2,product.getCategory());
+            preparedStatement.setObject(3,product.getSize());
+            preparedStatement.setObject(4,product.getPrice());
+            preparedStatement.setObject(5,product.getQty());
+            preparedStatement.setObject(6,product.getSupplierId());
+            return preparedStatement.executeUpdate()>0;
+        } catch (SQLException e) {
+            throw new RuntimeException(e);
+        }
+    }
+
+    @Override
+    public boolean updateProduct(Product product) {
+        try {
+            //System.out.println(product.toString());
+            PreparedStatement preparedStatement = DBConnection.getInstance().getConnection().prepareStatement("UPDATE product SET ProductName=?, Category=?, Size=?, Price=?, Quantity=?, SupplierID=? WHERE ProductID=?");
+            preparedStatement.setObject(1,product.getProductName());
+            preparedStatement.setObject(2,product.getCategory());
+            preparedStatement.setObject(3,product.getSize());
+            preparedStatement.setObject(4,product.getPrice());
+            preparedStatement.setObject(5,product.getQty());
+            preparedStatement.setObject(6,product.getSupplierId());
+            preparedStatement.setObject(7,product.getProductId());
+            return preparedStatement.executeUpdate()>0;
+        } catch (SQLException e) {
+            throw new RuntimeException(e);
+        }
+    }
+
+    @Override
+    public boolean deleteProduct(Integer  productID) {
+        try {
+            PreparedStatement preparedStatement = DBConnection.getInstance().getConnection().prepareStatement("DELETE FROM product WHERE ProductID = ?");
+            preparedStatement.setInt(1,productID);
+            return preparedStatement.executeUpdate()>0;
+        } catch (SQLException e) {
+            throw new RuntimeException(e);
+        }
+    }
+
+    @Override
+    public ObservableList<SupplierTable> getAllSupplier() {
+        ObservableList<SupplierTable> observableList = FXCollections.observableArrayList();
+        try {
+            PreparedStatement preparedStatement = DBConnection.getInstance().getConnection().prepareStatement("select * from supplier");
+            ResultSet resultSet = preparedStatement.executeQuery();
+            while (resultSet.next()){
+                Integer supplierID = resultSet.getInt("SupplierID");
+                String name = resultSet.getString("Name");
+                String company = resultSet.getString("Company");
+                String email = resultSet.getString("Email");
+                String item = resultSet.getString("Item");
+
+                observableList.add(new SupplierTable(supplierID,name,company,email,item));
+            }
+            return observableList;
+        } catch (SQLException e) {
+            throw new RuntimeException(e);
+        }
+    }
+
+    @Override
+    public boolean addSupplier(Supplier supplier) {
+        try {
+            PreparedStatement preparedStatement = DBConnection.getInstance().getConnection().prepareStatement("INSERT INTO supplier (Name, Company, Email, Item) VALUES (?, ?, ?, ?)");
+            preparedStatement.setObject(1,supplier.getName());
+            preparedStatement.setObject(2,supplier.getCompany());
+            preparedStatement.setObject(3,supplier.getEmail());
+            preparedStatement.setObject(4,supplier.getItem());
+            return preparedStatement.executeUpdate()>0;
+        } catch (SQLException e) {
+            throw new RuntimeException(e);
+        }
+    }
+
+    @Override
+    public List<String> getAllItemNames() {
+        List<String> getAllItemNames=new ArrayList<>();
+        try {
+            PreparedStatement preparedStatement = DBConnection.getInstance().getConnection().prepareStatement("select item_name from item");
+            ResultSet resultSet = preparedStatement.executeQuery();
+            while (resultSet.next()){
+                getAllItemNames.add(resultSet.getString("item_name"));
+            }
+            return getAllItemNames;
+        } catch (SQLException e) {
+            throw new RuntimeException(e);
+        }
+    }
+
+    @Override
+    public boolean updateSupplier(Supplier supplier) {
+        try {
+            PreparedStatement preparedStatement = DBConnection.getInstance().getConnection().prepareStatement("UPDATE supplier SET Name = ?, Company = ?, Email = ?, Item = ? WHERE SupplierID = ?");
+            preparedStatement.setObject(1,supplier.getName());
+            preparedStatement.setObject(2,supplier.getCompany());
+            preparedStatement.setObject(3,supplier.getEmail());
+            preparedStatement.setObject(4,supplier.getItem());
+            preparedStatement.setObject(5,supplier.getSupplierID());
+            return preparedStatement.executeUpdate()>0;
+        } catch (SQLException e) {
+            throw new RuntimeException(e);
+        }
+    }
+
+    @Override
+    public boolean deleteSupplier(Integer supplierId) {
+        try {
+            PreparedStatement preparedStatement = DBConnection.getInstance().getConnection().prepareStatement("DELETE FROM supplier WHERE SupplierID = ?");
+            preparedStatement.setInt(1,supplierId);
+            return preparedStatement.executeUpdate()>0;
+        } catch (SQLException e) {
+            throw new RuntimeException(e);
+        }
+    }
 }

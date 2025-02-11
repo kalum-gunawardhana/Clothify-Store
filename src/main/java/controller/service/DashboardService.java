@@ -42,4 +42,16 @@ public interface DashboardService {
     User searchUser(String email);
     boolean updateUser(String name, String email, String password, String role);
     boolean deleteUser(String email);
+    ObservableList<ProductTable> getAllProducts();
+    List<String> getAllCategorys();
+    List<String> getAllCSizes();
+    List<String> getAllCSupllierIds();
+    boolean addProducts(Product product);
+    boolean updateProduct(Product product);
+    boolean deleteProduct(Integer  productID);
+    ObservableList<SupplierTable> getAllSupplier();
+    boolean addSupplier(Supplier supplier);
+    List<String> getAllItemNames();
+    boolean updateSupplier(Supplier supplier);
+    boolean deleteSupplier(Integer supplierId);
 }
