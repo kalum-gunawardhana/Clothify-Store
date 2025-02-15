@@ -35,21 +35,17 @@ public class LoginFormController {
     public static String generated;
 
     public void btnLoginOnAction(ActionEvent actionEvent) throws IOException {
-        boolean loginInfo = LoginController.getInstance().getLoginInfo(txtEmail.getText(), txtPassword.getText());
-        if (loginInfo){
-            Alert alert = new Alert(Alert.AlertType.INFORMATION);
-            alert.setTitle("Information");
-            alert.setHeaderText("Login Successfully");
-            alert.show();
+        String loginInfo = LoginController.getInstance().getLoginInfo(txtEmail.getText(), txtPassword.getText());
+
+        if (loginInfo!=null){
+            //System.out.println(loginInfo);
 
             Stage stage = new Stage();
             stage.setScene(new Scene(FXMLLoader.load(getClass().getResource("/view/fxml/OwnerDashboardForm.fxml"))));
             stage.show();
-        }else {
-            Alert alert = new Alert(Alert.AlertType.ERROR);
-            alert.setTitle("Information");
-            alert.setHeaderText("Login Fail");
-            alert.show();
+
+            DashboardFormController dashboardFormController = new DashboardFormController();
+            dashboardFormController.dashbordButtonShow(loginInfo);
         }
         txtEmail.clear();
         txtPassword.clear();
@@ -165,5 +161,4 @@ public class LoginFormController {
         txtNewPass.clear();
         txtConPass.clear();
     }
-
 }

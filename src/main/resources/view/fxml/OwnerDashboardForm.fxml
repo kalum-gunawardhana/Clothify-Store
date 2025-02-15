@@ -3,11 +3,9 @@
 <?import com.jfoenix.controls.JFXButton?>
 <?import com.jfoenix.controls.JFXComboBox?>
 <?import com.jfoenix.controls.JFXTextField?>
-<?import javafx.scene.Group?>
 <?import javafx.scene.control.Label?>
 <?import javafx.scene.control.TableColumn?>
 <?import javafx.scene.control.TableView?>
-<?import javafx.scene.control.TextField?>
 <?import javafx.scene.layout.AnchorPane?>
 <?import javafx.scene.shape.Rectangle?>
 <?import javafx.scene.text.Font?>
@@ -21,152 +19,96 @@
             <Font name="System Bold Italic" size="18.0" />
          </font>
       </Label>
-      <Group layoutX="40.0" layoutY="34.0" stylesheets="@../css/jfx-button.css">
-         <children>
-            <JFXButton contentDisplay="BOTTOM" onAction="#btnEmployeeOnAction" prefHeight="40.0" prefWidth="130.0" style="-fx-background-color: #2596be;" text="Employee" textAlignment="CENTER" textFill="WHITE">
-               <font>
-                  <Font name="System Bold Italic" size="14.0" />
-               </font>
-            </JFXButton>
-            <JFXButton contentDisplay="BOTTOM" layoutY="51.0" onAction="#btnSupplierOnAction" prefHeight="40.0" prefWidth="130.0" style="-fx-background-color: #2596be;" text="Supplier" textAlignment="CENTER" textFill="WHITE">
-               <font>
-                  <Font name="System Bold Italic" size="14.0" />
-               </font>
-            </JFXButton>
-            <JFXButton contentDisplay="BOTTOM" layoutY="102.0" prefHeight="40.0" prefWidth="130.0" style="-fx-background-color: #2596be;" text="Report" textAlignment="CENTER" textFill="WHITE">
-               <font>
-                  <Font name="System Bold Italic" size="14.0" />
-               </font>
-            </JFXButton>
-            <JFXButton contentDisplay="BOTTOM" layoutY="152.0" onAction="#btnLoardInventoryOnAction" prefHeight="40.0" prefWidth="130.0" style="-fx-background-color: #2596be;" text="Product" textAlignment="CENTER" textFill="WHITE">
-               <font>
-                  <Font name="System Bold Italic" size="14.0" />
-               </font>
-            </JFXButton>
-            <JFXButton contentDisplay="BOTTOM" layoutY="719.0" prefHeight="40.0" prefWidth="130.0" style="-fx-background-color: #2596be;" text="Log out" textAlignment="CENTER" textFill="WHITE">
-               <font>
-                  <Font name="System Bold Italic" size="14.0" />
-               </font>
-            </JFXButton>
-            <JFXButton contentDisplay="BOTTOM" layoutY="670.0" prefHeight="40.0" prefWidth="130.0" style="-fx-background-color: #2596be;" text="Setting" textAlignment="CENTER" textFill="WHITE">
-               <font>
-                  <Font name="System Bold Italic" size="14.0" />
-               </font>
-            </JFXButton>
-            <JFXButton contentDisplay="BOTTOM" layoutY="203.0" onAction="#btnPlaceOrderOnAction" prefHeight="40.0" prefWidth="130.0" style="-fx-background-color: #2596be;" text="Order" textAlignment="CENTER" textFill="WHITE">
-               <font>
-                  <Font name="System Bold Italic" size="14.0" />
-               </font>
-            </JFXButton>
-            <JFXButton contentDisplay="BOTTOM" layoutY="255.0" onAction="#btnUserOnAction" prefHeight="40.0" prefWidth="130.0" style="-fx-background-color: #2596be;" text="User" textAlignment="CENTER" textFill="WHITE">
-               <font>
-                  <Font name="System Bold Italic" size="14.0" />
-               </font>
-            </JFXButton>
-         </children>
-      </Group>
-      <AnchorPane fx:id="apUser" layoutX="215.0" layoutY="65.0" prefHeight="755.0" prefWidth="1050.0" style="-fx-background-color: EDEDED;">
-         <children>
-            <JFXTextField fx:id="txtUserName" layoutX="840.0" layoutY="115.0" prefHeight="26.0" prefWidth="180.0" promptText="Name" stylesheets="@../css/jfx-text-field.css" />
-            <TableView fx:id="tblUser" layoutX="32.0" layoutY="88.0" prefHeight="640.0" prefWidth="765.0" stylesheets="@../css/table-view.css">
-              <columns>
-                <TableColumn fx:id="colUserName" prefWidth="162.39993286132812" text="Name" />
-                <TableColumn fx:id="colUserEmail" prefWidth="215.20004272460938" text="Email" />
-                  <TableColumn fx:id="colUserPassword" prefWidth="138.39996337890625" text="Password" />
-                  <TableColumn fx:id="colUserRole" prefWidth="105.60003662109375" text="Role" />
-                  <TableColumn fx:id="colUserRegDate" prefWidth="130.39996337890625" text="RegDate" />
-              </columns>
-            </TableView>
-            <JFXTextField fx:id="txtUserEmail" layoutX="840.0" layoutY="161.0" prefHeight="26.0" prefWidth="180.0" promptText="Email" stylesheets="@../css/jfx-text-field.css" />
-            <JFXTextField fx:id="txtUserPassword" layoutX="840.0" layoutY="209.0" prefHeight="26.0" prefWidth="180.0" promptText="Password" stylesheets="@../css/jfx-text-field.css" />
-            <JFXButton layoutX="842.0" layoutY="426.0" onAction="#btnUserAddOnAction" prefHeight="34.0" prefWidth="180.0" style="-fx-background-color: #2596be;" stylesheets="@../css/jfx-button.css" text="Add" textFill="WHITE">
-               <font>
-                  <Font name="System Bold" size="14.0" />
-               </font>
-            </JFXButton>
-            <JFXButton layoutX="843.0" layoutY="473.0" onAction="#btnUserSearchOnAction" prefHeight="34.0" prefWidth="180.0" style="-fx-background-color: #2596be;" stylesheets="@../css/jfx-button.css" text="Search" textFill="WHITE">
-               <font>
-                  <Font name="System Bold" size="14.0" />
-               </font>
-            </JFXButton>
-            <JFXButton layoutX="844.0" layoutY="520.0" onAction="#btnUserUpdateOnAction" prefHeight="34.0" prefWidth="180.0" style="-fx-background-color: #2596be;" stylesheets="@../css/jfx-button.css" text="Update" textFill="WHITE">
-               <font>
-                  <Font name="System Bold" size="14.0" />
-               </font>
-            </JFXButton>
-            <JFXButton layoutX="844.0" layoutY="568.0" onAction="#btnUserDeleteOnAction" prefHeight="34.0" prefWidth="180.0" style="-fx-background-color: #2596be;" stylesheets="@../css/jfx-button.css" text="Delete" textFill="WHITE">
-               <font>
-                  <Font name="System Bold" size="14.0" />
-               </font>
-            </JFXButton>
-            <JFXButton layoutX="844.0" layoutY="663.0" onAction="#btnClearAreasOnAction" prefHeight="34.0" prefWidth="180.0" style="-fx-background-color: #2596be;" stylesheets="@../css/jfx-button.css" text="Clear" textFill="WHITE">
-               <font>
-                  <Font name="System Bold" size="14.0" />
-               </font>
-            </JFXButton>
-            <JFXComboBox fx:id="cbUserRole" layoutX="841.0" layoutY="253.0" prefHeight="28.0" prefWidth="180.0" promptText="Select Role" stylesheets="@../css/jfx-combo-box.css" />
-            <Label layoutX="43.0" layoutY="15.0" prefHeight="35.0" prefWidth="230.0" text="User Management">
-               <font>
-                  <Font name="System Bold" size="18.0" />
-               </font>
-            </Label>
-            <Label layoutX="42.0" layoutY="39.0" prefHeight="35.0" prefWidth="430.0" text="Manage your team members and their account permissions here">
-               <font>
-                  <Font name="System Bold Italic" size="14.0" />
-               </font>
-            </Label>
-         </children>
-      </AnchorPane>
+      <JFXButton contentDisplay="BOTTOM" layoutX="41.0" layoutY="91.0" onAction="#btnEmployeeOnAction" prefHeight="40.0" prefWidth="130.0" style="-fx-background-color: #2596be;" text="Employee" textAlignment="CENTER" textFill="WHITE">
+         <font>
+            <Font name="System Bold Italic" size="14.0" />
+         </font>
+      </JFXButton>
+      <JFXButton contentDisplay="BOTTOM" layoutX="41.0" layoutY="199.0" onAction="#btnSupplierOnAction" prefHeight="40.0" prefWidth="130.0" style="-fx-background-color: #2596be;" text="Supplier" textAlignment="CENTER" textFill="WHITE">
+         <font>
+            <Font name="System Bold Italic" size="14.0" />
+         </font>
+      </JFXButton>
+      <JFXButton contentDisplay="BOTTOM" layoutX="41.0" layoutY="307.0" onAction="#btnReportsOnAction" prefHeight="40.0" prefWidth="130.0" style="-fx-background-color: #2596be;" text="Report" textAlignment="CENTER" textFill="WHITE">
+         <font>
+            <Font name="System Bold Italic" size="14.0" />
+         </font>
+      </JFXButton>
+      <JFXButton contentDisplay="BOTTOM" layoutX="41.0" layoutY="144.0" onAction="#btnLoardInventoryOnAction" prefHeight="40.0" prefWidth="130.0" style="-fx-background-color: #2596be;" text="Product" textAlignment="CENTER" textFill="WHITE">
+         <font>
+            <Font name="System Bold Italic" size="14.0" />
+         </font>
+      </JFXButton>
+      <JFXButton contentDisplay="BOTTOM" layoutX="41.0" layoutY="760.0" prefHeight="40.0" prefWidth="130.0" style="-fx-background-color: #2596be;" text="Log out" textAlignment="CENTER" textFill="WHITE">
+         <font>
+            <Font name="System Bold Italic" size="14.0" />
+         </font>
+      </JFXButton>
+      <JFXButton contentDisplay="BOTTOM" layoutX="41.0" layoutY="709.0" prefHeight="40.0" prefWidth="130.0" style="-fx-background-color: #2596be;" text="Setting" textAlignment="CENTER" textFill="WHITE">
+         <font>
+            <Font name="System Bold Italic" size="14.0" />
+         </font>
+      </JFXButton>
+      <JFXButton contentDisplay="BOTTOM" layoutX="41.0" layoutY="253.0" onAction="#btnPlaceOrderOnAction" prefHeight="40.0" prefWidth="130.0" style="-fx-background-color: #2596be;" text="Orders" textAlignment="CENTER" textFill="WHITE">
+         <font>
+            <Font name="System Bold Italic" size="14.0" />
+         </font>
+      </JFXButton>
+      <JFXButton fx:id="btnUser" contentDisplay="BOTTOM" layoutX="41.0" layoutY="37.0" onAction="#btnUserOnAction" prefHeight="40.0" prefWidth="130.0" style="-fx-background-color: #2596be;" text="User" textAlignment="CENTER" textFill="WHITE">
+         <font>
+            <Font name="System Bold Italic" size="14.0" />
+         </font>
+      </JFXButton>
       <AnchorPane fx:id="apInventory" layoutX="217.0" layoutY="67.0" prefHeight="750.0" prefWidth="1045.0" style="-fx-background-color: EDEDED;">
          <children>
-            <JFXButton layoutX="860.0" layoutY="207.0" onAction="#btnProductAddOnAction" prefHeight="35.0" prefWidth="150.0" style="-fx-background-color: #2596be;" stylesheets="@../css/jfx-button.css" text="Add" textFill="WHITE">
+            <JFXButton layoutX="842.0" layoutY="129.0" onAction="#btnProductAddOnAction" prefHeight="35.0" prefWidth="150.0" style="-fx-background-color: #2596be;" stylesheets="@../css/jfx-button.css" text="Add" textFill="WHITE">
                <font>
                   <Font name="System Bold" size="14.0" />
                </font>
             </JFXButton>
-            <TableView fx:id="tblProduct" layoutX="34.0" layoutY="120.0" prefHeight="420.0" prefWidth="799.0" stylesheets="@../css/table-view.css">
+            <TableView fx:id="tblProduct" layoutX="23.0" layoutY="120.0" prefHeight="590.0" prefWidth="766.0" stylesheets="@../css/table-view.css">
               <columns>
                   <TableColumn fx:id="colProductId1" prefWidth="88.0" text="Product ID" />
-                <TableColumn fx:id="colProductName1" prefWidth="245.60000610351562" text="Name" />
-                <TableColumn fx:id="colProducCategory" prefWidth="110.4000244140625" text="Category" />
-                  <TableColumn fx:id="colProductSize" prefWidth="56.79998779296875" text="Size" />
-                  <TableColumn fx:id="colProductPrize" prefWidth="107.20001220703125" text="Price" />
-                  <TableColumn fx:id="colProductQuantity" prefWidth="84.7999267578125" text="Quantity" />
-                  <TableColumn fx:id="colProductSupplierId" prefWidth="86.39996337890625" text="Supplier ID" />
+                <TableColumn fx:id="colProductName1" prefWidth="233.5999755859375" text="Name" />
+                <TableColumn fx:id="colProducCategory" prefWidth="124.79998779296875" text="Category" />
+                  <TableColumn fx:id="colProductSize" prefWidth="60.0" text="Size" />
+                  <TableColumn fx:id="colProductPrize" prefWidth="84.79998779296875" text="Price" />
+                  <TableColumn fx:id="colProductQuantity" prefWidth="72.79998779296875" text="Quantity" />
+                  <TableColumn fx:id="colProductSupplierId" prefWidth="94.39996337890625" text="Supplier ID" />
               </columns>
             </TableView>
-            <JFXButton layoutX="860.0" layoutY="257.0" onAction="#btnProductSearchOnAction" prefHeight="35.0" prefWidth="150.0" style="-fx-background-color: #2596be;" stylesheets="@../css/jfx-button.css" text="Search" textFill="WHITE">
+            <JFXButton layoutX="842.0" layoutY="179.0" onAction="#btnProductSearchOnAction" prefHeight="35.0" prefWidth="150.0" style="-fx-background-color: #2596be;" stylesheets="@../css/jfx-button.css" text="Search" textFill="WHITE">
                <font>
                   <Font name="System Bold" size="14.0" />
                </font>
             </JFXButton>
-            <JFXButton layoutX="860.0" layoutY="307.0" onAction="#btnProductUpdateOnAction" prefHeight="35.0" prefWidth="150.0" style="-fx-background-color: #2596be;" stylesheets="@../css/jfx-button.css" text="Update" textFill="WHITE">
+            <JFXButton layoutX="842.0" layoutY="229.0" onAction="#btnProductUpdateOnAction" prefHeight="35.0" prefWidth="150.0" style="-fx-background-color: #2596be;" stylesheets="@../css/jfx-button.css" text="Update" textFill="WHITE">
                <font>
                   <Font name="System Bold" size="14.0" />
                </font>
             </JFXButton>
-            <JFXButton layoutX="860.0" layoutY="357.0" onAction="#btnProductDeleteOnAction" prefHeight="35.0" prefWidth="150.0" style="-fx-background-color: #2596be;" stylesheets="@../css/jfx-button.css" text="Delete" textFill="WHITE">
+            <JFXButton layoutX="842.0" layoutY="279.0" onAction="#btnProductDeleteOnAction" prefHeight="35.0" prefWidth="150.0" style="-fx-background-color: #2596be;" stylesheets="@../css/jfx-button.css" text="Delete" textFill="WHITE">
                <font>
                   <Font name="System Bold" size="14.0" />
                </font>
             </JFXButton>
-            <JFXTextField fx:id="txtProductName" layoutX="156.0" layoutY="581.0" prefHeight="26.0" prefWidth="200.0" promptText="Product Name" stylesheets="@../css/jfx-text-field.css" />
-            <JFXComboBox fx:id="cbProductCategory" layoutX="433.0" layoutY="580.0" prefHeight="28.0" prefWidth="190.0" promptText="Select Category" stylesheets="@../css/jfx-combo-box.css" />
-            <JFXComboBox fx:id="cbProductSize" layoutX="704.0" layoutY="580.0" prefHeight="28.0" prefWidth="190.0" promptText="Select Size" stylesheets="@../css/jfx-combo-box.css" />
-            <JFXTextField fx:id="txtProductPrice" layoutX="156.0" layoutY="665.0" prefHeight="26.0" prefWidth="200.0" promptText="Product Price" stylesheets="@../css/jfx-text-field.css" />
-            <JFXTextField fx:id="txtProductQuantity" layoutX="428.0" layoutY="665.0" prefHeight="26.0" prefWidth="200.0" promptText="Product Quantity" stylesheets="@../css/jfx-text-field.css" />
-            <JFXComboBox fx:id="cbProductSupplierId" layoutX="704.0" layoutY="664.0" prefHeight="28.0" prefWidth="190.0" promptText="Select Supplier" stylesheets="@../css/jfx-combo-box.css" />
-            <JFXButton layoutX="860.0" layoutY="461.0" onAction="#btnProductClearOnAction" prefHeight="35.0" prefWidth="150.0" style="-fx-background-color: #2596be;" stylesheets="@../css/jfx-button.css" text="Clear" textFill="WHITE">
+            <JFXTextField fx:id="txtProductName" layoutX="814.0" layoutY="431.0" prefHeight="35.0" prefWidth="206.0" promptText="Product Name" stylesheets="@../css/jfx-text-field.css" />
+            <JFXComboBox fx:id="cbProductCategory" layoutX="814.0" layoutY="479.0" prefHeight="35.0" prefWidth="206.0" promptText="Select Category" stylesheets="@../css/jfx-combo-box.css" />
+            <JFXComboBox fx:id="cbProductSize" layoutX="814.0" layoutY="527.0" prefHeight="35.0" prefWidth="206.0" promptText="Select Size" stylesheets="@../css/jfx-combo-box.css" />
+            <JFXTextField fx:id="txtProductPrice" layoutX="817.0" layoutY="574.0" prefHeight="35.0" prefWidth="200.0" promptText="Product Price" stylesheets="@../css/jfx-text-field.css" />
+            <JFXTextField fx:id="txtProductQuantity" layoutX="818.0" layoutY="622.0" prefHeight="35.0" prefWidth="200.0" promptText="Product Quantity" stylesheets="@../css/jfx-text-field.css" />
+            <JFXComboBox fx:id="cbProductSupplierId" layoutX="820.0" layoutY="671.0" prefHeight="29.0" prefWidth="200.0" promptText="Select Supplier" stylesheets="@../css/jfx-combo-box.css" />
+            <JFXButton layoutX="842.0" layoutY="328.0" onAction="#btnProductClearOnAction" prefHeight="35.0" prefWidth="150.0" style="-fx-background-color: #2596be;" stylesheets="@../css/jfx-button.css" text="Clear" textFill="WHITE">
                <font>
                   <Font name="System Bold" size="14.0" />
                </font>
             </JFXButton>
             <Label layoutX="53.0" layoutY="35.0" text="Product Management">
                <font>
-                  <Font name="System Bold" size="18.0" />
+                  <Font name="System Bold" size="24.0" />
                </font>
             </Label>
-            <Label layoutX="53.0" layoutY="65.0" text="Style Meets Product: Manage, Track, and Grow!">
+            <Label layoutX="53.0" layoutY="73.0" text="Style Meets Product: Manage, Track, and Grow!">
                <font>
                   <Font name="System Bold Italic" size="14.0" />
                </font>
@@ -215,99 +157,56 @@
             </JFXButton>
             <Label layoutX="60.0" layoutY="41.0" text="Supplier Management">
                <font>
-                  <Font name="System Bold" size="18.0" />
+                  <Font name="System Bold" size="24.0" />
                </font>
             </Label>
-            <Label layoutX="60.0" layoutY="70.0" text="Seamless Supplier Management for a Fashion-Forward Future!">
+            <Label layoutX="60.0" layoutY="79.0" text="Seamless Supplier Management for a Fashion-Forward Future!">
                <font>
                   <Font name="System Bold Italic" size="14.0" />
                </font>
             </Label>
          </children>
       </AnchorPane>
-      <AnchorPane fx:id="apEmployee" layoutX="226.0" layoutY="51.0" prefHeight="766.0" prefWidth="1039.0">
+      <AnchorPane fx:id="apEmployee" layoutX="215.0" layoutY="65.0" prefHeight="755.0" prefWidth="1050.0" style="-fx-background-color: EDEDED;">
          <children>
-            <AnchorPane fx:id="apAddEmployee" layoutX="17.0" layoutY="388.0" prefHeight="360.0" prefWidth="500.0" style="-fx-background-color: EDEDED;" AnchorPane.leftAnchor="17.0">
-               <children>
-                  <TextField fx:id="txtAddEmpName" layoutX="101.0" layoutY="32.0" prefHeight="40.0" prefWidth="210.0" promptText="Name" />
-                  <TextField fx:id="txtAddEmpEma" layoutX="101.0" layoutY="85.0" prefHeight="40.0" prefWidth="210.0" promptText="Email" />
-                  <TextField fx:id="txtAddEmpRol" layoutX="101.0" layoutY="137.0" prefHeight="40.0" prefWidth="210.0" promptText="Role" />
-                  <TextField fx:id="txtAddEmpAdmId" layoutX="101.0" layoutY="189.0" prefHeight="40.0" prefWidth="210.0" promptText="Admin ID" />
-                  <JFXButton contentDisplay="BOTTOM" layoutX="395.0" layoutY="315.0" onAction="#btnAddEmpOnAction" prefHeight="30.0" prefWidth="90.0" style="-fx-background-color: #2596be;" text="Add" textAlignment="CENTER">
-                     <font>
-                        <Font name="System Bold Italic" size="14.0" />
-                     </font>
-                  </JFXButton>
-                  <JFXButton contentDisplay="BOTTOM" layoutX="294.0" layoutY="315.0" onAction="#btnCleEmpOnAction" prefHeight="30.0" prefWidth="90.0" style="-fx-background-color: #2596be;" text="Clear" textAlignment="CENTER">
-                     <font>
-                        <Font name="System Bold Italic" size="14.0" />
-                     </font>
-                  </JFXButton>
-               </children>
-            </AnchorPane>
-            <AnchorPane fx:id="apUpdateEmployee" layoutX="17.0" layoutY="19.0" prefHeight="360.0" prefWidth="500.0" style="-fx-background-color: EDEDED;">
-               <children>
-                  <JFXComboBox fx:id="cbSelectEmpUpdate" layoutX="60.0" layoutY="30.0" onAction="#selectEmpEmailUpdateOnAction" prefHeight="29.0" prefWidth="210.0" promptText="Select Employee" />
-                  <TextField fx:id="txtEmpNameUpdate" layoutX="60.0" layoutY="150.0" prefHeight="40.0" prefWidth="210.0" promptText="Name" />
-                  <TextField fx:id="txtEmpRoleUpdate" layoutX="60.0" layoutY="201.0" prefHeight="40.0" prefWidth="210.0" promptText="Role" />
-                  <TextField fx:id="txtEmpAdmIDUpdate" layoutX="60.0" layoutY="253.0" prefHeight="40.0" prefWidth="210.0" promptText="Admin ID" />
-                  <JFXButton contentDisplay="BOTTOM" layoutX="395.0" layoutY="315.0" onAction="#btnUpdateOnAction" prefHeight="30.0" prefWidth="90.0" style="-fx-background-color: #2596be;" text="Update" textAlignment="CENTER">
-                     <font>
-                        <Font name="System Bold Italic" size="14.0" />
-                     </font>
-                  </JFXButton>
-                  <JFXButton contentDisplay="BOTTOM" layoutX="294.0" layoutY="315.0" onAction="#btnUpdateClearOnAction" prefHeight="30.0" prefWidth="90.0" style="-fx-background-color: #2596be;" text="Clear" textAlignment="CENTER">
-                     <font>
-                        <Font name="System Bold Italic" size="14.0" />
-                     </font>
-                  </JFXButton>
-               </children>
-            </AnchorPane>
-            <AnchorPane fx:id="apSearchEmployee" layoutX="523.0" layoutY="388.0" prefHeight="360.0" prefWidth="500.0" style="-fx-background-color: EDEDED;">
-               <children>
-                  <JFXComboBox fx:id="cbSearchEmpEmail" layoutX="50.0" layoutY="29.0" onAction="#cbSelectEmpSearchEmail" prefHeight="29.0" prefWidth="210.0" promptText="Select Employee" />
-                  <TextField fx:id="txtEmpSeaName" layoutX="50.0" layoutY="149.0" prefHeight="40.0" prefWidth="210.0" promptText="Name" />
-                  <TextField fx:id="txtEmpSeaRole" layoutX="50.0" layoutY="200.0" prefHeight="40.0" prefWidth="210.0" promptText="Role" />
-                  <TextField fx:id="txtEmpSeaAdminID" layoutX="50.0" layoutY="252.0" prefHeight="40.0" prefWidth="210.0" promptText="Admin ID" />
-                  <JFXButton contentDisplay="BOTTOM" layoutX="399.0" layoutY="315.0" onAction="#btnEmpSearchOnAction" prefHeight="30.0" prefWidth="90.0" style="-fx-background-color: #2596be;" text="Search" textAlignment="CENTER">
-                     <font>
-                        <Font name="System Bold Italic" size="14.0" />
-                     </font>
-                  </JFXButton>
-                  <JFXButton contentDisplay="BOTTOM" layoutX="298.0" layoutY="315.0" onAction="#btnSearchEmpClearOnAction" prefHeight="30.0" prefWidth="90.0" style="-fx-background-color: #2596be;" text="Clear" textAlignment="CENTER">
-                     <font>
-                        <Font name="System Bold Italic" size="14.0" />
-                     </font>
-                  </JFXButton>
-               </children>
-            </AnchorPane>
-            <AnchorPane fx:id="apDeleteEmployee" layoutX="523.0" layoutY="19.0" prefHeight="360.0" prefWidth="500.0" style="-fx-background-color: EDEDED;">
-               <children>
-                  <JFXComboBox fx:id="cbEmpDelete" layoutX="46.0" layoutY="22.0" onAction="#selectEmpDeleteOnAction" prefHeight="29.0" prefWidth="210.0" promptText="Select Employee" />
-                  <TextField fx:id="txtEmpDeleteName" layoutX="46.0" layoutY="142.0" prefHeight="40.0" prefWidth="210.0" promptText="Name" />
-                  <TextField fx:id="txtEmpDeleteRole" layoutX="46.0" layoutY="193.0" prefHeight="40.0" prefWidth="210.0" promptText="Role" />
-                  <TextField fx:id="txtEmpDeleteOnAction" layoutX="46.0" layoutY="245.0" prefHeight="40.0" prefWidth="210.0" promptText="Admin ID" />
-                  <JFXButton contentDisplay="BOTTOM" layoutX="395.0" layoutY="315.0" onAction="#btnEmpDeletOnAction" prefHeight="30.0" prefWidth="90.0" style="-fx-background-color: #2596be;" text="Delete" textAlignment="CENTER">
-                     <font>
-                        <Font name="System Bold Italic" size="14.0" />
-                     </font>
-                  </JFXButton>
-                  <JFXButton contentDisplay="BOTTOM" layoutX="294.0" layoutY="315.0" onAction="#btnEmpDeleteClearOnAction" prefHeight="30.0" prefWidth="90.0" style="-fx-background-color: #2596be;" text="Clear" textAlignment="CENTER">
-                     <font>
-                        <Font name="System Bold Italic" size="14.0" />
-                     </font>
-                  </JFXButton>
-               </children>
-            </AnchorPane>
-         </children></AnchorPane>
-      <AnchorPane fx:id="apPlaceOrder" layoutX="216.0" layoutY="63.0" prefHeight="758.0" prefWidth="1046.0" style="-fx-background-color: EDEDED;">
-         <children>
-            <Label layoutX="80.0" layoutY="56.0" stylesheets="@../css/label.css" text="Order ID">
+            <TableView fx:id="tblEmployee" layoutX="55.0" layoutY="96.0" prefHeight="620.0" prefWidth="706.0" stylesheets="@../css/table-view.css">
+              <columns>
+                <TableColumn fx:id="colEmployeeID" prefWidth="55.199981689453125" text="ID" />
+                <TableColumn fx:id="colEmployeeName" prefWidth="182.4000244140625" text="Name" />
+                  <TableColumn fx:id="colEmployeeEmail" prefWidth="205.5999755859375" text="Email" />
+                  <TableColumn fx:id="colEmployeeRole" prefWidth="170.4000244140625" text="Role" />
+                  <TableColumn fx:id="colEmployeeAdminID" prefWidth="81.60003662109375" text="AdminID" />
+              </columns>
+            </TableView>
+            <JFXTextField fx:id="txtEmployeeName2" layoutX="819.0" layoutY="476.0" prefHeight="35.0" prefWidth="180.0" promptText="Name" stylesheets="@../css/jfx-text-field.css" />
+            <JFXTextField fx:id="txtEmployeeEmail" layoutX="819.0" layoutY="525.0" prefHeight="35.0" prefWidth="180.0" promptText="Email" stylesheets="@../css/jfx-text-field.css" />
+            <JFXTextField fx:id="txtEmployeePassword" layoutX="820.0" layoutY="574.0" prefHeight="35.0" prefWidth="180.0" promptText="Password" stylesheets="@../css/jfx-text-field.css" />
+            <JFXComboBox fx:id="cbEmployeeUserRole" layoutX="819.0" layoutY="623.0" prefHeight="35.0" prefWidth="180.0" promptText="Select User Role" stylesheets="@../css/jfx-combo-box.css" />
+            <JFXComboBox fx:id="cbEmployeeEmployeeRole" layoutX="819.0" layoutY="672.0" prefHeight="35.0" prefWidth="180.0" promptText="Select Employee Role" stylesheets="@../css/jfx-combo-box.css" />
+            <JFXButton layoutX="820.0" layoutY="145.0" onAction="#btnEmployeeAddOnAction" prefHeight="35.0" prefWidth="180.0" stylesheets="@../css/jfx-button.css" text="Add" />
+            <JFXButton layoutX="820.0" layoutY="192.0" onAction="#btnEmployeeSearchOnAction" prefHeight="35.0" prefWidth="180.0" stylesheets="@../css/jfx-button.css" text="Search" />
+            <JFXButton layoutX="820.0" layoutY="241.0" onAction="#btnEmployeeUpdateOnAction" prefHeight="35.0" prefWidth="180.0" stylesheets="@../css/jfx-button.css" text="Update" />
+            <JFXButton layoutX="820.0" layoutY="288.0" onAction="#btnEmployeeDeleteOnAction" prefHeight="35.0" prefWidth="180.0" stylesheets="@../css/jfx-button.css" text="Delete" />
+            <JFXButton layoutX="819.0" layoutY="349.0" onAction="#btnEmployeeClearOnAction" prefHeight="35.0" prefWidth="180.0" stylesheets="@../css/jfx-button.css" text="Clear" />
+            <Label layoutX="63.0" layoutY="19.0" text="Employee Management">
+               <font>
+                  <Font name="System Bold" size="24.0" />
+               </font>
+            </Label>
+            <Label layoutX="62.0" layoutY="56.0" text="Effortless Employee Management for a Seamless Shopping Experience!">
                <font>
                   <Font name="System Bold Italic" size="14.0" />
                </font>
             </Label>
-            <TableView fx:id="tableViewProducts" layoutX="65.0" layoutY="276.0" prefHeight="300.0" prefWidth="920.0" stylesheets="@../css/table-view.css">
+         </children></AnchorPane>
+      <AnchorPane fx:id="apPlaceOrder" layoutX="216.0" layoutY="63.0" prefHeight="758.0" prefWidth="1046.0" style="-fx-background-color: EDEDED;">
+         <children>
+            <Label layoutX="72.0" layoutY="28.0" stylesheets="@../css/label.css" text="Order ID">
+               <font>
+                  <Font name="System Bold Italic" size="14.0" />
+               </font>
+            </Label>
+            <TableView fx:id="tableViewProducts" layoutX="65.0" layoutY="191.0" prefHeight="400.0" prefWidth="920.0" stylesheets="@../css/table-view.css">
               <columns>
                 <TableColumn fx:id="colProductId" prefWidth="80.80001831054688" text="Product ID" />
                 <TableColumn fx:id="colProductName" prefWidth="353.60003662109375" text="Product Name" />
@@ -316,56 +215,117 @@
                   <TableColumn fx:id="colPrice" prefWidth="191.466796875" text="Product Price" />
               </columns>
             </TableView>
-            <JFXTextField fx:id="txtPlaceOrderOrderId" layoutX="152.0" layoutY="50.0" prefHeight="25.0" prefWidth="95.0" stylesheets="@../css/jfx-text-field.css" />
-            <JFXComboBox fx:id="cbPlaceOrderEmployee" layoutX="828.0" layoutY="52.0" onAction="#btnPlaceOrderEmployeeOnAction" promptText="Select Employee" stylesheets="@../css/jfx-combo-box.css" />
-            <JFXTextField fx:id="txtEmployeeName" layoutX="828.0" layoutY="92.0" prefHeight="26.0" prefWidth="130.0" stylesheets="@../css/jfx-text-field.css" />
-            <JFXComboBox fx:id="cbPlaceOrderSelectProduct" layoutX="78.0" layoutY="96.0" onAction="#btnPlaceOrderProductOnAction" prefHeight="26.0" prefWidth="169.0" promptText="Select Product" stylesheets="@../css/jfx-combo-box.css" />
-            <JFXTextField fx:id="txtPlaceOrderProductName" layoutX="80.0" layoutY="158.0" prefHeight="26.0" prefWidth="250.0" promptText="Product Name" stylesheets="@../css/jfx-text-field.css" />
-            <JFXTextField fx:id="txtPlaceOrderProductSIze" layoutX="391.0" layoutY="159.0" prefHeight="26.0" prefWidth="150.0" promptText="Product SIze" stylesheets="@../css/jfx-text-field.css" />
-            <JFXTextField fx:id="txtPlaceOrderProductPrice" layoutX="603.0" layoutY="159.0" prefHeight="26.0" prefWidth="150.0" promptText="Product Price" stylesheets="@../css/jfx-text-field.css" />
-            <JFXTextField fx:id="txtPlaceOrderProductQty" layoutX="807.0" layoutY="158.0" prefHeight="26.0" prefWidth="150.0" promptText="Product Quantity" stylesheets="@../css/jfx-text-field.css" />
-            <JFXComboBox fx:id="cbPlaceOrderPaymentType" layoutX="76.0" layoutY="606.0" prefHeight="26.0" prefWidth="169.0" promptText="Select Payment Type" stylesheets="@../css/jfx-combo-box.css" />
-            <Label layoutX="795.0" layoutY="612.0" stylesheets="@../css/label.css" text="Total Price">
+            <JFXTextField fx:id="txtPlaceOrderOrderId" layoutX="154.0" layoutY="22.0" prefHeight="25.0" prefWidth="95.0" stylesheets="@../css/jfx-text-field.css" />
+            <JFXComboBox fx:id="cbPlaceOrderEmployee" layoutX="838.0" layoutY="24.0" onAction="#btnPlaceOrderEmployeeOnAction" promptText="Select Employee" stylesheets="@../css/jfx-combo-box.css" />
+            <JFXTextField fx:id="txtEmployeeName" layoutX="845.0" layoutY="70.0" prefHeight="26.0" prefWidth="135.0" stylesheets="@../css/jfx-text-field.css" />
+            <JFXComboBox fx:id="cbPlaceOrderSelectProduct" layoutX="69.0" layoutY="65.0" onAction="#btnPlaceOrderProductOnAction" prefHeight="26.0" prefWidth="169.0" promptText="Select Product" stylesheets="@../css/jfx-combo-box.css" />
+            <JFXTextField fx:id="txtPlaceOrderProductName" layoutX="68.0" layoutY="138.0" prefHeight="26.0" prefWidth="250.0" promptText="Product Name" stylesheets="@../css/jfx-text-field.css" />
+            <JFXTextField fx:id="txtPlaceOrderProductSIze" layoutX="333.0" layoutY="139.0" prefHeight="26.0" prefWidth="150.0" promptText="Product SIze" stylesheets="@../css/jfx-text-field.css" />
+            <JFXTextField fx:id="txtPlaceOrderProductPrice" layoutX="498.0" layoutY="139.0" prefHeight="26.0" prefWidth="150.0" promptText="Product Price" stylesheets="@../css/jfx-text-field.css" />
+            <JFXTextField fx:id="txtPlaceOrderProductQty" layoutX="663.0" layoutY="138.0" prefHeight="26.0" prefWidth="150.0" promptText="Product Quantity" stylesheets="@../css/jfx-text-field.css" />
+            <JFXComboBox fx:id="cbPlaceOrderPaymentType" layoutX="76.0" layoutY="617.0" prefHeight="26.0" prefWidth="169.0" promptText="Select Payment Type" stylesheets="@../css/jfx-combo-box.css" />
+            <Label layoutX="795.0" layoutY="623.0" stylesheets="@../css/label.css" text="Total Price">
                <font>
                   <Font name="System Bold Italic" size="14.0" />
                </font>
             </Label>
-            <JFXTextField fx:id="txtPlaceOrderTotal" layoutX="878.0" layoutY="606.0" prefHeight="25.0" prefWidth="95.0" stylesheets="@../css/jfx-text-field.css" />
-            <Label layoutX="383.0" layoutY="615.0" stylesheets="@../css/label.css" text="Customer Email">
+            <JFXTextField fx:id="txtPlaceOrderTotal" layoutX="878.0" layoutY="617.0" prefHeight="25.0" prefWidth="95.0" stylesheets="@../css/jfx-text-field.css" />
+            <Label layoutX="383.0" layoutY="626.0" stylesheets="@../css/label.css" text="Customer Email">
                <font>
                   <Font name="System Bold Italic" size="14.0" />
                </font>
             </Label>
-            <JFXTextField layoutX="499.0" layoutY="609.0" prefHeight="25.0" prefWidth="200.0" stylesheets="@../css/jfx-text-field.css" />
-            <JFXButton layoutX="792.0" layoutY="700.0" onAction="#btnPlaceOrdersOnAction" prefHeight="30.0" prefWidth="180.0" style="-fx-background-color: #2596be;" text="Place Order" textFill="WHITE">
+            <JFXTextField layoutX="499.0" layoutY="620.0" prefHeight="25.0" prefWidth="200.0" stylesheets="@../css/jfx-text-field.css" />
+            <JFXButton layoutX="792.0" layoutY="711.0" onAction="#btnPlaceOrdersOnAction" prefHeight="30.0" prefWidth="180.0" style="-fx-background-color: #2596be;" text="Place Order" textFill="WHITE">
                <font>
                   <Font name="System Bold" size="14.0" />
                </font>
             </JFXButton>
-            <JFXButton layoutX="509.0" layoutY="701.0" prefHeight="30.0" prefWidth="180.0" style="-fx-background-color: #2596be;" text="Cancel" textFill="WHITE">
+            <JFXButton layoutX="509.0" layoutY="712.0" prefHeight="30.0" prefWidth="180.0" style="-fx-background-color: #2596be;" text="Cancel" textFill="WHITE">
                <font>
                   <Font name="System Bold" size="14.0" />
                </font>
             </JFXButton>
-            <JFXButton layoutX="509.0" layoutY="661.0" prefHeight="30.0" prefWidth="180.0" style="-fx-background-color: #2596be;" text="Sent Receipt" textFill="WHITE">
+            <JFXButton layoutX="509.0" layoutY="672.0" prefHeight="30.0" prefWidth="180.0" style="-fx-background-color: #2596be;" text="Sent Receipt" textFill="WHITE">
                <font>
                   <Font name="System Bold" size="14.0" />
                </font>
             </JFXButton>
-            <Label layoutX="405.0" layoutY="56.0" stylesheets="@../css/label.css" text="Date and Time">
+            <Label layoutX="373.0" layoutY="28.0" stylesheets="@../css/label.css" text="Date and Time">
                <font>
                   <Font name="System Bold Italic" size="14.0" />
                </font>
             </Label>
-            <JFXTextField fx:id="txtPlaceOrderDateAndTime" layoutX="513.0" layoutY="50.0" prefHeight="25.0" prefWidth="150.0" stylesheets="@../css/jfx-text-field.css" />
-            <JFXButton layoutX="792.0" layoutY="660.0" onAction="#btnPlaceOrderAddToCardOnAction" prefHeight="30.0" prefWidth="180.0" style="-fx-background-color: #2596be;" text="Add To Card" textFill="WHITE">
+            <JFXTextField fx:id="txtPlaceOrderDateAndTime" layoutX="509.0" layoutY="22.0" prefHeight="26.0" prefWidth="159.0" stylesheets="@../css/jfx-text-field.css" />
+            <JFXButton layoutX="792.0" layoutY="671.0" onAction="#btnPlaceOrderAddToCardOnAction" prefHeight="30.0" prefWidth="180.0" style="-fx-background-color: #2596be;" text="Add To Card" textFill="WHITE">
                <font>
                   <Font name="System Bold" size="14.0" />
                </font>
             </JFXButton>
-            <JFXComboBox fx:id="cbPlaceOrderSelectCustomer" layoutX="366.0" layoutY="96.0" onAction="#cbPlaceOrderSelectCustomerOnAction" prefHeight="34.0" prefWidth="130.0" promptText="Select Customer" stylesheets="@../css/jfx-combo-box.css" />
-            <JFXTextField fx:id="txtSelectCustomerName" layoutX="508.0" layoutY="104.0" prefHeight="26.0" prefWidth="159.0" stylesheets="@../css/jfx-text-field.css" />
-            <JFXTextField fx:id="txtPlaceOrderSupplierId" layoutX="79.0" layoutY="200.0" prefHeight="26.0" prefWidth="150.0" promptText="Supplier Id" stylesheets="@../css/jfx-text-field.css" />
+            <JFXComboBox fx:id="cbPlaceOrderSelectCustomer" layoutX="368.0" layoutY="65.0" onAction="#cbPlaceOrderSelectCustomerOnAction" prefHeight="34.0" prefWidth="130.0" promptText="Select Customer" stylesheets="@../css/jfx-combo-box.css" />
+            <JFXTextField fx:id="txtSelectCustomerName" layoutX="510.0" layoutY="73.0" prefHeight="26.0" prefWidth="159.0" stylesheets="@../css/jfx-text-field.css" />
+            <JFXTextField fx:id="txtPlaceOrderSupplierId" layoutX="830.0" layoutY="139.0" prefHeight="26.0" prefWidth="150.0" promptText="Supplier Id" stylesheets="@../css/jfx-text-field.css" />
+         </children>
+      </AnchorPane>
+      <AnchorPane fx:id="apReports" layoutX="215.0" layoutY="64.0" prefHeight="758.0" prefWidth="1050.0" style="-fx-background-color: EDEDED;">
+         <children>
+            <JFXButton contentDisplay="BOTTOM" layoutX="40.0" layoutY="39.0" onAction="#btnCustomerReportOnAction" prefHeight="40.0" prefWidth="130.0" style="-fx-background-color: #2596be;" text="Orders Report" textAlignment="CENTER" textFill="WHITE">
+               <font>
+                  <Font name="System Bold Italic" size="14.0" />
+               </font>
+            </JFXButton>
+         </children>
+      </AnchorPane>
+      <AnchorPane fx:id="apUser" layoutX="215.0" layoutY="65.0" prefHeight="755.0" prefWidth="1050.0" style="-fx-background-color: EDEDED;">
+         <children>
+            <JFXTextField fx:id="txtUserName" layoutX="840.0" layoutY="115.0" prefHeight="26.0" prefWidth="180.0" promptText="Name" stylesheets="@../css/jfx-text-field.css" />
+            <TableView fx:id="tblUser" layoutX="32.0" layoutY="88.0" prefHeight="640.0" prefWidth="765.0" stylesheets="@../css/table-view.css">
+              <columns>
+                <TableColumn fx:id="colUserName" prefWidth="162.39993286132812" text="Name" />
+                <TableColumn fx:id="colUserEmail" prefWidth="215.20004272460938" text="Email" />
+                  <TableColumn fx:id="colUserPassword" prefWidth="138.39996337890625" text="Password" />
+                  <TableColumn fx:id="colUserRole" prefWidth="105.60003662109375" text="Role" />
+                  <TableColumn fx:id="colUserRegDate" prefWidth="130.39996337890625" text="RegDate" />
+              </columns>
+            </TableView>
+            <JFXTextField fx:id="txtUserEmail" layoutX="840.0" layoutY="161.0" prefHeight="26.0" prefWidth="180.0" promptText="Email" stylesheets="@../css/jfx-text-field.css" />
+            <JFXTextField fx:id="txtUserPassword" layoutX="840.0" layoutY="209.0" prefHeight="26.0" prefWidth="180.0" promptText="Password" stylesheets="@../css/jfx-text-field.css" />
+            <JFXButton layoutX="842.0" layoutY="426.0" onAction="#btnUserAddOnAction" prefHeight="34.0" prefWidth="180.0" style="-fx-background-color: #2596be;" stylesheets="@../css/jfx-button.css" text="Add" textFill="WHITE">
+               <font>
+                  <Font name="System Bold" size="14.0" />
+               </font>
+            </JFXButton>
+            <JFXButton layoutX="843.0" layoutY="473.0" onAction="#btnUserSearchOnAction" prefHeight="34.0" prefWidth="180.0" style="-fx-background-color: #2596be;" stylesheets="@../css/jfx-button.css" text="Search" textFill="WHITE">
+               <font>
+                  <Font name="System Bold" size="14.0" />
+               </font>
+            </JFXButton>
+            <JFXButton layoutX="844.0" layoutY="520.0" onAction="#btnUserUpdateOnAction" prefHeight="34.0" prefWidth="180.0" style="-fx-background-color: #2596be;" stylesheets="@../css/jfx-button.css" text="Update" textFill="WHITE">
+               <font>
+                  <Font name="System Bold" size="14.0" />
+               </font>
+            </JFXButton>
+            <JFXButton layoutX="844.0" layoutY="568.0" onAction="#btnUserDeleteOnAction" prefHeight="34.0" prefWidth="180.0" style="-fx-background-color: #2596be;" stylesheets="@../css/jfx-button.css" text="Delete" textFill="WHITE">
+               <font>
+                  <Font name="System Bold" size="14.0" />
+               </font>
+            </JFXButton>
+            <JFXButton layoutX="844.0" layoutY="663.0" onAction="#btnClearAreasOnAction" prefHeight="34.0" prefWidth="180.0" style="-fx-background-color: #2596be;" stylesheets="@../css/jfx-button.css" text="Clear" textFill="WHITE">
+               <font>
+                  <Font name="System Bold" size="14.0" />
+               </font>
+            </JFXButton>
+            <JFXComboBox fx:id="cbUserRole" layoutX="841.0" layoutY="253.0" prefHeight="28.0" prefWidth="180.0" promptText="Select Role" stylesheets="@../css/jfx-combo-box.css" />
+            <Label layoutX="43.0" layoutY="15.0" prefHeight="35.0" prefWidth="230.0" text="User Management">
+               <font>
+                  <Font name="System Bold" size="24.0" />
+               </font>
+            </Label>
+            <Label layoutX="42.0" layoutY="42.0" prefHeight="35.0" prefWidth="430.0" text="Manage your team members and their account permissions here">
+               <font>
+                  <Font name="System Bold Italic" size="14.0" />
+               </font>
+            </Label>
          </children>
       </AnchorPane>
    </children>

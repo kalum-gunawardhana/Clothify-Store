@@ -1,0 +1,215 @@
+<!-- Created with Jaspersoft Studio version 7.0.1.final using JasperReports Library version 7.0.1-573496633c2b4074e32f433154b543003f7d2498  -->
+<jasperReport name="orders" language="java" columnCount="1" pageWidth="842" pageHeight="595" orientation="Landscape" whenNoDataType="AllSectionsNoDetail" columnWidth="802" leftMargin="20" rightMargin="20" topMargin="20" bottomMargin="20" uuid="ba1c2fcf-4c66-4d60-9df8-cfc83011c3a1">
+	<property name="template.engine" value="tabular_template"/>
+	<property name="com.jaspersoft.studio.data.sql.tables" value=""/>
+	<property name="com.jaspersoft.studio.data.defaultdataadapter" value="New Data Adapter"/>
+	<style name="Title" forecolor="#FFFFFF" fontName="Times New Roman" fontSize="50.0" bold="false"/>
+	<style name="SubTitle" forecolor="#CCCCCC" fontName="Times New Roman" fontSize="18.0" bold="false"/>
+	<style name="Column header" forecolor="#666666" fontName="Times New Roman" fontSize="14.0" bold="true"/>
+	<style name="Detail" mode="Transparent" fontName="Times New Roman" pdfFontName="Times-Roman"/>
+	<style name="Row" mode="Transparent" fontName="Times New Roman" pdfFontName="Times-Roman">
+		<conditionalStyle mode="Opaque" backcolor="#F0EFEF">
+			<conditionExpression><![CDATA[$V{REPORT_COUNT}%2 == 0]]></conditionExpression>
+		</conditionalStyle>
+	</style>
+	<style name="Table">
+		<box>
+			<pen lineWidth="1.0" lineColor="#000000"/>
+			<topPen lineWidth="1.0" lineColor="#000000"/>
+			<leftPen lineWidth="1.0" lineColor="#000000"/>
+			<bottomPen lineWidth="1.0" lineColor="#000000"/>
+			<rightPen lineWidth="1.0" lineColor="#000000"/>
+		</box>
+	</style>
+	<style name="Table_TH" mode="Opaque" backcolor="#FFFFFF">
+		<box>
+			<pen lineWidth="0.5" lineColor="#000000"/>
+			<topPen lineWidth="0.5" lineColor="#000000"/>
+			<leftPen lineWidth="0.5" lineColor="#000000"/>
+			<bottomPen lineWidth="0.5" lineColor="#000000"/>
+			<rightPen lineWidth="0.5" lineColor="#000000"/>
+		</box>
+	</style>
+	<style name="Table_CH" mode="Opaque" backcolor="#000000">
+		<box>
+			<pen lineWidth="0.5" lineColor="#000000"/>
+			<topPen lineWidth="0.5" lineColor="#000000"/>
+			<leftPen lineWidth="0.5" lineColor="#000000"/>
+			<bottomPen lineWidth="0.5" lineColor="#000000"/>
+			<rightPen lineWidth="0.5" lineColor="#000000"/>
+		</box>
+	</style>
+	<style name="Table_TD" mode="Opaque" backcolor="#FFFFFF">
+		<box>
+			<pen lineWidth="0.5" lineColor="#000000"/>
+			<topPen lineWidth="0.5" lineColor="#000000"/>
+			<leftPen lineWidth="0.5" lineColor="#000000"/>
+			<bottomPen lineWidth="0.5" lineColor="#000000"/>
+			<rightPen lineWidth="0.5" lineColor="#000000"/>
+		</box>
+		<conditionalStyle backcolor="#D8D8D8">
+			<conditionExpression><![CDATA[$V{REPORT_COUNT}%2 == 0]]></conditionExpression>
+		</conditionalStyle>
+	</style>
+	<dataset name="tableDataset" uuid="6eee9467-9317-4a5e-9a64-06a420835fa6">
+		<property name="com.jaspersoft.studio.data.defaultdataadapter" value="New Data Adapter"/>
+		<query language="SQL"><![CDATA[select * from orders;]]></query>
+		<field name="OrderID" class="java.lang.Integer">
+			<property name="com.jaspersoft.studio.field.name" value="OrderID"/>
+			<property name="com.jaspersoft.studio.field.label" value="OrderID"/>
+			<property name="com.jaspersoft.studio.field.tree.path" value="orders"/>
+		</field>
+		<field name="OrderDate" class="java.sql.Date">
+			<property name="com.jaspersoft.studio.field.name" value="OrderDate"/>
+			<property name="com.jaspersoft.studio.field.label" value="OrderDate"/>
+			<property name="com.jaspersoft.studio.field.tree.path" value="orders"/>
+		</field>
+		<field name="TotalCost" class="java.math.BigDecimal">
+			<property name="com.jaspersoft.studio.field.name" value="TotalCost"/>
+			<property name="com.jaspersoft.studio.field.label" value="TotalCost"/>
+			<property name="com.jaspersoft.studio.field.tree.path" value="orders"/>
+		</field>
+		<field name="PaymentType" class="java.lang.String">
+			<property name="com.jaspersoft.studio.field.name" value="PaymentType"/>
+			<property name="com.jaspersoft.studio.field.label" value="PaymentType"/>
+			<property name="com.jaspersoft.studio.field.tree.path" value="orders"/>
+		</field>
+		<field name="EmployeeID" class="java.lang.Integer">
+			<property name="com.jaspersoft.studio.field.name" value="EmployeeID"/>
+			<property name="com.jaspersoft.studio.field.label" value="EmployeeID"/>
+			<property name="com.jaspersoft.studio.field.tree.path" value="orders"/>
+		</field>
+		<field name="CustomerID" class="java.lang.Integer">
+			<property name="com.jaspersoft.studio.field.name" value="CustomerID"/>
+			<property name="com.jaspersoft.studio.field.label" value="CustomerID"/>
+			<property name="com.jaspersoft.studio.field.tree.path" value="orders"/>
+		</field>
+		<group name="OrderID">
+			<expression><![CDATA[$F{OrderID}]]></expression>
+		</group>
+		<group name="OrderDate">
+			<expression><![CDATA[$F{OrderDate}]]></expression>
+		</group>
+		<group name="TotalCost">
+			<expression><![CDATA[$F{TotalCost}]]></expression>
+		</group>
+		<group name="PaymentType">
+			<expression><![CDATA[$F{PaymentType}]]></expression>
+		</group>
+		<group name="EmployeeID">
+			<expression><![CDATA[$F{EmployeeID}]]></expression>
+		</group>
+		<group name="CustomerID">
+			<expression><![CDATA[$F{CustomerID}]]></expression>
+		</group>
+	</dataset>
+	<query language="sql"><![CDATA[]]></query>
+	<title height="102" splitType="Stretch"/>
+	<pageFooter height="25" splitType="Stretch"/>
+	<summary height="300" splitType="Stretch">
+		<element kind="component" uuid="1b4ba4ac-1da2-455f-8864-34855c3c2822" x="2" y="0" width="538" height="300">
+			<component kind="table">
+				<datasetRun uuid="1b1807fe-2145-458f-9993-dcefa4170994" subDataset="tableDataset">
+					<connectionExpression><![CDATA[$P{REPORT_CONNECTION}]]></connectionExpression>
+				</datasetRun>
+				<column kind="group" uuid="1092437f-e5e7-4ab3-adca-983192940035" width="540">
+					<property name="com.jaspersoft.studio.components.table.model.column.name" value="Columns [6]"/>
+					<column kind="single" uuid="4a506755-563d-41fc-8329-8dd52b9a1cbe" width="90">
+						<columnHeader height="30" rowSpan="1" style="Table_CH">
+							<element kind="staticText" uuid="5e6b74f5-071e-43e2-9398-48c2f30728ca" key="" x="0" y="0" width="90" height="30" forecolor="#FFFFFF" fontName="Arial" fontSize="12.0" bold="true" style="Column header">
+								<text><![CDATA[OrderID]]></text>
+								<box leftPadding="2" style="Column header"/>
+							</element>
+						</columnHeader>
+						<detailCell height="30" style="Table_TD">
+							<element kind="textField" uuid="0257f81f-266b-4518-9e85-03b394787cf0" x="0" y="0" width="90" height="30" fontName="Arial" fontSize="12.0" style="Detail">
+								<expression><![CDATA[$F{OrderID}]]></expression>
+								<box leftPadding="2" style="Detail"/>
+							</element>
+						</detailCell>
+						<property name="com.jaspersoft.studio.components.table.model.column.name" value="Column1"/>
+					</column>
+					<column kind="single" uuid="c43db812-ed04-4b2c-ac83-05ca16abd5b4" width="90">
+						<columnHeader height="30" rowSpan="1" style="Table_CH">
+							<element kind="staticText" uuid="d583f7ba-b335-4276-927f-79033ec10502" key="" x="0" y="0" width="90" height="30" forecolor="#FFFFFF" fontName="Arial" fontSize="12.0" bold="true" style="Column header">
+								<text><![CDATA[OrderDate]]></text>
+								<box leftPadding="2" style="Column header"/>
+							</element>
+						</columnHeader>
+						<detailCell height="30" style="Table_TD">
+							<element kind="textField" uuid="8be4dd9f-8182-4758-b846-90a9ee423ebb" x="0" y="0" width="90" height="30" fontName="Arial" fontSize="12.0" style="Detail">
+								<expression><![CDATA[$F{OrderDate}]]></expression>
+								<box leftPadding="2" style="Detail"/>
+							</element>
+						</detailCell>
+						<property name="com.jaspersoft.studio.components.table.model.column.name" value="Column2"/>
+					</column>
+					<column kind="single" uuid="11fae9dc-fe7b-4b8d-807b-416c74f53d40" width="90">
+						<columnHeader height="30" rowSpan="1" style="Table_CH">
+							<element kind="staticText" uuid="b87618c2-9776-4743-b473-ebc168861333" key="" x="0" y="0" width="90" height="30" forecolor="#FFFFFF" fontName="Arial" fontSize="12.0" bold="true" style="Column header">
+								<text><![CDATA[TotalCost]]></text>
+								<box leftPadding="2" style="Column header"/>
+							</element>
+						</columnHeader>
+						<detailCell height="30" style="Table_TD">
+							<element kind="textField" uuid="9b6f5b94-e7e2-4cfc-b0f4-9ed0b07dc639" x="0" y="0" width="90" height="30" fontName="Arial" fontSize="12.0" style="Detail">
+								<expression><![CDATA[$F{TotalCost}]]></expression>
+								<box leftPadding="2" style="Detail"/>
+							</element>
+						</detailCell>
+						<property name="com.jaspersoft.studio.components.table.model.column.name" value="Column3"/>
+					</column>
+					<column kind="single" uuid="e937df99-b042-41da-b47f-13a4da741408" width="90">
+						<columnHeader height="30" rowSpan="1" style="Table_CH">
+							<element kind="staticText" uuid="87eccafd-ba13-449a-8cc9-3979d0d2a0dc" key="" x="0" y="0" width="90" height="30" forecolor="#FFFFFF" fontName="Arial" fontSize="12.0" bold="true" style="Column header">
+								<text><![CDATA[PaymentType]]></text>
+								<box leftPadding="2" style="Column header"/>
+							</element>
+						</columnHeader>
+						<detailCell height="30" style="Table_TD">
+							<element kind="textField" uuid="85394701-b58d-4ff4-8f25-488e329bb959" x="0" y="0" width="90" height="30" fontName="Arial" fontSize="12.0" style="Detail">
+								<expression><![CDATA[$F{PaymentType}]]></expression>
+								<box leftPadding="2" style="Detail"/>
+							</element>
+						</detailCell>
+						<property name="com.jaspersoft.studio.components.table.model.column.name" value="Column4"/>
+					</column>
+					<column kind="single" uuid="cd9ca2f7-4200-4a95-bd16-4e06cf7f35d7" width="90">
+						<columnHeader height="30" rowSpan="1" style="Table_CH">
+							<element kind="staticText" uuid="4743b34e-9cbb-47b1-ae43-dcef7aecfd8a" key="" x="0" y="0" width="90" height="30" forecolor="#FFFFFF" fontName="Arial" fontSize="12.0" bold="true" style="Column header">
+								<text><![CDATA[EmployeeID]]></text>
+								<box leftPadding="2" style="Column header"/>
+							</element>
+						</columnHeader>
+						<detailCell height="30" style="Table_TD">
+							<element kind="textField" uuid="27d6e3b0-accc-4d6f-b032-6c5c3b9a1676" x="0" y="0" width="90" height="30" fontName="Arial" fontSize="12.0" style="Detail">
+								<expression><![CDATA[$F{EmployeeID}]]></expression>
+								<box leftPadding="2" style="Detail"/>
+							</element>
+						</detailCell>
+						<property name="com.jaspersoft.studio.components.table.model.column.name" value="Column5"/>
+					</column>
+					<column kind="single" uuid="26dff2b0-3cfe-4ed8-a537-5a590f66c9d4" width="90">
+						<columnHeader height="30" rowSpan="1" style="Table_CH">
+							<element kind="staticText" uuid="130854bb-b335-450e-8789-ee87add700c0" key="" x="0" y="0" width="90" height="30" forecolor="#FFFFFF" fontName="Arial" fontSize="12.0" bold="true" style="Column header">
+								<text><![CDATA[CustomerID]]></text>
+								<box leftPadding="2" style="Column header"/>
+							</element>
+						</columnHeader>
+						<detailCell height="30" style="Table_TD">
+							<element kind="textField" uuid="934f480a-fde9-456b-8b05-63e268407ee4" x="0" y="0" width="90" height="30" fontName="Arial" fontSize="12.0" style="Detail">
+								<expression><![CDATA[$F{CustomerID}]]></expression>
+								<box leftPadding="2" style="Detail"/>
+							</element>
+						</detailCell>
+						<property name="com.jaspersoft.studio.components.table.model.column.name" value="Column6"/>
+					</column>
+				</column>
+			</component>
+			<property name="com.jaspersoft.studio.table.style.table_header" value="Table_TH"/>
+			<property name="com.jaspersoft.studio.table.style.column_header" value="Table_CH"/>
+			<property name="com.jaspersoft.studio.table.style.detail" value="Table_TD"/>
+		</element>
+		<property name="local_mesure_unitheight" value="pixel"/>
+	</summary>
+</jasperReport>

@@ -24,92 +24,6 @@ public class DashboardController implements DashboardService {
     }
 
     @Override
-    public boolean addEmp(String name, String email, String role, Integer adminId) {
-        try {
-            PreparedStatement preparedStatement = DBConnection.getInstance().getConnection().prepareStatement("INSERT INTO employee (Name, Email, Role, AdminID) VALUES (?, ?, ?, ?)");
-            preparedStatement.setString(1, name);
-            preparedStatement.setString(2, email);
-            preparedStatement.setString(3, role);
-            preparedStatement.setInt(4, adminId);
-
-            boolean b = preparedStatement.executeUpdate() > 0;
-            if (b) {
-                return true;
-            } else {
-                return false;
-            }
-        } catch (SQLException e) {
-            throw new RuntimeException(e);
-        }
-    }
-
-    @Override
-    public List<String> getEmpEmail() {
-        List<String> emailList = new ArrayList<>();
-        try {
-            PreparedStatement preparedStatement = DBConnection.getInstance().getConnection().prepareStatement("SELECT Email FROM employee");
-            ResultSet resultSet = preparedStatement.executeQuery();
-            while (resultSet.next()) {
-                emailList.add(resultSet.getString("Email"));
-            }
-        } catch (SQLException e) {
-            throw new RuntimeException(e);
-        }
-        return emailList;
-    }
-
-    @Override
-    public Object getEmpData(String email) {
-        try {
-            PreparedStatement preparedStatement = DBConnection.getInstance().getConnection().prepareStatement("SELECT * FROM employee WHERE Email = ?");
-            preparedStatement.setString(1, email);
-            ResultSet rs = preparedStatement.executeQuery();
-
-            if (rs.next()) {
-                Employee employee = new Employee(
-                        rs.getInt("EmployeeID"),
-                        rs.getString("Name"),
-                        rs.getString("Email"),
-                        rs.getString("Role"),
-                        rs.getInt("AdminID")
-                );
-                return employee;
-            }
-            return null;
-        } catch (SQLException e) {
-            throw new RuntimeException(e);
-        }
-    }
-
-    @Override
-    public boolean updateEmp(String email, String name, String role, int adminId) {
-        try {
-            PreparedStatement preparedStatement = DBConnection.getInstance().getConnection().prepareStatement("UPDATE employee SET Name = ?, Role = ?, AdminID = ? WHERE Email = ?");
-            preparedStatement.setString(1, name);
-            preparedStatement.setString(2, role);
-            preparedStatement.setInt(3, adminId);
-            preparedStatement.setString(4, email);
-
-            boolean b = preparedStatement.executeUpdate() > 0;
-            return b;
-        } catch (SQLException e) {
-            throw new RuntimeException(e);
-        }
-    }
-
-    @Override
-    public boolean deleteEmployeeByEmail(String email) {
-        try {
-            PreparedStatement preparedStatement = DBConnection.getInstance().getConnection().prepareStatement("DELETE FROM employee WHERE Email = ?");
-            preparedStatement.setString(1, email);
-            boolean b = preparedStatement.executeUpdate() > 0;
-            return b;
-        } catch (SQLException e) {
-            throw new RuntimeException(e);
-        }
-    }
-
-    @Override
     public boolean addSupplier(String name, String company, String email, String item) {
         try {
             PreparedStatement preparedStatement = DBConnection.getInstance().getConnection().prepareStatement("INSERT INTO supplier (Name, Company, Email, Item) VALUES (?, ?, ?, ?)");
@@ -816,6 +730,155 @@ public class DashboardController implements DashboardService {
             return preparedStatement.executeUpdate()>0;
         } catch (SQLException e) {
             throw new RuntimeException(e);
+        }
+    }
+
+    @Override
+    public ObservableList<EmployeeTable> getAllEmployee() {
+        ObservableList<EmployeeTable> observableList = FXCollections.observableArrayList();
+        try {
+            PreparedStatement preparedStatement = DBConnection.getInstance().getConnection().prepareStatement("select * from employee");
+            ResultSet resultSet = preparedStatement.executeQuery();
+            while (resultSet.next()){
+                Integer employeeID = resultSet.getInt("EmployeeID");
+                String name = resultSet.getString("Name");
+                String email = resultSet.getString("Email");
+                String role = resultSet.getString("Role");
+                Integer adminID = resultSet.getInt("AdminID");
+
+                observableList.add(new EmployeeTable(employeeID,name,email,role,adminID));
+            }
+            return observableList;
+        } catch (SQLException e) {
+            throw new RuntimeException(e);
+        }
+    }
+
+    @Override
+    public boolean addEmployee(User user, Employee employee) throws SQLException {
+        Connection connection = DBConnection.getInstance().getConnection();
+        Integer lastUserId=-1;
+        try {
+            connection.setAutoCommit(false);
+             PreparedStatement preparedStatement1 = connection.prepareStatement("INSERT INTO user (Name, Email, Password, Role, RegDate) VALUES (?, ?, ?, ?, NOW())");
+             preparedStatement1.setObject(1, user.getName());
+             preparedStatement1.setObject(2, user.getEmail());
+             preparedStatement1.setObject(3, user.getPassword());
+             preparedStatement1.setObject(4, user.getRole());
+             boolean b = preparedStatement1.executeUpdate() > 0;
+
+             if (b){
+                 PreparedStatement preparedStatement = connection.prepareStatement("SELECT MAX(UserID) FROM user");
+                 ResultSet resultSet = preparedStatement.executeQuery();
+                 if (resultSet.next()){
+                     lastUserId = resultSet.getInt(1);
+                     if (lastUserId>-1){
+                         PreparedStatement preparedStatement2 = connection.prepareStatement("INSERT INTO employee (Name, Email, Role, AdminID) VALUES (?, ?, ?, ?)");
+                         preparedStatement2.setObject(1, employee.getName());
+                         preparedStatement2.setObject(2, employee.getEmail());
+                         preparedStatement2.setObject(3, employee.getRole());
+                         preparedStatement2.setInt(4, lastUserId);
+                         boolean b1 = preparedStatement2.executeUpdate() > 0;
+
+                         if (b1){
+                             connection.commit();
+                             return true;
+                         }
+                     }
+                 }
+             }
+            connection.rollback();
+            return false;
+        } catch (SQLException e) {
+            throw new RuntimeException(e);
+        } finally {
+            connection.setAutoCommit(true);
+        }
+    }
+
+    @Override
+    public User getSelectUser(Integer userId) {
+        try {
+            PreparedStatement preparedStatement = DBConnection.getInstance().getConnection().prepareStatement("select * from user where userid=?");
+            preparedStatement.setInt(1, userId);
+            ResultSet resultSet = preparedStatement.executeQuery();
+            if (resultSet.next()){
+                Integer userID = resultSet.getInt("UserID");
+                String name = resultSet.getString("Name");
+                String email = resultSet.getString("Email");
+                String password = resultSet.getString("Password");
+                String role = resultSet.getString("Role");
+                return new User(userID,name,email,password,role,null);
+            }
+        } catch (SQLException e) {
+            throw new RuntimeException(e);
+        }
+        return null;
+    }
+
+    @Override
+    public boolean updateEmployee(User user, Employee employee) throws SQLException {
+        Connection connection = DBConnection.getInstance().getConnection();
+        try {
+            connection.setAutoCommit(false);
+            PreparedStatement preparedStatement = connection.prepareStatement("UPDATE user SET Name = ?, Email = ?, Password = ?, Role = ? WHERE UserID = ?");
+            preparedStatement.setObject(1,user.getName());
+            preparedStatement.setObject(2,user.getEmail());
+            preparedStatement.setObject(3,user.getPassword());
+            preparedStatement.setObject(4,user.getRole());
+            preparedStatement.setObject(5,user.getUserId());
+            boolean b = preparedStatement.executeUpdate() > 0;
+
+            if (b){
+                PreparedStatement preparedStatement1 = connection.prepareStatement("UPDATE employee SET Name = ?, Email = ?, Role = ?, AdminID = ? WHERE EmployeeID = ?");
+                preparedStatement1.setObject(1,employee.getName());
+                preparedStatement1.setObject(2,employee.getEmail());
+                preparedStatement1.setObject(3,employee.getRole());
+                preparedStatement1.setObject(4,employee.getAdminId());
+                preparedStatement1.setObject(5,employee.getEmployeeId());
+                boolean b1 = preparedStatement1.executeUpdate() > 0;
+
+                if (b1){
+                    connection.commit();
+                    return true;
+                }
+            }
+
+            connection.rollback();
+            return false;
+        } catch (SQLException e) {
+            throw new RuntimeException(e);
+        } finally {
+            connection.setAutoCommit(true);
+        }
+    }
+
+    @Override
+    public boolean deleteEmployee(Integer userId, Integer employeeId) throws SQLException {
+        Connection connection = DBConnection.getInstance().getConnection();
+        try {
+            connection.setAutoCommit(false);
+            PreparedStatement preparedStatement = connection.prepareStatement("DELETE FROM employee WHERE EmployeeID = ?");
+            preparedStatement.setInt(1,employeeId);
+            boolean b = preparedStatement.executeUpdate() > 0;
+
+            if (b){
+                PreparedStatement preparedStatement1 = connection.prepareStatement("DELETE FROM user WHERE UserID = ?");
+                preparedStatement1.setInt(1,userId);
+                boolean b1 = preparedStatement1.executeUpdate() > 0;
+
+                if (b1){
+                    connection.commit();
+                    return true;
+                }
+            }
+
+            connection.rollback();
+            return false;
+        } catch (SQLException e) {
+            throw new RuntimeException(e);
+        } finally {
+            connection.setAutoCommit(true);
         }
     }
 }

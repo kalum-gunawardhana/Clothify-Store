@@ -8,11 +8,6 @@ import java.util.ArrayList;
 import java.util.List;
 
 public interface DashboardService {
-    boolean addEmp(String name, String email, String role, Integer adminId);
-    List<String> getEmpEmail();
-    Object getEmpData(String email);
-    boolean updateEmp(String email, String name, String role, int adminId);
-    boolean deleteEmployeeByEmail(String email);
     boolean addSupplier(String name, String company, String email, String item);
     List<String> getSupplierEmails();
     Object getSupplierData(String email);
@@ -54,4 +49,9 @@ public interface DashboardService {
     List<String> getAllItemNames();
     boolean updateSupplier(Supplier supplier);
     boolean deleteSupplier(Integer supplierId);
+    ObservableList<EmployeeTable> getAllEmployee();
+    boolean addEmployee(User user, Employee employee) throws SQLException;
+    User getSelectUser(Integer userId);
+    boolean updateEmployee(User user, Employee employee) throws SQLException;
+    boolean deleteEmployee(Integer userId, Integer employeeId) throws SQLException;
 }

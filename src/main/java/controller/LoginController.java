@@ -20,7 +20,7 @@ public class LoginController implements LoginService {
     }
 
     @Override
-    public boolean getLoginInfo(String email, String password) {
+    public String getLoginInfo(String email, String password) {
         try {
             PreparedStatement preparedStatement = DBConnection.getInstance().getConnection().prepareStatement("SELECT * FROM user WHERE Email = ?");
             preparedStatement.setString(1,email);
@@ -28,11 +28,13 @@ public class LoginController implements LoginService {
             if (resultSet.next()) {
                 String emailFromDB = resultSet.getString("Email");
                 String passwords = resultSet.getString("Password");
+                String role = resultSet.getString("Role");
                 if (passwords.equals(password)){
-                    return true;
+                    //System.out.println(role);
+                    return role;
                 }
             }
-            return false;
+            return null;
         } catch (SQLException e) {
             throw new RuntimeException(e);
         }
@@ -40,8 +42,8 @@ public class LoginController implements LoginService {
 
     @Override
     public boolean forgetPassword(String email, String password) {
-        System.out.println(email);
-        System.out.println(password);
+        //System.out.println(email);
+        //System.out.println(password);
         try {
             PreparedStatement preparedStatement = DBConnection.getInstance().getConnection().prepareStatement("UPDATE user SET Password = ? WHERE Email = ?");
             preparedStatement.setString(1,password);

@@ -1,5 +1,6 @@
 package controller.formController;
 
+import com.jfoenix.controls.JFXButton;
 import com.jfoenix.controls.JFXTextField;
 import controller.DashboardController;
 import javafx.collections.FXCollections;
@@ -15,8 +16,11 @@ import javafx.scene.control.Alert;
 import javafx.scene.control.TextField;
 import javafx.scene.layout.AnchorPane;
 import model.db.DBConnection;
+import net.sf.jasperreports.engine.*;
+import net.sf.jasperreports.engine.design.JasperDesign;
+import net.sf.jasperreports.engine.xml.JRXmlLoader;
+import net.sf.jasperreports.view.JasperViewer;
 
-import javax.crypto.interfaces.DHKey;
 import java.io.IOException;
 import java.net.URL;
 import java.sql.SQLException;
@@ -28,34 +32,6 @@ import java.util.ResourceBundle;
 
 public class DashboardFormController implements Initializable {
     public AnchorPane apEmployee;
-    public AnchorPane apAddEmployee;
-    public AnchorPane apUpdateEmployee;
-    public AnchorPane apSearchEmployee;
-    public AnchorPane apDeleteEmployee;
-    
-    public TextField txtAddEmpName;
-    public TextField txtAddEmpEma;
-    public TextField txtAddEmpRol;
-    public TextField txtAddEmpAdmId;
-
-    public JFXComboBox cbSearchEmpEmail;
-    public TextField txtEmpSeaName;
-    public TextField txtEmpSeaRole;
-    public TextField txtEmpSeaAdminID;
-
-    public static String selectEmail;
-    public static String selectUpdateEmail;
-    public static String selectEmpDeletEmail;
-    
-    public JFXComboBox cbSelectEmpUpdate;
-    public TextField txtEmpNameUpdate;
-    public TextField txtEmpRoleUpdate;
-    public TextField txtEmpAdmIDUpdate;
-
-    public JFXComboBox cbEmpDelete;
-    public TextField txtEmpDeleteName;
-    public TextField txtEmpDeleteRole;
-    public TextField txtEmpDeleteOnAction;
 
     public AnchorPane apSupplier;
     public AnchorPane apInventory;
@@ -119,75 +95,28 @@ public class DashboardFormController implements Initializable {
     public JFXTextField txtSupplierComapany;
     public JFXTextField txtSupplierEmail;
     public JFXComboBox cbSupplierItem;
+    
+    public TableView tblEmployee;
+    public TableColumn colEmployeeID;
+    public TableColumn colEmployeeName;
+    public TableColumn colEmployeeEmail;
+    public TableColumn colEmployeeRole;
+    public TableColumn colEmployeeAdminID;
+    public JFXTextField txtEmployeeName2;
+    public JFXTextField txtEmployeeEmail;
+    public JFXTextField txtEmployeePassword;
+    public JFXComboBox cbEmployeeUserRole;
+    public JFXComboBox cbEmployeeEmployeeRole;
+
+    public JFXButton btnUser;
+    public AnchorPane apReports;
 
     public void btnEmployeeOnAction(ActionEvent actionEvent) throws IOException {
-        /*URL resource = this.getClass().getResource("/View/OwnerDashboardForm.fxml");
-
-        assert resource!=null;
-
-        Parent load = FXMLLoader.load(resource);
-        this.apEmployee.getChildren().clear();
-        this.apEmployee.getChildren().add(load);*/
         apEmployee.toFront();
-    }
-
-    public void btnAddEmpOnAction(ActionEvent actionEvent) {
-        boolean addedEmp = DashboardController.getInstance().addEmp(txtAddEmpName.getText(), txtAddEmpEma.getText(), txtAddEmpRol.getText(), Integer.valueOf(txtAddEmpAdmId.getText()));
-        if (addedEmp){
-            Alert alert = new Alert(Alert.AlertType.INFORMATION);
-            alert.setTitle("Information");
-            alert.setHeaderText("Employee Added Successfully");
-            alert.show();
-
-            txtAddEmpName.clear();
-            txtAddEmpEma.clear();
-            txtAddEmpRol.clear();
-            txtAddEmpAdmId.clear();
-
-        }else {
-            Alert alert = new Alert(Alert.AlertType.ERROR);
-            alert.setTitle("Information");
-            alert.setHeaderText("Employee Added Fail");
-            alert.show();
-
-            txtAddEmpName.clear();
-            txtAddEmpEma.clear();
-            txtAddEmpRol.clear();
-            txtAddEmpAdmId.clear();
-        }
-    }
-
-    public void btnCleEmpOnAction(ActionEvent actionEvent) {
-        txtAddEmpName.clear();
-        txtAddEmpEma.clear();
-        txtAddEmpRol.clear();
-        txtAddEmpAdmId.clear();
-    }
-
-    public void btnEmpSearchOnAction(ActionEvent actionEvent) {
-        Employee empData = (Employee) DashboardController.getInstance().getEmpData(selectEmail);
-        txtEmpSeaName.setText(empData.getName());
-        txtEmpSeaRole.setText(empData.getRole());
-        txtEmpSeaAdminID.setText(String.valueOf(empData.getAdminId()));
-        //System.out.println(empData);
-    }
-
-    public void btnSearchEmpClearOnAction(ActionEvent actionEvent) {
-        txtEmpSeaName.clear();
-        txtEmpSeaRole.clear();
-        txtEmpSeaAdminID.clear();
-    }
-
-    public void setEmpEmail(){
-        List<String> empEmail = DashboardController.getInstance().getEmpEmail();
-        cbSearchEmpEmail.getItems().addAll(empEmail);
-        cbSelectEmpUpdate.getItems().addAll(empEmail);
-        cbEmpDelete.getItems().addAll(empEmail);
     }
 
     @Override
     public void initialize(URL url, ResourceBundle resourceBundle) {
-        setEmpEmail();
         setOrderId();
         setDateAndTime();
         setEmployeeId();
@@ -202,88 +131,12 @@ public class DashboardFormController implements Initializable {
         loardProductSupplerIdCombo();
         loardSupplierTable();
         loardItemNamesCombo();
-    }
-
-    public void cbSelectEmpSearchEmail(ActionEvent actionEvent) {
-        selectEmail = cbSearchEmpEmail.getSelectionModel().getSelectedItem().toString();
-    }
-
-    public void btnUpdateOnAction(ActionEvent actionEvent) {
-        boolean updated = DashboardController.getInstance().updateEmp(selectUpdateEmail, txtEmpNameUpdate.getText(), txtEmpRoleUpdate.getText(), Integer.parseInt(txtEmpAdmIDUpdate.getText()));
-        if (updated){
-            Alert alert = new Alert(Alert.AlertType.INFORMATION);
-            alert.setTitle("Information");
-            alert.setHeaderText("Employee Updated Successfully");
-            alert.show();
-
-            txtEmpNameUpdate.clear();
-            txtEmpRoleUpdate.clear();
-            txtEmpAdmIDUpdate.clear();
-        }else {
-            Alert alert = new Alert(Alert.AlertType.INFORMATION);
-            alert.setTitle("Information");
-            alert.setHeaderText("Employee Updated Fail");
-            alert.show();
-
-            txtEmpNameUpdate.clear();
-            txtEmpRoleUpdate.clear();
-            txtEmpAdmIDUpdate.clear();
-        }
-    }
-
-    public void btnUpdateClearOnAction(ActionEvent actionEvent) {
-        txtEmpNameUpdate.clear();
-        txtEmpRoleUpdate.clear();
-        txtEmpAdmIDUpdate.clear();
-    }
-
-    public void selectEmpEmailUpdateOnAction(ActionEvent actionEvent) {
-        selectUpdateEmail = cbSelectEmpUpdate.getSelectionModel().getSelectedItem().toString();
-        Employee empData = (Employee) DashboardController.getInstance().getEmpData(selectUpdateEmail);
-        txtEmpNameUpdate.setText(empData.getName());
-        txtEmpRoleUpdate.setText(empData.getRole());
-        txtEmpAdmIDUpdate.setText(String.valueOf(empData.getAdminId()));
-    }
-
-    public void selectEmpDeleteOnAction(ActionEvent actionEvent) {
-        selectEmpDeletEmail = cbEmpDelete.getSelectionModel().getSelectedItem().toString();
-        Employee empData = (Employee) DashboardController.getInstance().getEmpData(selectEmpDeletEmail);
-        txtEmpDeleteName.setText(empData.getName());
-        txtEmpDeleteRole.setText(empData.getRole());
-        txtEmpDeleteOnAction.setText(String.valueOf(empData.getAdminId()));
-    }
-
-    public void btnEmpDeletOnAction(ActionEvent actionEvent) {
-        boolean deleted = DashboardController.getInstance().deleteEmployeeByEmail(cbEmpDelete.getSelectionModel().getSelectedItem().toString());
-        if (deleted){
-            Alert alert = new Alert(Alert.AlertType.INFORMATION);
-            alert.setTitle("Information");
-            alert.setHeaderText("Employee Deleted Successfully");
-            alert.show();
-
-            txtEmpDeleteOnAction.clear();
-            txtEmpDeleteRole.clear();
-            txtEmpDeleteName.clear();
-        }else {
-            Alert alert = new Alert(Alert.AlertType.INFORMATION);
-            alert.setTitle("Information");
-            alert.setHeaderText("Employee Deleted Fail");
-            alert.show();
-
-            txtEmpDeleteOnAction.clear();
-            txtEmpDeleteRole.clear();
-            txtEmpDeleteName.clear();
-        }
-    }
-
-    public void btnEmpDeleteClearOnAction(ActionEvent actionEvent) {
-        txtEmpDeleteOnAction.clear();
-        txtEmpDeleteRole.clear();
-        txtEmpDeleteName.clear();
+        loardEmployeeTable();
+        loardUserRoleCombo();
+        loardEmployeeRoleCombo();
     }
 
     public void btnSupplierOnAction(ActionEvent actionEvent) throws IOException {
-        //apSupplier.toFront();
         apSupplier.toFront();
     }
 
@@ -435,6 +288,7 @@ public class DashboardFormController implements Initializable {
 
     public void btnUserSearchOnAction(ActionEvent actionEvent) {
         User searchUser = DashboardController.getInstance().searchUser(txtUserEmail.getText());
+        //System.out.println(searchUser.toString());
         txtUserName.setText(searchUser.getName());
         txtUserEmail.setText(searchUser.getEmail());
         txtUserPassword.setText(searchUser.getPassword());
@@ -669,5 +523,133 @@ public class DashboardFormController implements Initializable {
         txtSupplierComapany.clear();
         txtSupplierEmail.clear();
         cbSupplierItem.setValue("Select Item");
+    }
+
+    private void loardEmployeeTable(){
+        ObservableList<EmployeeTable> allEmployee = DashboardController.getInstance().getAllEmployee();
+
+        colEmployeeID.setCellValueFactory(new PropertyValueFactory<>("employeeId"));
+        colEmployeeName.setCellValueFactory(new PropertyValueFactory<>("name"));
+        colEmployeeEmail.setCellValueFactory(new PropertyValueFactory<>("email"));
+        colEmployeeRole.setCellValueFactory(new PropertyValueFactory<>("role"));
+        colEmployeeAdminID.setCellValueFactory(new PropertyValueFactory<>("adminId"));
+
+        tblEmployee.setItems(allEmployee);
+    }
+
+    public void btnEmployeeAddOnAction(ActionEvent actionEvent) throws SQLException {
+        User user = new User(null, txtEmployeeName2.getText(), txtEmployeeEmail.getText(), txtEmployeePassword.getText(), cbEmployeeUserRole.getSelectionModel().getSelectedItem().toString(), null);
+        Employee employee = new Employee(null, txtEmployeeName2.getText(), txtEmployeeEmail.getText(), cbEmployeeEmployeeRole.getSelectionModel().getSelectedItem().toString(), null);
+        boolean addedEmployee = DashboardController.getInstance().addEmployee(user, employee);
+        if (addedEmployee){
+            if (addedEmployee){
+                Alert alert = new Alert(Alert.AlertType.INFORMATION);
+                alert.setTitle("Employee Confirmation");
+                alert.setContentText("Employee Added Successfully!");
+                alert.showAndWait();
+                //loardSupplierTable();
+                //clearSupplierDetailAreas();
+                loardEmployeeTable();
+                loardUserTable();
+                clearEmployeeDetailAreas();
+            }
+        }
+    }
+
+    private User selectUser;
+    private EmployeeTable selectedEmployee;
+
+    public void btnEmployeeSearchOnAction(ActionEvent actionEvent) {
+        selectedEmployee = (EmployeeTable) tblEmployee.getSelectionModel().getSelectedItem();
+        //System.out.println(selectedEmployee.toString());
+        selectUser = DashboardController.getInstance().getSelectUser(selectedEmployee.getAdminId());
+        txtEmployeeName2.setText(selectedEmployee.getName());
+        txtEmployeeEmail.setText(selectedEmployee.getEmail());
+        txtEmployeePassword.setText(selectUser.getPassword());
+        cbEmployeeUserRole.setValue(selectUser.getRole());
+        cbEmployeeEmployeeRole.setValue(selectedEmployee.getRole());
+    }
+
+    public void btnEmployeeUpdateOnAction(ActionEvent actionEvent) throws SQLException {
+        User user = new User(selectUser.getUserId(), txtEmployeeName2.getText(), txtEmployeeEmail.getText(), txtEmployeePassword.getText(), cbEmployeeUserRole.getSelectionModel().getSelectedItem().toString(), null);
+        Employee employee = new Employee(selectedEmployee.getEmployeeId(), txtEmployeeName2.getText(), txtEmployeeEmail.getText(), cbEmployeeEmployeeRole.getSelectionModel().getSelectedItem().toString(), selectUser.getUserId());
+        boolean b = DashboardController.getInstance().updateEmployee(user, employee);
+
+        if (b){
+            Alert alert = new Alert(Alert.AlertType.INFORMATION);
+            alert.setTitle("Employee Confirmation");
+            alert.setContentText("Employee Update Successfully!");
+            alert.showAndWait();
+            //loardSupplierTable();
+            //clearSupplierDetailAreas();
+            loardEmployeeTable();
+            loardUserTable();
+            clearEmployeeDetailAreas();
+        }
+    }
+
+    public void btnEmployeeDeleteOnAction(ActionEvent actionEvent) throws SQLException {
+        boolean deletedEmployee = DashboardController.getInstance().deleteEmployee(selectUser.getUserId(), selectedEmployee.getEmployeeId());
+        if (deletedEmployee){
+            Alert alert = new Alert(Alert.AlertType.INFORMATION);
+            alert.setTitle("Employee Confirmation");
+            alert.setContentText("Employee Delete Successfully!");
+            alert.showAndWait();
+            //loardSupplierTable();
+            //clearSupplierDetailAreas();
+            loardEmployeeTable();
+            loardUserTable();
+            clearEmployeeDetailAreas();
+        }
+    }
+
+    public void btnEmployeeClearOnAction(ActionEvent actionEvent) {
+        txtEmployeeName2.clear();
+        txtEmployeeEmail.clear();
+        txtEmployeePassword.clear();
+        cbEmployeeUserRole.setValue("Select User Role");
+        cbEmployeeEmployeeRole.setValue("Select Employee Role");
+    }
+
+    private void loardUserRoleCombo(){
+        cbEmployeeUserRole.getItems().addAll("Admin", "Employee");
+    }
+
+    private void loardEmployeeRoleCombo(){
+        cbEmployeeEmployeeRole.getItems().addAll("Store Manager", "Inventory Clerk", "Customer Service Rep", "Sales Representative", "Accountant", "Marketing Specialist", "IT Support", "Operations Manager", "HR Assistant", "Receptionist");
+    }
+
+    private void clearEmployeeDetailAreas(){
+        txtEmployeeName2.clear();
+        txtEmployeeEmail.clear();
+        txtEmployeePassword.clear();
+        cbEmployeeUserRole.setValue("Select User Role");
+        cbEmployeeEmployeeRole.setValue("Select Employee Role");
+    }
+
+    public void dashbordButtonShow(String role){
+        //System.out.println(role);
+        if (role.equals("Employee")){
+            //System.out.println("correct");
+            //btnUser.setDisable(true);
+        }
+    }
+
+    public void btnCustomerReportOnAction(ActionEvent actionEvent) {
+        JasperDesign design = null;
+        try {
+            design = JRXmlLoader.load("src/main/resources/view/jrxml/orders.jrxml");
+            JasperReport jasperReport = JasperCompileManager.compileReport(design);
+
+            JasperPrint jasperPrint = JasperFillManager.fillReport(jasperReport, null, DBConnection.getInstance().getConnection());
+
+            JasperViewer.viewReport(jasperPrint,false);
+        } catch (JRException e) {
+            throw new RuntimeException(e);
+        }
+    }
+
+    public void btnReportsOnAction(ActionEvent actionEvent) {
+        apReports.toFront();
     }
 }
