@@ -1,9 +1,10 @@
-package model;
+package entity;
 
 import lombok.AllArgsConstructor;
 import lombok.Data;
 import lombok.NoArgsConstructor;
 import lombok.ToString;
+import model.OrderProduct;
 
 import java.util.List;
 
@@ -11,7 +12,7 @@ import java.util.List;
 @AllArgsConstructor
 @NoArgsConstructor
 @ToString
-public class Orders {
+public class OrdersEntity {
     private Integer orderId;
     private Integer customerId;
     private Integer employeeId;

@@ -1,9 +1,7 @@
-package controller.formController;
+package controller;
 
 import com.jfoenix.controls.JFXPasswordField;
 import com.jfoenix.controls.JFXTextField;
-import controller.DashboardController;
-import controller.LoginController;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXMLLoader;
 import javafx.scene.Scene;
@@ -12,34 +10,38 @@ import javafx.scene.control.TextField;
 import javafx.scene.layout.AnchorPane;
 import javafx.stage.Stage;
 import org.apache.commons.lang3.RandomStringUtils;
+import service.ServiceFactory;
+import service.custom.*;
+import util.ServiceType;
 
 import javax.mail.*;
 import javax.mail.internet.InternetAddress;
 import javax.mail.internet.MimeMessage;
 import java.io.IOException;
-import java.util.List;
 import java.util.Properties;
 
 public class LoginFormController {
-
     public JFXPasswordField txtPassword;
     public JFXTextField txtEmail;
     public AnchorPane hypLogin;
     public AnchorPane hypForget;
     public TextField txtForgetEmail;
-
     public TextField txtOtp;
     public TextField txtNewPass;
     public TextField txtConPass;
 
     public static String generated;
 
+    UserService userService= ServiceFactory.getInstance().getServiceType(ServiceType.USER);
+    SupplierService supplierService=ServiceFactory.getInstance().getServiceType(ServiceType.SUPPLIER);
+    ProductService productService=ServiceFactory.getInstance().getServiceType(ServiceType.PRODUCT);
+    OrdersService ordersService=ServiceFactory.getInstance().getServiceType(ServiceType.ORDERS);
+    EmployeeService employeeService=ServiceFactory.getInstance().getServiceType(ServiceType.EMPLOYEE);
+
     public void btnLoginOnAction(ActionEvent actionEvent) throws IOException {
-        String loginInfo = LoginController.getInstance().getLoginInfo(txtEmail.getText(), txtPassword.getText());
+        String loginInfo = userService.getLoginInfo(txtEmail.getText(), txtPassword.getText());
 
         if (loginInfo!=null){
-            //System.out.println(loginInfo);
-
             Stage stage = new Stage();
             stage.setScene(new Scene(FXMLLoader.load(getClass().getResource("/view/fxml/OwnerDashboardForm.fxml"))));
             stage.show();
@@ -52,19 +54,14 @@ public class LoginFormController {
     }
 
     public void hypForgetPasswordOnAction(ActionEvent actionEvent) throws IOException {
-        //hypLogin.setVisible(false);
         hypForget.toFront();
     }
 
     public void btnBackOnAction(ActionEvent actionEvent) {
-        /*hypForget.setVisible(false);
-        hypLogin.setVisible(true);
-        hypLogin.toFront();*/
         hypLogin.toFront();
     }
 
     public void btnSentOnAction(ActionEvent actionEvent) {
-
         sendOTP(txtForgetEmail.getText());
     }
 
@@ -74,18 +71,15 @@ public class LoginFormController {
     }
 
     public void sendOTP(String recipientEmail) {
-        // Email server configuration
         Properties properties = new Properties();
         properties.put("mail.smtp.auth", "true");
         properties.put("mail.smtp.starttls.enable", "true");
         properties.put("mail.smtp.host", "smtp.gmail.com");
         properties.put("mail.smtp.port", "587");
 
-        // Sender credentials
         final String senderEmail = recipientEmail;
         final String senderPassword = "jqnr tmef vbqg szon";
 
-        // Create a session with authentication
         Session session = Session.getInstance(properties, new Authenticator() {
             @Override
             protected PasswordAuthentication getPasswordAuthentication() {
@@ -94,14 +88,11 @@ public class LoginFormController {
         });
 
         generated = generateOTP();
-        //checkPassword(generated);
 
-        // Prepare the email message
         Message message = prepareMessage(session, senderEmail, recipientEmail, generated);
 
         if (message != null) {
             try {
-                // Send the email
                 Transport.send(message);
                 System.out.println("OTP email sent successfully to " + recipientEmail);
             } catch (MessagingException e) {
@@ -115,7 +106,6 @@ public class LoginFormController {
 
     private Message prepareMessage(Session session, String senderEmail, String recipientEmail, String otp) {
         try {
-            // Create a new email message
             Message message = new MimeMessage(session);
             message.setFrom(new InternetAddress(senderEmail));
             message.setRecipient(Message.RecipientType.TO, new InternetAddress(recipientEmail));
@@ -123,7 +113,6 @@ public class LoginFormController {
             message.setText("Dear user,\n\nYour OTP code is: " + otp + "\n\nThank you!");
             return message;
         } catch (Exception e) {
-            //Logger.getLogger(EmailService.class.getName()).severe("Error creating email message: " + e.getMessage());
         }
         return null;
     }
@@ -140,9 +129,8 @@ public class LoginFormController {
     public void btnSubmitOnAction(ActionEvent actionEvent) throws IOException {
         boolean checked = checkPassword();
         if (checked){
-            //System.out.println("correct");
-            boolean password = LoginController.getInstance().forgetPassword(txtForgetEmail.getText(), txtConPass.getText());
-            if (password){
+            boolean forgottenPassword = userService.forgetPassword(txtForgetEmail.getText(), txtConPass.getText());
+            if (forgottenPassword){
                 Alert alert = new Alert(Alert.AlertType.INFORMATION);
                 alert.setTitle("Information");
                 alert.setHeaderText("Password Updated Successfully");

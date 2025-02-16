@@ -8,7 +8,7 @@ import lombok.*;
 @ToString
 @EqualsAndHashCode
 @Setter
-public class OrderTable {
+public class OrdersTable {
     private Integer productId;
     private String productName;
     private String productSize;

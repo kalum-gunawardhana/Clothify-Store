@@ -3,6 +3,9 @@
 <?import com.jfoenix.controls.JFXButton?>
 <?import com.jfoenix.controls.JFXComboBox?>
 <?import com.jfoenix.controls.JFXTextField?>
+<?import javafx.scene.chart.CategoryAxis?>
+<?import javafx.scene.chart.LineChart?>
+<?import javafx.scene.chart.NumberAxis?>
 <?import javafx.scene.control.Label?>
 <?import javafx.scene.control.TableColumn?>
 <?import javafx.scene.control.TableView?>
@@ -10,7 +13,7 @@
 <?import javafx.scene.shape.Rectangle?>
 <?import javafx.scene.text.Font?>
 
-<AnchorPane prefHeight="832.0" prefWidth="1280.0" style="-fx-background-color: DBDBDB;" xmlns="http://javafx.com/javafx/23.0.1" xmlns:fx="http://javafx.com/fxml/1" fx:controller="controller.formController.DashboardFormController">
+<AnchorPane prefHeight="832.0" prefWidth="1280.0" style="-fx-background-color: DBDBDB;" xmlns="http://javafx.com/javafx/23.0.1" xmlns:fx="http://javafx.com/fxml/1" fx:controller="controller.DashboardFormController">
    <children>
       <Rectangle arcHeight="5.0" arcWidth="5.0" fill="#ededed" height="806.0" layoutX="16.0" layoutY="14.0" stroke="BLACK" strokeType="INSIDE" strokeWidth="0.0" style="-fx-arc-height: EDEDED;" width="180.0" />
       <Rectangle arcHeight="5.0" arcWidth="5.0" fill="#ededed" height="40.0" layoutX="215.0" layoutY="14.0" stroke="BLACK" strokeType="INSIDE" strokeWidth="0.0" style="-fx-arc-height: EDEDED;" width="1050.0" />
@@ -267,13 +270,36 @@
             <JFXTextField fx:id="txtPlaceOrderSupplierId" layoutX="830.0" layoutY="139.0" prefHeight="26.0" prefWidth="150.0" promptText="Supplier Id" stylesheets="@../css/jfx-text-field.css" />
          </children>
       </AnchorPane>
-      <AnchorPane fx:id="apReports" layoutX="215.0" layoutY="64.0" prefHeight="758.0" prefWidth="1050.0" style="-fx-background-color: EDEDED;">
+      <AnchorPane fx:id="apReports" layoutX="215.0" layoutY="63.0" prefHeight="758.0" prefWidth="1050.0" style="-fx-background-color: EDEDED;">
          <children>
-            <JFXButton contentDisplay="BOTTOM" layoutX="40.0" layoutY="39.0" onAction="#btnCustomerReportOnAction" prefHeight="40.0" prefWidth="130.0" style="-fx-background-color: #2596be;" text="Orders Report" textAlignment="CENTER" textFill="WHITE">
+            <JFXButton contentDisplay="BOTTOM" layoutX="104.0" layoutY="39.0" onAction="#btnCustomerReportOnAction" prefHeight="40.0" prefWidth="200.0" style="-fx-background-color: #2596be;" text="Generate Customer Report" textAlignment="CENTER" textFill="WHITE">
                <font>
                   <Font name="System Bold Italic" size="14.0" />
                </font>
             </JFXButton>
+            <JFXButton contentDisplay="BOTTOM" layoutX="317.0" layoutY="39.0" onAction="#btnEmployeeReportOnAction" prefHeight="40.0" prefWidth="200.0" style="-fx-background-color: #2596be;" text="Generate Employee Report" textAlignment="CENTER" textFill="WHITE">
+               <font>
+                  <Font name="System Bold Italic" size="14.0" />
+               </font>
+            </JFXButton>
+            <JFXButton contentDisplay="BOTTOM" layoutX="530.0" layoutY="39.0" onAction="#btnProductReportOnAction" prefHeight="40.0" prefWidth="200.0" style="-fx-background-color: #2596be;" text="Generate Product Report" textAlignment="CENTER" textFill="WHITE">
+               <font>
+                  <Font name="System Bold Italic" size="14.0" />
+               </font>
+            </JFXButton>
+            <JFXButton contentDisplay="BOTTOM" layoutX="742.0" layoutY="39.0" onAction="#btnSupplierReportOnAction" prefHeight="40.0" prefWidth="200.0" style="-fx-background-color: #2596be;" text="Generate Supplier Report" textAlignment="CENTER" textFill="WHITE">
+               <font>
+                  <Font name="System Bold Italic" size="14.0" />
+               </font>
+            </JFXButton>
+            <LineChart layoutX="104.0" layoutY="97.0">
+              <xAxis>
+                <CategoryAxis side="BOTTOM" />
+              </xAxis>
+              <yAxis>
+                <NumberAxis side="LEFT" />
+              </yAxis>
+            </LineChart>
          </children>
       </AnchorPane>
       <AnchorPane fx:id="apUser" layoutX="215.0" layoutY="65.0" prefHeight="755.0" prefWidth="1050.0" style="-fx-background-color: EDEDED;">

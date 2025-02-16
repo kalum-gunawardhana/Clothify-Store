@@ -1,8 +1,7 @@
-package controller.formController;
+package controller;
 
 import com.jfoenix.controls.JFXButton;
 import com.jfoenix.controls.JFXTextField;
-import controller.DashboardController;
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
 import javafx.scene.control.TableColumn;
@@ -19,6 +18,9 @@ import net.sf.jasperreports.engine.*;
 import net.sf.jasperreports.engine.design.JasperDesign;
 import net.sf.jasperreports.engine.xml.JRXmlLoader;
 import net.sf.jasperreports.view.JasperViewer;
+import service.ServiceFactory;
+import service.custom.*;
+import util.ServiceType;
 
 import java.io.IOException;
 import java.net.URL;
@@ -31,14 +33,11 @@ import java.util.ResourceBundle;
 
 public class DashboardFormController implements Initializable {
     public AnchorPane apEmployee;
-
     public AnchorPane apSupplier;
     public AnchorPane apInventory;
-
     public AnchorPane apPlaceOrder;
     public JFXTextField txtPlaceOrderOrderId;
     public JFXTextField txtPlaceOrderDateAndTime;
-
     public JFXComboBox cbPlaceOrderEmployee;
     public JFXTextField txtEmployeeName;
     public JFXComboBox cbPlaceOrderSelectProduct;
@@ -68,7 +67,6 @@ public class DashboardFormController implements Initializable {
     public JFXTextField txtUserEmail;
     public JFXTextField txtUserPassword;
     public JFXComboBox cbUserRole;
-
     public TableView tblProduct;
     public TableColumn colProductName1;
     public TableColumn colProducCategory;
@@ -83,7 +81,6 @@ public class DashboardFormController implements Initializable {
     public JFXTextField txtProductQuantity;
     public JFXComboBox cbProductSupplierId;
     public TableColumn colProductId1;
-    
     public JFXTextField txtSupplierName;
     public TableView tblSupplier;
     public TableColumn colSupplierId;
@@ -94,7 +91,6 @@ public class DashboardFormController implements Initializable {
     public JFXTextField txtSupplierComapany;
     public JFXTextField txtSupplierEmail;
     public JFXComboBox cbSupplierItem;
-    
     public TableView tblEmployee;
     public TableColumn colEmployeeID;
     public TableColumn colEmployeeName;
@@ -106,9 +102,14 @@ public class DashboardFormController implements Initializable {
     public JFXTextField txtEmployeePassword;
     public JFXComboBox cbEmployeeUserRole;
     public JFXComboBox cbEmployeeEmployeeRole;
-
     public JFXButton btnUser;
     public AnchorPane apReports;
+
+    UserService userService= ServiceFactory.getInstance().getServiceType(ServiceType.USER);
+    SupplierService supplierService=ServiceFactory.getInstance().getServiceType(ServiceType.SUPPLIER);
+    ProductService productService=ServiceFactory.getInstance().getServiceType(ServiceType.PRODUCT);
+    OrdersService ordersService=ServiceFactory.getInstance().getServiceType(ServiceType.ORDERS);
+    EmployeeService employeeService=ServiceFactory.getInstance().getServiceType(ServiceType.EMPLOYEE);
 
     public void btnEmployeeOnAction(ActionEvent actionEvent) throws IOException {
         apEmployee.toFront();
@@ -148,8 +149,8 @@ public class DashboardFormController implements Initializable {
     }
 
     private void setOrderId(){
-        List<String> orderIdList = DashboardController.getInstance().getOrderId();
-        txtPlaceOrderOrderId.setText(String.valueOf((Integer.valueOf(orderIdList.get(orderIdList.size() - 1)))+1));
+        List<String> orderId = ordersService.getOrderId();
+        txtPlaceOrderOrderId.setText(String.valueOf((Integer.valueOf(orderId.get(orderId.size() - 1)))+1));
     }
 
     private void setDateAndTime(){
@@ -158,26 +159,25 @@ public class DashboardFormController implements Initializable {
     }
 
     public void btnPlaceOrderEmployeeOnAction(ActionEvent actionEvent) {
-        txtEmployeeName.setText(DashboardController.getInstance().selectEmployoleeName(cbPlaceOrderEmployee.getValue().toString()));
+        txtEmployeeName.setText(ordersService.getSelectCustomerName(cbPlaceOrderEmployee.getValue().toString()));
     }
 
     private void setEmployeeId(){
-        List<String> employeeIdList = DashboardController.getInstance().getEmployeeId();
-        cbPlaceOrderEmployee.getItems().addAll(employeeIdList);
+        List<String> employeeId = ordersService.getEmployeeId();
+        cbPlaceOrderEmployee.getItems().addAll(employeeId);
     }
 
     public void btnPlaceOrderProductOnAction(ActionEvent actionEvent) {
-        List<String> selectProductList = DashboardController.getInstance().getSelectProduct(cbPlaceOrderSelectProduct.getValue().toString());
-        txtPlaceOrderProductName.setText(selectProductList.get(0));
-        txtPlaceOrderProductSIze.setText(selectProductList.get(1));
-        txtPlaceOrderProductPrice.setText(selectProductList.get(2));
-        txtPlaceOrderSupplierId.setText(selectProductList.get(3));
+        List<String> selectProduct = ordersService.getSelectProduct(cbPlaceOrderSelectProduct.getValue().toString());
+        txtPlaceOrderProductName.setText(selectProduct.get(0));
+        txtPlaceOrderProductSIze.setText(selectProduct.get(1));
+        txtPlaceOrderProductPrice.setText(selectProduct.get(2));
+        txtPlaceOrderSupplierId.setText(selectProduct.get(3));
     }
 
     private void setProductId(){
-        List<String> productIdList = DashboardController.getInstance().getProductId();
-        System.out.println(productIdList.toString());
-        cbPlaceOrderSelectProduct.getItems().addAll(productIdList);
+        List<String> productId = ordersService.getProductId();
+        cbPlaceOrderSelectProduct.getItems().addAll(productId);
     }
 
     private void setPaymentType() {
@@ -186,7 +186,7 @@ public class DashboardFormController implements Initializable {
 
     }
 
-    private ObservableList<OrderTable> orderTableObservableList = FXCollections.observableArrayList();
+    private ObservableList<OrdersTable> orderTableObservableList = FXCollections.observableArrayList();
 
     public void btnPlaceOrderAddToCardOnAction(ActionEvent actionEvent) {
         addOrderTable(Integer.valueOf(cbPlaceOrderSelectProduct.getSelectionModel().getSelectedItem().toString()), txtPlaceOrderProductName.getText(), txtPlaceOrderProductSIze.getText(), Integer.valueOf(txtPlaceOrderProductQty.getText()), Double.parseDouble(txtPlaceOrderProductPrice.getText()));
@@ -205,14 +205,14 @@ public class DashboardFormController implements Initializable {
     }
 
     private void addOrderTable(Integer productId, String productName, String productSize, Integer productQty, Double productPrice) {
-        OrderTable orderTable = new OrderTable(productId, productName, productSize, productQty, productPrice);
+        OrdersTable orderTable = new OrdersTable(productId, productName, productSize, productQty, productPrice);
 
         if (orderTableObservableList.isEmpty()) {
             orderTableObservableList.add(orderTable);
         } else {
             boolean productExists = false;
 
-            for (OrderTable product : orderTableObservableList) {
+            for (OrdersTable product : orderTableObservableList) {
                 if (product.getProductId().equals(productId)) {
                     product.setProductQty(product.getProductQty() + productQty);
                     product.setProductPrice(product.getProductPrice() + productPrice);
@@ -230,7 +230,7 @@ public class DashboardFormController implements Initializable {
 
     private void calculateTotal(){
         Double total=0.0;
-        for (OrderTable orderTablePrice: orderTableObservableList){
+        for (OrdersTable orderTablePrice: orderTableObservableList){
             total+=(orderTablePrice.getProductPrice())*(orderTablePrice.getProductQty());
         }
         txtPlaceOrderTotal.setText(String.valueOf(total));
@@ -239,7 +239,7 @@ public class DashboardFormController implements Initializable {
     public void btnPlaceOrdersOnAction(ActionEvent actionEvent) throws SQLException {
         ArrayList<OrderProduct> orderDetails = new ArrayList<>();
 
-        for (OrderTable productList:orderTableObservableList){
+        for (OrdersTable productList:orderTableObservableList){
             OrderProduct orderProduct = new OrderProduct(Integer.valueOf(txtPlaceOrderOrderId.getText()), productList.getProductId(), productList.getProductQty());
             orderDetails.add(orderProduct);
         }
@@ -251,9 +251,9 @@ public class DashboardFormController implements Initializable {
         Double orderTotalText = Double.valueOf(txtPlaceOrderTotal.getText());
         String paymentTypeText = cbPlaceOrderPaymentType.getSelectionModel().getSelectedItem().toString();
 
-        Order order = new Order(orderIdText, customerIdText, employeeIdText, dateAndTimeText, orderTotalText, paymentTypeText, orderDetails);
-        boolean placedOrder = DashboardController.getInstance().placeOrder(order);
-        if (placedOrder){
+        Orders order = new Orders(orderIdText, customerIdText, employeeIdText, dateAndTimeText, orderTotalText, paymentTypeText, orderDetails);
+        boolean placeOrder = ordersService.placeOrder(order);
+        if (placeOrder){
             Alert alert = new Alert(Alert.AlertType.INFORMATION);
             alert.setTitle("Order Confirmation");
             alert.setContentText("Order placed successfully!");
@@ -262,11 +262,11 @@ public class DashboardFormController implements Initializable {
     }
 
     public void cbPlaceOrderSelectCustomerOnAction(ActionEvent actionEvent) {
-        txtSelectCustomerName.setText(DashboardController.getInstance().getSelectCustomerName(cbPlaceOrderSelectCustomer.getSelectionModel().getSelectedItem().toString()));
+        txtSelectCustomerName.setText(ordersService.getSelectCustomerName(cbPlaceOrderSelectCustomer.getSelectionModel().getSelectedItem().toString()));
     }
 
     private void setCustomerIdCombo(){
-        cbPlaceOrderSelectCustomer.getItems().addAll(DashboardController.getInstance().getCustomerId());
+        cbPlaceOrderSelectCustomer.getItems().addAll(ordersService.getCustomerId());
     }
 
     public void btnUserOnAction(ActionEvent actionEvent) {
@@ -274,7 +274,7 @@ public class DashboardFormController implements Initializable {
     }
 
     public void btnUserAddOnAction(ActionEvent actionEvent) {
-        boolean addedUser = DashboardController.getInstance().addUser(txtUserName.getText(), txtUserEmail.getText(), txtUserPassword.getText(), cbUserRole.getSelectionModel().getSelectedItem().toString());
+        boolean addedUser = userService.addUser(txtUserName.getText(), txtUserEmail.getText(), txtUserPassword.getText(), cbUserRole.getSelectionModel().getSelectedItem().toString());
         if (addedUser){
             Alert alert = new Alert(Alert.AlertType.INFORMATION);
             alert.setTitle("User Confirmation");
@@ -286,16 +286,15 @@ public class DashboardFormController implements Initializable {
     }
 
     public void btnUserSearchOnAction(ActionEvent actionEvent) {
-        User searchUser = DashboardController.getInstance().searchUser(txtUserEmail.getText());
-        //System.out.println(searchUser.toString());
-        txtUserName.setText(searchUser.getName());
-        txtUserEmail.setText(searchUser.getEmail());
-        txtUserPassword.setText(searchUser.getPassword());
-        cbUserRole.setValue(searchUser.getRole());
+        User searchedUser = userService.searchUser(txtUserEmail.getText());
+        txtUserName.setText(searchedUser.getName());
+        txtUserEmail.setText(searchedUser.getEmail());
+        txtUserPassword.setText(searchedUser.getPassword());
+        cbUserRole.setValue(searchedUser.getRole());
     }
 
     public void btnUserUpdateOnAction(ActionEvent actionEvent) {
-        boolean updatedUser = DashboardController.getInstance().updateUser(txtUserName.getText(), txtUserEmail.getText(), txtUserPassword.getText(), cbUserRole.getSelectionModel().getSelectedItem().toString());
+        boolean updatedUser = userService.updateUser(txtUserName.getText(), txtUserEmail.getText(), txtUserPassword.getText(), cbUserRole.getSelectionModel().getSelectedItem().toString());
         if (updatedUser){
             Alert alert = new Alert(Alert.AlertType.INFORMATION);
             alert.setTitle("User Confirmation");
@@ -307,7 +306,7 @@ public class DashboardFormController implements Initializable {
     }
 
     public void btnUserDeleteOnAction(ActionEvent actionEvent) {
-        boolean deletedUser = DashboardController.getInstance().deleteUser(txtUserEmail.getText());
+        boolean deletedUser = userService.deleteUser(txtUserEmail.getText());
         if (deletedUser){
             Alert alert = new Alert(Alert.AlertType.INFORMATION);
             alert.setTitle("User Confirmation");
@@ -319,7 +318,7 @@ public class DashboardFormController implements Initializable {
     }
 
     private void loardUserTable(){
-        ObservableList<UserTable> users = DashboardController.getInstance().getUsers();
+        ObservableList<UserTable> users = userService.getUsers();
 
         colUserName.setCellValueFactory(new PropertyValueFactory<>("name"));
         colUserEmail.setCellValueFactory(new PropertyValueFactory<>("email"));
@@ -349,7 +348,7 @@ public class DashboardFormController implements Initializable {
     }
 
     public void btnProductAddOnAction(ActionEvent actionEvent) {
-        boolean addedProducts = DashboardController.getInstance().addProducts(new Product(null, txtProductName.getText(), cbProductCategory.getSelectionModel().getSelectedItem().toString(), cbProductSize.getSelectionModel().getSelectedItem().toString(), Double.parseDouble(txtProductPrice.getText()), Integer.parseInt(txtProductQuantity.getText()), Integer.parseInt(cbProductSupplierId.getSelectionModel().getSelectedItem().toString())));
+        boolean addedProducts = productService.addProducts(new Product(null, txtProductName.getText(), cbProductCategory.getSelectionModel().getSelectedItem().toString(), cbProductSize.getSelectionModel().getSelectedItem().toString(), Double.parseDouble(txtProductPrice.getText()), Integer.parseInt(txtProductQuantity.getText()), Integer.parseInt(cbProductSupplierId.getSelectionModel().getSelectedItem().toString())));
         if (addedProducts){
             Alert alert = new Alert(Alert.AlertType.INFORMATION);
             alert.setTitle("Product Confirmation");
@@ -365,7 +364,6 @@ public class DashboardFormController implements Initializable {
     public void btnProductSearchOnAction(ActionEvent actionEvent) {
         selectedProduct = (ProductTable) tblProduct.getSelectionModel().getSelectedItem();
         if (selectedProduct != null) {
-            // Update UI fields with selected product details
             txtProductName.setText(selectedProduct.getProductName());
             cbProductCategory.setValue(selectedProduct.getCategory().toString());
             cbProductSize.setValue(selectedProduct.getSize().toString());
@@ -376,8 +374,7 @@ public class DashboardFormController implements Initializable {
     }
 
     public void btnProductUpdateOnAction(ActionEvent actionEvent) {
-        //System.out.println(selectedProduct.toString());
-        boolean updatedProduct = DashboardController.getInstance().updateProduct(new Product(selectedProduct.getProductID(),txtProductName.getText(),cbProductCategory.getSelectionModel().getSelectedItem().toString(),cbProductSize.getSelectionModel().getSelectedItem().toString(),Double.parseDouble(txtProductPrice.getText()),Integer.parseInt(txtProductQuantity.getText()),Integer.parseInt(cbProductSupplierId.getSelectionModel().getSelectedItem().toString())));
+        boolean updatedProduct = productService.updateProduct(new Product(selectedProduct.getProductID(), txtProductName.getText(), cbProductCategory.getSelectionModel().getSelectedItem().toString(), cbProductSize.getSelectionModel().getSelectedItem().toString(), Double.parseDouble(txtProductPrice.getText()), Integer.parseInt(txtProductQuantity.getText()), Integer.parseInt(cbProductSupplierId.getSelectionModel().getSelectedItem().toString())));
         if (updatedProduct){
             Alert alert = new Alert(Alert.AlertType.INFORMATION);
             alert.setTitle("Product Confirmation");
@@ -389,7 +386,7 @@ public class DashboardFormController implements Initializable {
     }
 
     public void btnProductDeleteOnAction(ActionEvent actionEvent) {
-        boolean deletedProduct = DashboardController.getInstance().deleteProduct(selectedProduct.getProductID());
+        boolean deletedProduct = productService.deleteProduct(selectedProduct.getProductID());
         if (deletedProduct){
             Alert alert = new Alert(Alert.AlertType.INFORMATION);
             alert.setTitle("Product Confirmation");
@@ -401,7 +398,7 @@ public class DashboardFormController implements Initializable {
     }
 
     private void loardProductTable(){
-        ObservableList<ProductTable> allProducts = DashboardController.getInstance().getAllProducts();
+        ObservableList<ProductTable> allProducts = productService.getAllProducts();
         colProductId1.setCellValueFactory(new PropertyValueFactory<>("ProductID"));
         colProductName1.setCellValueFactory(new PropertyValueFactory<>("productName"));
         colProducCategory.setCellValueFactory(new PropertyValueFactory<>("category"));
@@ -414,18 +411,18 @@ public class DashboardFormController implements Initializable {
     }
 
     private void loardProductCategoryCombo(){
-        List<String> allCategorys = DashboardController.getInstance().getAllCategorys();
+        List<String> allCategorys = productService.getAllCategorys();
         cbProductCategory.getItems().addAll(allCategorys);
     }
 
     private void loardProductSizeCombo(){
-        List<String> allsizes = DashboardController.getInstance().getAllCSizes();
-        cbProductSize.getItems().addAll(allsizes);
+        List<String> allCSizes = productService.getAllCSizes();
+        cbProductSize.getItems().addAll(allCSizes);
     }
 
     private void loardProductSupplerIdCombo(){
-        List<String> allids = DashboardController.getInstance().getAllCSupllierIds();
-        cbProductSupplierId.getItems().addAll(allids);
+        List<String> allCSupllierIds = supplierService.getAllCSupllierIds();
+        cbProductSupplierId.getItems().addAll(allCSupllierIds);
     }
 
     private void clearProductDetailAreas(){
@@ -447,7 +444,7 @@ public class DashboardFormController implements Initializable {
     }
 
     public void btnSupplierAddOnAction(ActionEvent actionEvent) {
-        boolean addedSupplier = DashboardController.getInstance().addSupplier(new Supplier(null, txtSupplierName.getText(), txtSupplierComapany.getText(), txtSupplierEmail.getText(), cbSupplierItem.getSelectionModel().getSelectedItem().toString()));
+        boolean addedSupplier = supplierService.addSupplier(new Supplier(null, txtSupplierName.getText(), txtSupplierComapany.getText(), txtSupplierEmail.getText(), cbSupplierItem.getSelectionModel().getSelectedItem().toString()));
         if (addedSupplier){
             Alert alert = new Alert(Alert.AlertType.INFORMATION);
             alert.setTitle("Supplier Confirmation");
@@ -462,7 +459,6 @@ public class DashboardFormController implements Initializable {
 
     public void btnSupplierSearchOnAction(ActionEvent actionEvent) {
         getSelectedProduct = (SupplierTable) tblSupplier.getSelectionModel().getSelectedItem();
-        //System.out.println(selectedItem.toString());
         txtSupplierName.setText(getSelectedProduct.getName());
         txtSupplierComapany.setText(getSelectedProduct.getCompany());
         txtSupplierEmail.setText(getSelectedProduct.getEmail());
@@ -470,7 +466,7 @@ public class DashboardFormController implements Initializable {
     }
 
     public void btnSupplierUpdateOnAction(ActionEvent actionEvent) {
-        boolean updatedSupplier = DashboardController.getInstance().updateSupplier(new Supplier(getSelectedProduct.getSupplierID(), txtSupplierName.getText(), txtSupplierComapany.getText(), txtSupplierEmail.getText(), cbSupplierItem.getSelectionModel().getSelectedItem().toString()));
+        boolean updatedSupplier = supplierService.updateSupplier(new Supplier(getSelectedProduct.getSupplierID(), txtSupplierName.getText(), txtSupplierComapany.getText(), txtSupplierEmail.getText(), cbSupplierItem.getSelectionModel().getSelectedItem().toString()));
         if (updatedSupplier){
             Alert alert = new Alert(Alert.AlertType.INFORMATION);
             alert.setTitle("Supplier Confirmation");
@@ -482,7 +478,7 @@ public class DashboardFormController implements Initializable {
     }
 
     public void btnSupplierDeleteOnAction(ActionEvent actionEvent) {
-        boolean deletedSupplier = DashboardController.getInstance().deleteSupplier(getSelectedProduct.getSupplierID());
+        boolean deletedSupplier = supplierService.deleteSupplier(getSelectedProduct.getSupplierID());
         if (deletedSupplier){
             Alert alert = new Alert(Alert.AlertType.INFORMATION);
             alert.setTitle("Supplier Confirmation");
@@ -501,7 +497,7 @@ public class DashboardFormController implements Initializable {
     }
     
     private void loardSupplierTable(){
-        ObservableList<SupplierTable> allSupplier = DashboardController.getInstance().getAllSupplier();
+        ObservableList<SupplierTable> allSupplier = supplierService.getAllSupplier();
 
         colSupplierId.setCellValueFactory(new PropertyValueFactory<>("supplierID"));
         colSupplierName.setCellValueFactory(new PropertyValueFactory<>("name"));
@@ -513,7 +509,7 @@ public class DashboardFormController implements Initializable {
     }
 
     private void loardItemNamesCombo(){
-        List<String> allItemNames = DashboardController.getInstance().getAllItemNames();
+        List<String> allItemNames = productService.getAllItemNames();
         cbSupplierItem.getItems().addAll(allItemNames);
     }
 
@@ -525,7 +521,7 @@ public class DashboardFormController implements Initializable {
     }
 
     private void loardEmployeeTable(){
-        ObservableList<EmployeeTable> allEmployee = DashboardController.getInstance().getAllEmployee();
+        ObservableList<EmployeeTable> allEmployee = employeeService.getAllEmployee();
 
         colEmployeeID.setCellValueFactory(new PropertyValueFactory<>("employeeId"));
         colEmployeeName.setCellValueFactory(new PropertyValueFactory<>("name"));
@@ -539,19 +535,15 @@ public class DashboardFormController implements Initializable {
     public void btnEmployeeAddOnAction(ActionEvent actionEvent) throws SQLException {
         User user = new User(null, txtEmployeeName2.getText(), txtEmployeeEmail.getText(), txtEmployeePassword.getText(), cbEmployeeUserRole.getSelectionModel().getSelectedItem().toString(), null);
         Employee employee = new Employee(null, txtEmployeeName2.getText(), txtEmployeeEmail.getText(), cbEmployeeEmployeeRole.getSelectionModel().getSelectedItem().toString(), null);
-        boolean addedEmployee = DashboardController.getInstance().addEmployee(user, employee);
+        boolean addedEmployee = employeeService.addEmployee(user, employee);
         if (addedEmployee){
-            if (addedEmployee){
-                Alert alert = new Alert(Alert.AlertType.INFORMATION);
-                alert.setTitle("Employee Confirmation");
-                alert.setContentText("Employee Added Successfully!");
-                alert.showAndWait();
-                //loardSupplierTable();
-                //clearSupplierDetailAreas();
-                loardEmployeeTable();
-                loardUserTable();
-                clearEmployeeDetailAreas();
-            }
+            Alert alert = new Alert(Alert.AlertType.INFORMATION);
+            alert.setTitle("Employee Confirmation");
+            alert.setContentText("Employee Added Successfully!");
+            alert.showAndWait();
+            loardEmployeeTable();
+            loardUserTable();
+            clearEmployeeDetailAreas();
         }
     }
 
@@ -560,8 +552,7 @@ public class DashboardFormController implements Initializable {
 
     public void btnEmployeeSearchOnAction(ActionEvent actionEvent) {
         selectedEmployee = (EmployeeTable) tblEmployee.getSelectionModel().getSelectedItem();
-        //System.out.println(selectedEmployee.toString());
-        selectUser = DashboardController.getInstance().getSelectUser(selectedEmployee.getAdminId());
+        selectUser = employeeService.getSelectUser(selectedEmployee.getAdminId());
         txtEmployeeName2.setText(selectedEmployee.getName());
         txtEmployeeEmail.setText(selectedEmployee.getEmail());
         txtEmployeePassword.setText(selectUser.getPassword());
@@ -572,15 +563,13 @@ public class DashboardFormController implements Initializable {
     public void btnEmployeeUpdateOnAction(ActionEvent actionEvent) throws SQLException {
         User user = new User(selectUser.getUserId(), txtEmployeeName2.getText(), txtEmployeeEmail.getText(), txtEmployeePassword.getText(), cbEmployeeUserRole.getSelectionModel().getSelectedItem().toString(), null);
         Employee employee = new Employee(selectedEmployee.getEmployeeId(), txtEmployeeName2.getText(), txtEmployeeEmail.getText(), cbEmployeeEmployeeRole.getSelectionModel().getSelectedItem().toString(), selectUser.getUserId());
-        boolean b = DashboardController.getInstance().updateEmployee(user, employee);
+        boolean updatedEmployee = employeeService.updateEmployee(user, employee);
 
-        if (b){
+        if (updatedEmployee){
             Alert alert = new Alert(Alert.AlertType.INFORMATION);
             alert.setTitle("Employee Confirmation");
             alert.setContentText("Employee Update Successfully!");
             alert.showAndWait();
-            //loardSupplierTable();
-            //clearSupplierDetailAreas();
             loardEmployeeTable();
             loardUserTable();
             clearEmployeeDetailAreas();
@@ -588,14 +577,12 @@ public class DashboardFormController implements Initializable {
     }
 
     public void btnEmployeeDeleteOnAction(ActionEvent actionEvent) throws SQLException {
-        boolean deletedEmployee = DashboardController.getInstance().deleteEmployee(selectUser.getUserId(), selectedEmployee.getEmployeeId());
+        boolean deletedEmployee = employeeService.deleteEmployee(selectUser.getUserId(), selectedEmployee.getEmployeeId());
         if (deletedEmployee){
             Alert alert = new Alert(Alert.AlertType.INFORMATION);
             alert.setTitle("Employee Confirmation");
             alert.setContentText("Employee Delete Successfully!");
             alert.showAndWait();
-            //loardSupplierTable();
-            //clearSupplierDetailAreas();
             loardEmployeeTable();
             loardUserTable();
             clearEmployeeDetailAreas();
@@ -627,17 +614,14 @@ public class DashboardFormController implements Initializable {
     }
 
     public void dashbordButtonShow(String role){
-        //System.out.println(role);
         if (role.equals("Employee")){
-            //System.out.println("correct");
-            //btnUser.setDisable(true);
         }
     }
 
     public void btnCustomerReportOnAction(ActionEvent actionEvent) {
         JasperDesign design = null;
         try {
-            design = JRXmlLoader.load("src/main/resources/view/jrxml/orders.jrxml");
+            design = JRXmlLoader.load("src/main/resources/view/jrxml/customer.jrxml");
             JasperReport jasperReport = JasperCompileManager.compileReport(design);
 
             JasperPrint jasperPrint = JasperFillManager.fillReport(jasperReport, null, connection.getInstance().getConnection());
@@ -650,5 +634,47 @@ public class DashboardFormController implements Initializable {
 
     public void btnReportsOnAction(ActionEvent actionEvent) {
         apReports.toFront();
+    }
+
+    public void btnEmployeeReportOnAction(ActionEvent actionEvent) {
+        JasperDesign design = null;
+        try {
+            design = JRXmlLoader.load("src/main/resources/view/jrxml/employee.jrxml");
+            JasperReport jasperReport = JasperCompileManager.compileReport(design);
+
+            JasperPrint jasperPrint = JasperFillManager.fillReport(jasperReport, null, connection.getInstance().getConnection());
+
+            JasperViewer.viewReport(jasperPrint,false);
+        } catch (JRException e) {
+            throw new RuntimeException(e);
+        }
+    }
+
+    public void btnProductReportOnAction(ActionEvent actionEvent) {
+        JasperDesign design = null;
+        try {
+            design = JRXmlLoader.load("src/main/resources/view/jrxml/product.jrxml");
+            JasperReport jasperReport = JasperCompileManager.compileReport(design);
+
+            JasperPrint jasperPrint = JasperFillManager.fillReport(jasperReport, null, connection.getInstance().getConnection());
+
+            JasperViewer.viewReport(jasperPrint,false);
+        } catch (JRException e) {
+            throw new RuntimeException(e);
+        }
+    }
+
+    public void btnSupplierReportOnAction(ActionEvent actionEvent) {
+        JasperDesign design = null;
+        try {
+            design = JRXmlLoader.load("src/main/resources/view/jrxml/supplier.jrxml");
+            JasperReport jasperReport = JasperCompileManager.compileReport(design);
+
+            JasperPrint jasperPrint = JasperFillManager.fillReport(jasperReport, null, connection.getInstance().getConnection());
+
+            JasperViewer.viewReport(jasperPrint,false);
+        } catch (JRException e) {
+            throw new RuntimeException(e);
+        }
     }
 }

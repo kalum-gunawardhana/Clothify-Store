@@ -1,14 +1,14 @@
-package model.db;
+package DBConnection;
 
 import java.sql.Connection;
 import java.sql.DriverManager;
 import java.sql.SQLException;
 
-public class DBConnection {
-    private static DBConnection ob;
+public class connection {
+    private static DBConnection.connection ob;
     private Connection connection;
 
-    private DBConnection() {
+    private connection() {
 
         try {
             Class.forName("com.mysql.cj.jdbc.Driver");
@@ -24,9 +24,9 @@ public class DBConnection {
         return  connection;
     }
 
-    public static DBConnection getInstance() {
+    public static DBConnection.connection getInstance() {
         if(ob==null){
-            ob=new DBConnection();
+            ob=new connection();
         }
         return ob;
     }
