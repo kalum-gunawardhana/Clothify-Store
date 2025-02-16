@@ -4,6 +4,10 @@ import com.jfoenix.controls.JFXButton;
 import com.jfoenix.controls.JFXTextField;
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
+import javafx.scene.chart.BarChart;
+import javafx.scene.chart.LineChart;
+import javafx.scene.chart.NumberAxis;
+import javafx.scene.chart.XYChart;
 import javafx.scene.control.TableColumn;
 import javafx.scene.control.TableView;
 import javafx.scene.control.cell.PropertyValueFactory;
@@ -105,6 +109,11 @@ public class DashboardFormController implements Initializable {
     public JFXButton btnUser;
     public AnchorPane apReports;
 
+    public LineChart<String, Number> lineChart;
+    public NumberAxis yAxis;
+    public BarChart<String, Number> barChart;
+    public NumberAxis yAxis1;
+
     UserService userService= ServiceFactory.getInstance().getServiceType(ServiceType.USER);
     SupplierService supplierService=ServiceFactory.getInstance().getServiceType(ServiceType.SUPPLIER);
     ProductService productService=ServiceFactory.getInstance().getServiceType(ServiceType.PRODUCT);
@@ -134,6 +143,8 @@ public class DashboardFormController implements Initializable {
         loardEmployeeTable();
         loardUserRoleCombo();
         loardEmployeeRoleCombo();
+        loardLineChart();
+        loardBarChart();
     }
 
     public void btnSupplierOnAction(ActionEvent actionEvent) throws IOException {
@@ -676,5 +687,38 @@ public class DashboardFormController implements Initializable {
         } catch (JRException e) {
             throw new RuntimeException(e);
         }
+    }
+
+    private void loardLineChart(){
+        // Sample Data
+        XYChart.Series<String, Number> series = new XYChart.Series<>();
+        series.setName("Sales Data");
+
+        // Adding data points
+        series.getData().add(new XYChart.Data<>("Monday", 120));
+        series.getData().add(new XYChart.Data<>("Tuesday", 150));
+        series.getData().add(new XYChart.Data<>("Wednesday", 180));
+        series.getData().add(new XYChart.Data<>("Thursday", 200));
+        series.getData().add(new XYChart.Data<>("Friday", 300));
+        series.getData().add(new XYChart.Data<>("Saturday", 250));
+        series.getData().add(new XYChart.Data<>("Sunday", 280));
+
+        // Add series to chart
+        lineChart.getData().add(series);
+    }
+
+    private void loardBarChart(){
+        XYChart.Series<String, Number> series = new XYChart.Series<>();
+        series.setName("2024 - 2025 Sales");
+
+        // Adding sample data
+        series.getData().add(new XYChart.Data<>("September ", 500));
+        series.getData().add(new XYChart.Data<>("November", 700));
+        series.getData().add(new XYChart.Data<>("December", 600));
+        series.getData().add(new XYChart.Data<>("January", 800));
+        series.getData().add(new XYChart.Data<>("February", 900));
+
+        // Add the series to the chart
+        barChart.getData().add(series);
     }
 }

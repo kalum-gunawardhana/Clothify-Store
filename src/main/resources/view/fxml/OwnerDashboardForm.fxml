@@ -3,6 +3,7 @@
 <?import com.jfoenix.controls.JFXButton?>
 <?import com.jfoenix.controls.JFXComboBox?>
 <?import com.jfoenix.controls.JFXTextField?>
+<?import javafx.scene.chart.BarChart?>
 <?import javafx.scene.chart.CategoryAxis?>
 <?import javafx.scene.chart.LineChart?>
 <?import javafx.scene.chart.NumberAxis?>
@@ -69,7 +70,7 @@
                   <Font name="System Bold" size="14.0" />
                </font>
             </JFXButton>
-            <TableView fx:id="tblProduct" layoutX="23.0" layoutY="120.0" prefHeight="590.0" prefWidth="766.0" stylesheets="@../css/table-view.css">
+            <TableView fx:id="tblProduct" layoutX="25.0" layoutY="94.0" prefHeight="640.0" prefWidth="766.0" stylesheets="@../css/table-view.css">
               <columns>
                   <TableColumn fx:id="colProductId1" prefWidth="88.0" text="Product ID" />
                 <TableColumn fx:id="colProductName1" prefWidth="233.5999755859375" text="Name" />
@@ -106,12 +107,12 @@
                   <Font name="System Bold" size="14.0" />
                </font>
             </JFXButton>
-            <Label layoutX="53.0" layoutY="35.0" text="Product Management">
+            <Label layoutX="53.0" layoutY="19.0" text="Product Management">
                <font>
                   <Font name="System Bold" size="24.0" />
                </font>
             </Label>
-            <Label layoutX="53.0" layoutY="73.0" text="Style Meets Product: Manage, Track, and Grow!">
+            <Label layoutX="53.0" layoutY="57.0" text="Style Meets Product: Manage, Track, and Grow!">
                <font>
                   <Font name="System Bold Italic" size="14.0" />
                </font>
@@ -120,8 +121,8 @@
       </AnchorPane>
       <AnchorPane fx:id="apSupplier" layoutX="215.0" layoutY="65.0" prefHeight="755.0" prefWidth="1050.0" style="-fx-background-color: EDEDED;">
          <children>
-            <JFXTextField fx:id="txtSupplierName" layoutX="834.0" layoutY="196.0" prefHeight="35.0" prefWidth="180.0" promptText="Name" stylesheets="@../css/jfx-text-field.css" />
-            <TableView fx:id="tblSupplier" layoutX="45.0" layoutY="133.0" prefHeight="590.0" prefWidth="750.0" stylesheets="@../css/table-view.css">
+            <JFXTextField fx:id="txtSupplierName" layoutX="834.0" layoutY="145.0" prefHeight="35.0" prefWidth="180.0" promptText="Name" stylesheets="@../css/jfx-text-field.css" />
+            <TableView fx:id="tblSupplier" layoutX="45.0" layoutY="95.0" prefHeight="628.0" prefWidth="750.0" stylesheets="@../css/table-view.css">
               <columns>
                 <TableColumn fx:id="colSupplierId" prefWidth="75.0" text="Id" />
                 <TableColumn fx:id="colSupplierName" prefWidth="153.60000610351562" text="Name" />
@@ -130,9 +131,9 @@
                   <TableColumn fx:id="colSupplierItem" prefWidth="107.20001220703125" text="Item" />
               </columns>
             </TableView>
-            <JFXTextField fx:id="txtSupplierComapany" layoutX="835.0" layoutY="246.0" prefHeight="35.0" prefWidth="180.0" promptText="Company" stylesheets="@../css/jfx-text-field.css" />
-            <JFXTextField fx:id="txtSupplierEmail" layoutX="834.0" layoutY="295.0" prefHeight="35.0" prefWidth="180.0" promptText="Email" stylesheets="@../css/jfx-text-field.css" />
-            <JFXComboBox fx:id="cbSupplierItem" layoutX="834.0" layoutY="346.0" prefHeight="35.0" prefWidth="180.0" promptText="Select Item" stylesheets="@../css/jfx-combo-box.css" />
+            <JFXTextField fx:id="txtSupplierComapany" layoutX="835.0" layoutY="195.0" prefHeight="35.0" prefWidth="180.0" promptText="Company" stylesheets="@../css/jfx-text-field.css" />
+            <JFXTextField fx:id="txtSupplierEmail" layoutX="834.0" layoutY="244.0" prefHeight="35.0" prefWidth="180.0" promptText="Email" stylesheets="@../css/jfx-text-field.css" />
+            <JFXComboBox fx:id="cbSupplierItem" layoutX="834.0" layoutY="295.0" prefHeight="35.0" prefWidth="180.0" promptText="Select Item" stylesheets="@../css/jfx-combo-box.css" />
             <JFXButton layoutX="835.0" layoutY="422.0" onAction="#btnSupplierAddOnAction" prefHeight="35.0" prefWidth="180.0" style="-fx-background-color: #2596be;" stylesheets="@../css/jfx-button.css" text="Add" textFill="WHITE">
                <font>
                   <Font name="System Bold" size="12.0" />
@@ -158,12 +159,12 @@
                   <Font name="System Bold" size="12.0" />
                </font>
             </JFXButton>
-            <Label layoutX="60.0" layoutY="41.0" text="Supplier Management">
+            <Label layoutX="60.0" layoutY="19.0" text="Supplier Management">
                <font>
                   <Font name="System Bold" size="24.0" />
                </font>
             </Label>
-            <Label layoutX="60.0" layoutY="79.0" text="Seamless Supplier Management for a Fashion-Forward Future!">
+            <Label layoutX="60.0" layoutY="57.0" text="Seamless Supplier Management for a Fashion-Forward Future!">
                <font>
                   <Font name="System Bold Italic" size="14.0" />
                </font>
@@ -272,27 +273,27 @@
       </AnchorPane>
       <AnchorPane fx:id="apReports" layoutX="215.0" layoutY="63.0" prefHeight="758.0" prefWidth="1050.0" style="-fx-background-color: EDEDED;">
          <children>
-            <JFXButton contentDisplay="BOTTOM" layoutX="104.0" layoutY="39.0" onAction="#btnCustomerReportOnAction" prefHeight="40.0" prefWidth="200.0" style="-fx-background-color: #2596be;" text="Generate Customer Report" textAlignment="CENTER" textFill="WHITE">
+            <JFXButton contentDisplay="BOTTOM" layoutX="104.0" layoutY="74.0" onAction="#btnCustomerReportOnAction" prefHeight="40.0" prefWidth="200.0" style="-fx-background-color: #2596be;" text="Generate Customer Report" textAlignment="CENTER" textFill="WHITE">
                <font>
                   <Font name="System Bold Italic" size="14.0" />
                </font>
             </JFXButton>
-            <JFXButton contentDisplay="BOTTOM" layoutX="317.0" layoutY="39.0" onAction="#btnEmployeeReportOnAction" prefHeight="40.0" prefWidth="200.0" style="-fx-background-color: #2596be;" text="Generate Employee Report" textAlignment="CENTER" textFill="WHITE">
+            <JFXButton contentDisplay="BOTTOM" layoutX="317.0" layoutY="74.0" onAction="#btnEmployeeReportOnAction" prefHeight="40.0" prefWidth="200.0" style="-fx-background-color: #2596be;" text="Generate Employee Report" textAlignment="CENTER" textFill="WHITE">
                <font>
                   <Font name="System Bold Italic" size="14.0" />
                </font>
             </JFXButton>
-            <JFXButton contentDisplay="BOTTOM" layoutX="530.0" layoutY="39.0" onAction="#btnProductReportOnAction" prefHeight="40.0" prefWidth="200.0" style="-fx-background-color: #2596be;" text="Generate Product Report" textAlignment="CENTER" textFill="WHITE">
+            <JFXButton contentDisplay="BOTTOM" layoutX="530.0" layoutY="74.0" onAction="#btnProductReportOnAction" prefHeight="40.0" prefWidth="200.0" style="-fx-background-color: #2596be;" text="Generate Product Report" textAlignment="CENTER" textFill="WHITE">
                <font>
                   <Font name="System Bold Italic" size="14.0" />
                </font>
             </JFXButton>
-            <JFXButton contentDisplay="BOTTOM" layoutX="742.0" layoutY="39.0" onAction="#btnSupplierReportOnAction" prefHeight="40.0" prefWidth="200.0" style="-fx-background-color: #2596be;" text="Generate Supplier Report" textAlignment="CENTER" textFill="WHITE">
+            <JFXButton contentDisplay="BOTTOM" layoutX="742.0" layoutY="74.0" onAction="#btnSupplierReportOnAction" prefHeight="40.0" prefWidth="200.0" style="-fx-background-color: #2596be;" text="Generate Supplier Report" textAlignment="CENTER" textFill="WHITE">
                <font>
                   <Font name="System Bold Italic" size="14.0" />
                </font>
             </JFXButton>
-            <LineChart layoutX="104.0" layoutY="97.0">
+            <LineChart fx:id="lineChart" layoutX="55.0" layoutY="213.0" prefHeight="346.0" prefWidth="415.0" titleSide="BOTTOM">
               <xAxis>
                 <CategoryAxis side="BOTTOM" />
               </xAxis>
@@ -300,6 +301,14 @@
                 <NumberAxis side="LEFT" />
               </yAxis>
             </LineChart>
+            <BarChart fx:id="barChart" layoutX="558.0" layoutY="213.0" prefHeight="346.0" prefWidth="423.0">
+              <xAxis>
+                <CategoryAxis side="BOTTOM" />
+              </xAxis>
+              <yAxis>
+                <NumberAxis side="LEFT" />
+              </yAxis>
+            </BarChart>
          </children>
       </AnchorPane>
       <AnchorPane fx:id="apUser" layoutX="215.0" layoutY="65.0" prefHeight="755.0" prefWidth="1050.0" style="-fx-background-color: EDEDED;">

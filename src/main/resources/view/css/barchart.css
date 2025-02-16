@@ -1,0 +1,50 @@
+.root {
+    -fx-background-color: #f5f5f5; /* Light grey background */
+}
+
+/* Styling for the BarChart */
+.bar-chart {
+    -fx-background-color: white;
+    -fx-border-color: #333;
+    -fx-border-width: 2px;
+    -fx-padding: 10px;
+    -fx-border-radius: 10px;
+}
+
+/* X-Axis and Y-Axis Labels */
+.axis {
+    -fx-tick-label-fill: #333; /* Dark grey labels */
+    -fx-font-size: 14px;
+    -fx-font-weight: bold;
+}
+
+/* Bar Styling */
+.chart-bar {
+    -fx-bar-fill: linear-gradient(to top, #ff6b81, #ff4757); /* Fashionable pink-red gradient */
+}
+
+/* Hover Effect on Bars */
+.chart-bar:hover {
+    -fx-bar-fill: linear-gradient(to top, #ff4757, #ff6b81); /* Reverse gradient on hover */
+}
+
+/* Chart Legend */
+.chart-legend {
+    -fx-background-color: #ffffff;
+    -fx-border-color: #ddd;
+    -fx-border-width: 1px;
+    -fx-padding: 5px;
+}
+
+/* Chart Title */
+.chart-title {
+    -fx-text-fill: #222;
+    -fx-font-size: 20px;
+    -fx-font-weight: bold;
+    -fx-font-family: "Arial Black";
+}
+
+/* X and Y Axis Line */
+.axis-line {
+    -fx-stroke: #888; /* Soft grey axis lines */
+}
