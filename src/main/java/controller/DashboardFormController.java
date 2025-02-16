@@ -13,9 +13,8 @@ import com.jfoenix.controls.JFXComboBox;
 import javafx.event.ActionEvent;
 import javafx.fxml.Initializable;
 import javafx.scene.control.Alert;
-import javafx.scene.control.TextField;
 import javafx.scene.layout.AnchorPane;
-import model.db.DBConnection;
+import DBConnection.connection;
 import net.sf.jasperreports.engine.*;
 import net.sf.jasperreports.engine.design.JasperDesign;
 import net.sf.jasperreports.engine.xml.JRXmlLoader;
@@ -641,7 +640,7 @@ public class DashboardFormController implements Initializable {
             design = JRXmlLoader.load("src/main/resources/view/jrxml/orders.jrxml");
             JasperReport jasperReport = JasperCompileManager.compileReport(design);
 
-            JasperPrint jasperPrint = JasperFillManager.fillReport(jasperReport, null, DBConnection.getInstance().getConnection());
+            JasperPrint jasperPrint = JasperFillManager.fillReport(jasperReport, null, connection.getInstance().getConnection());
 
             JasperViewer.viewReport(jasperPrint,false);
         } catch (JRException e) {
