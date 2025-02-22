@@ -4,6 +4,8 @@ import com.jfoenix.controls.JFXPasswordField;
 import com.jfoenix.controls.JFXTextField;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXMLLoader;
+import javafx.scene.Node;
+import javafx.scene.Parent;
 import javafx.scene.Scene;
 import javafx.scene.control.Alert;
 import javafx.scene.control.TextField;
@@ -41,10 +43,23 @@ public class LoginFormController {
     public void btnLoginOnAction(ActionEvent actionEvent) throws IOException {
         String loginInfo = userService.getLoginInfo(txtEmail.getText(), txtPassword.getText());
 
-        if (loginInfo!=null){
-            Stage stage = new Stage();
-            stage.setScene(new Scene(FXMLLoader.load(getClass().getResource("/view/fxml/OwnerDashboardForm.fxml"))));
-            stage.show();
+        if (loginInfo != null) {
+            try {
+                // Load the new scene
+                Parent root = FXMLLoader.load(getClass().getResource("/view/fxml/OwnerDashboardForm.fxml"));
+
+                // Create and show new stage
+                Stage stage = new Stage();
+                stage.setScene(new Scene(root));
+                stage.show();
+
+                // Get the current window and close it
+                Stage currentStage = (Stage) ((Node) actionEvent.getSource()).getScene().getWindow();
+                currentStage.close();
+
+            } catch (IOException e) {
+                e.printStackTrace(); // Or use a logger to handle exceptions
+            }
 
             DashboardFormController dashboardFormController = new DashboardFormController();
             dashboardFormController.dashbordButtonShow(loginInfo);

@@ -4,6 +4,10 @@ import com.jfoenix.controls.JFXButton;
 import com.jfoenix.controls.JFXTextField;
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
+import javafx.fxml.FXMLLoader;
+import javafx.scene.Node;
+import javafx.scene.Parent;
+import javafx.scene.Scene;
 import javafx.scene.chart.BarChart;
 import javafx.scene.chart.LineChart;
 import javafx.scene.chart.NumberAxis;
@@ -11,6 +15,7 @@ import javafx.scene.chart.XYChart;
 import javafx.scene.control.TableColumn;
 import javafx.scene.control.TableView;
 import javafx.scene.control.cell.PropertyValueFactory;
+import javafx.stage.Stage;
 import model.*;
 import com.jfoenix.controls.JFXComboBox;
 import javafx.event.ActionEvent;
@@ -720,5 +725,23 @@ public class DashboardFormController implements Initializable {
 
         // Add the series to the chart
         barChart.getData().add(series);
+    }
+
+    public void btnLogoutOnAction(ActionEvent actionEvent) {
+        // Get the current window and close it
+        Stage currentStage = (Stage) ((Node) actionEvent.getSource()).getScene().getWindow();
+        currentStage.close();
+
+        try {
+            // Load the new scene
+            Parent root = FXMLLoader.load(getClass().getResource("/view/fxml/LoginForm.fxml"));
+
+            // Create and show new stage
+            Stage stage = new Stage();
+            stage.setScene(new Scene(root));
+            stage.show();
+        } catch (IOException e) {
+            throw new RuntimeException(e);
+        }
     }
 }
