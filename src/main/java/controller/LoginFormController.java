@@ -32,8 +32,6 @@ public class LoginFormController {
     public TextField txtNewPass;
     public TextField txtConPass;
 
-    public static String generated;
-
     UserService userService= ServiceFactory.getInstance().getServiceType(ServiceType.USER);
     SupplierService supplierService=ServiceFactory.getInstance().getServiceType(ServiceType.SUPPLIER);
     ProductService productService=ServiceFactory.getInstance().getServiceType(ServiceType.PRODUCT);
@@ -41,6 +39,21 @@ public class LoginFormController {
     EmployeeService employeeService=ServiceFactory.getInstance().getServiceType(ServiceType.EMPLOYEE);
 
     public void btnLoginOnAction(ActionEvent actionEvent) throws IOException {
+        if (txtEmail.getText().isEmpty() || txtPassword.getText().isEmpty()){
+            txtEmail.clear();
+            txtPassword.clear();
+
+            // Creating an Error Alert
+            Alert errorAlert = new Alert(Alert.AlertType.ERROR);
+            errorAlert.setTitle("Error Dialog");
+            errorAlert.setHeaderText("An Error Occurred");
+            errorAlert.setContentText("Please enter your email and password!");
+
+            // Display the alert
+            errorAlert.showAndWait();
+            return;
+        }
+
         String loginInfo = userService.getLoginInfo(txtEmail.getText(), txtPassword.getText());
 
         if (loginInfo != null) {
@@ -63,6 +76,18 @@ public class LoginFormController {
 
             DashboardFormController dashboardFormController = new DashboardFormController();
             dashboardFormController.dashbordButtonShow(loginInfo);
+        }else {
+            txtEmail.clear();
+            txtPassword.clear();
+
+            // Creating an Error Alert
+            Alert errorAlert = new Alert(Alert.AlertType.ERROR);
+            errorAlert.setTitle("Error Dialog");
+            errorAlert.setHeaderText("An Error Occurred");
+            errorAlert.setContentText("Invalid email and password!");
+
+            // Display the alert
+            errorAlert.showAndWait();
         }
         txtEmail.clear();
         txtPassword.clear();
@@ -77,85 +102,90 @@ public class LoginFormController {
     }
 
     public void btnSentOnAction(ActionEvent actionEvent) {
-        sendOTP(txtForgetEmail.getText());
-    }
+        if (txtForgetEmail.getText().isEmpty()){
+            // Creating an Error Alert
+            Alert errorAlert = new Alert(Alert.AlertType.ERROR);
+            errorAlert.setTitle("Error Dialog");
+            errorAlert.setHeaderText("An Error Occurred");
+            errorAlert.setContentText("Please enter your email!");
 
-    public String generateOTP(){
-        String randomNumeric = RandomStringUtils.randomNumeric(6);
-        return randomNumeric;
-    }
-
-    public void sendOTP(String recipientEmail) {
-        Properties properties = new Properties();
-        properties.put("mail.smtp.auth", "true");
-        properties.put("mail.smtp.starttls.enable", "true");
-        properties.put("mail.smtp.host", "smtp.gmail.com");
-        properties.put("mail.smtp.port", "587");
-
-        final String senderEmail = recipientEmail;
-        final String senderPassword = "jqnr tmef vbqg szon";
-
-        Session session = Session.getInstance(properties, new Authenticator() {
-            @Override
-            protected PasswordAuthentication getPasswordAuthentication() {
-                return new PasswordAuthentication(senderEmail, senderPassword);
-            }
-        });
-
-        generated = generateOTP();
-
-        Message message = prepareMessage(session, senderEmail, recipientEmail, generated);
-
-        if (message != null) {
-            try {
-                Transport.send(message);
-                System.out.println("OTP email sent successfully to " + recipientEmail);
-            } catch (MessagingException e) {
-                System.err.println("Error sending OTP email: " + e.getMessage());
-                throw new RuntimeException("Failed to send email", e);
-            }
-        } else {
-            System.err.println("Failed to prepare email message.");
+            // Display the alert
+            errorAlert.showAndWait();
+            txtForgetEmail.clear();
+            return;
         }
-    }
+        boolean sentOTP = userService.sendOTP(txtForgetEmail.getText());
+        if (sentOTP) {
+            // Create an Information Alert
+            Alert infoAlert = new Alert(Alert.AlertType.INFORMATION);
+            infoAlert.setTitle("Information Dialog");
+            infoAlert.setHeaderText("Operation Successful");
+            infoAlert.setContentText("Your OTP has been sent successfully.");
 
-    private Message prepareMessage(Session session, String senderEmail, String recipientEmail, String otp) {
-        try {
-            Message message = new MimeMessage(session);
-            message.setFrom(new InternetAddress(senderEmail));
-            message.setRecipient(Message.RecipientType.TO, new InternetAddress(recipientEmail));
-            message.setSubject("Your OTP Code");
-            message.setText("Dear user,\n\nYour OTP code is: " + otp + "\n\nThank you!");
-            return message;
-        } catch (Exception e) {
+            // Show the alert
+            infoAlert.showAndWait();
         }
-        return null;
     }
 
     public boolean checkPassword(){
         if (txtNewPass.getText().equals(txtConPass.getText())){
-            if (txtOtp.getText().equals(generated)){
-                return true;
-            }
+            return userService.equalsOTP(Integer.valueOf(txtOtp.getText()), txtOtp.getText());
         }
         return false;
     }
 
     public void btnSubmitOnAction(ActionEvent actionEvent) throws IOException {
+        if (txtOtp.getText().isEmpty() || txtNewPass.getText().isEmpty() || txtConPass.getText().isEmpty()){
+            // Creating an Error Alert
+            Alert errorAlert = new Alert(Alert.AlertType.ERROR);
+            errorAlert.setTitle("Error Dialog");
+            errorAlert.setHeaderText("An Error Occurred");
+            errorAlert.setContentText("Please enter OTP and password!");
+
+            // Display the alert
+            errorAlert.showAndWait();
+            txtOtp.clear();
+            txtNewPass.clear();
+            txtConPass.clear();
+            return;
+        } else if (!(txtNewPass.getText().equals(txtConPass.getText()))) {
+            // Creating an Error Alert
+            Alert errorAlert = new Alert(Alert.AlertType.ERROR);
+            errorAlert.setTitle("Error Dialog");
+            errorAlert.setHeaderText("An Error Occurred");
+            errorAlert.setContentText("Doesn't match your password. Please enter your correct password!");
+
+            // Display the alert
+            errorAlert.showAndWait();
+            txtOtp.clear();
+            txtNewPass.clear();
+            txtConPass.clear();
+            return;
+        }
+
         boolean checked = checkPassword();
         if (checked){
+            //System.out.println(txtForgetEmail.getText().isEmpty());
             boolean forgottenPassword = userService.forgetPassword(txtForgetEmail.getText(), txtConPass.getText());
             if (forgottenPassword){
-                Alert alert = new Alert(Alert.AlertType.INFORMATION);
-                alert.setTitle("Information");
-                alert.setHeaderText("Password Updated Successfully");
-                alert.show();
+                // Create an Information Alert
+                Alert infoAlert = new Alert(Alert.AlertType.INFORMATION);
+                infoAlert.setTitle("Information Dialog");
+                infoAlert.setHeaderText("Operation Successful");
+                infoAlert.setContentText("Password updated successfully!");
+
+                // Show the alert
+                infoAlert.showAndWait();
 
             }else {
-                Alert alert = new Alert(Alert.AlertType.ERROR);
-                alert.setTitle("Information");
-                alert.setHeaderText("Update Fail");
-                alert.show();
+                // Creating an Error Alert
+                Alert errorAlert = new Alert(Alert.AlertType.ERROR);
+                errorAlert.setTitle("Error Dialog");
+                errorAlert.setHeaderText("An Error Occurred");
+                errorAlert.setContentText("Something went wrong! Please try again.");
+
+                // Display the alert
+                errorAlert.showAndWait();
             }
         }
 

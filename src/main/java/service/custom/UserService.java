@@ -13,4 +13,6 @@ public interface UserService extends SuperService {
     boolean addUser(String name, String email, String password, String role);
     boolean forgetPassword(String email, String password);
     String getLoginInfo(String email, String password);
+    boolean sendOTP(String recipientEmail);
+    boolean equalsOTP(Integer OTP, String OTP1);
 }

@@ -178,16 +178,9 @@ CREATE TABLE category (
 );
 
 INSERT INTO category (CategoryName) VALUES
-('Ladies Wear'),
-('Gents Wear'),
-('Kids Wear'),
-('Footwear'),
-('Accessories'),
-('Traditional Wear'),
-('Casual Wear'),
-('Formal Wear'),
-('Sports Wear'),
-('Winter Wear');
+('Ladies'),
+('Gents'),
+('Kids');
 
 CREATE TABLE size (
     SizeID INT AUTO_INCREMENT PRIMARY KEY,
