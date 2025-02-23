@@ -55,7 +55,6 @@ public class LoginFormController {
         }
 
         String loginInfo = userService.getLoginInfo(txtEmail.getText(), txtPassword.getText());
-
         if (loginInfo != null) {
             try {
                 // Load the new scene
@@ -73,9 +72,6 @@ public class LoginFormController {
             } catch (IOException e) {
                 e.printStackTrace(); // Or use a logger to handle exceptions
             }
-
-            DashboardFormController dashboardFormController = new DashboardFormController();
-            dashboardFormController.dashbordButtonShow(loginInfo);
         }else {
             txtEmail.clear();
             txtPassword.clear();

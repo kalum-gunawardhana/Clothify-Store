@@ -23,12 +23,12 @@
             <Font name="System Bold Italic" size="18.0" />
          </font>
       </Label>
-      <JFXButton contentDisplay="BOTTOM" layoutX="41.0" layoutY="91.0" onAction="#btnEmployeeOnAction" prefHeight="40.0" prefWidth="130.0" style="-fx-background-color: #2596be;" text="Employee" textAlignment="CENTER" textFill="WHITE">
+      <JFXButton fx:id="btnEmployee" contentDisplay="BOTTOM" layoutX="41.0" layoutY="91.0" onAction="#btnEmployeeOnAction" prefHeight="40.0" prefWidth="130.0" style="-fx-background-color: #2596be;" text="Employee" textAlignment="CENTER" textFill="WHITE">
          <font>
             <Font name="System Bold Italic" size="14.0" />
          </font>
       </JFXButton>
-      <JFXButton contentDisplay="BOTTOM" layoutX="41.0" layoutY="199.0" onAction="#btnSupplierOnAction" prefHeight="40.0" prefWidth="130.0" style="-fx-background-color: #2596be;" text="Supplier" textAlignment="CENTER" textFill="WHITE">
+      <JFXButton fx:id="btnSupplier" contentDisplay="BOTTOM" layoutX="41.0" layoutY="199.0" onAction="#btnSupplierOnAction" prefHeight="40.0" prefWidth="130.0" style="-fx-background-color: #2596be;" text="Supplier" textAlignment="CENTER" textFill="WHITE">
          <font>
             <Font name="System Bold Italic" size="14.0" />
          </font>
@@ -38,7 +38,7 @@
             <Font name="System Bold Italic" size="14.0" />
          </font>
       </JFXButton>
-      <JFXButton contentDisplay="BOTTOM" layoutX="41.0" layoutY="144.0" onAction="#btnLoardInventoryOnAction" prefHeight="40.0" prefWidth="130.0" style="-fx-background-color: #2596be;" text="Product" textAlignment="CENTER" textFill="WHITE">
+      <JFXButton fx:id="btnProduct" contentDisplay="BOTTOM" layoutX="41.0" layoutY="144.0" onAction="#btnLoardInventoryOnAction" prefHeight="40.0" prefWidth="130.0" style="-fx-background-color: #2596be;" text="Product" textAlignment="CENTER" textFill="WHITE">
          <font>
             <Font name="System Bold Italic" size="14.0" />
          </font>
@@ -53,7 +53,7 @@
             <Font name="System Bold Italic" size="14.0" />
          </font>
       </JFXButton>
-      <JFXButton contentDisplay="BOTTOM" layoutX="41.0" layoutY="253.0" onAction="#btnPlaceOrderOnAction" prefHeight="40.0" prefWidth="130.0" style="-fx-background-color: #2596be;" text="Orders" textAlignment="CENTER" textFill="WHITE">
+      <JFXButton fx:id="btnOrders" contentDisplay="BOTTOM" layoutX="41.0" layoutY="253.0" onAction="#btnPlaceOrderOnAction" prefHeight="40.0" prefWidth="130.0" style="-fx-background-color: #2596be;" text="Orders" textAlignment="CENTER" textFill="WHITE">
          <font>
             <Font name="System Bold Italic" size="14.0" />
          </font>

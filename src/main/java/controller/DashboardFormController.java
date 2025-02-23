@@ -113,11 +113,14 @@ public class DashboardFormController implements Initializable {
     public JFXComboBox cbEmployeeEmployeeRole;
     public JFXButton btnUser;
     public AnchorPane apReports;
-
     public LineChart<String, Number> lineChart;
     public NumberAxis yAxis;
     public BarChart<String, Number> barChart;
     public NumberAxis yAxis1;
+    public JFXButton btnProduct;
+    public JFXButton btnOrders;
+    public JFXButton btnSupplier;
+    public JFXButton btnEmployee;
 
     UserService userService= ServiceFactory.getInstance().getServiceType(ServiceType.USER);
     SupplierService supplierService=ServiceFactory.getInstance().getServiceType(ServiceType.SUPPLIER);
@@ -205,6 +208,15 @@ public class DashboardFormController implements Initializable {
     private ObservableList<OrdersTable> orderTableObservableList = FXCollections.observableArrayList();
 
     public void btnPlaceOrderAddToCardOnAction(ActionEvent actionEvent) {
+        if (txtSelectCustomerName.getText().isEmpty() || txtEmployeeName.getText().isEmpty() || txtPlaceOrderProductName.getText().isEmpty() || txtPlaceOrderProductQty.getText().isEmpty()){
+            Alert alert = new Alert(Alert.AlertType.ERROR);
+            alert.setTitle("Error");
+            alert.setHeaderText("An Error Occurred");
+            alert.setContentText("Please enter order details.");
+            alert.showAndWait();
+            return;
+        }
+
         addOrderTable(Integer.valueOf(cbPlaceOrderSelectProduct.getSelectionModel().getSelectedItem().toString()), txtPlaceOrderProductName.getText(), txtPlaceOrderProductSIze.getText(), Integer.valueOf(txtPlaceOrderProductQty.getText()), Double.parseDouble(txtPlaceOrderProductPrice.getText()));
         loadTable();
         calculateTotal();
@@ -253,6 +265,18 @@ public class DashboardFormController implements Initializable {
     }
 
     public void btnPlaceOrdersOnAction(ActionEvent actionEvent) throws SQLException {
+        if (cbPlaceOrderPaymentType.getValue()==null || orderTableObservableList.isEmpty()){
+            // Creating an Error Alert
+            Alert errorAlert = new Alert(Alert.AlertType.ERROR);
+            errorAlert.setTitle("Error Dialog");
+            errorAlert.setHeaderText("An Error Occurred");
+            errorAlert.setContentText("Please add to cart option and select payment type!");
+
+            // Display the alert
+            errorAlert.showAndWait();
+            return;
+        }
+
         ArrayList<OrderProduct> orderDetails = new ArrayList<>();
 
         for (OrdersTable productList:orderTableObservableList){
@@ -290,6 +314,18 @@ public class DashboardFormController implements Initializable {
     }
 
     public void btnUserAddOnAction(ActionEvent actionEvent) {
+        if (txtUserName.getText().isEmpty() || txtUserEmail.getText().isEmpty() || txtUserPassword.getText().isEmpty() || cbUserRole.getSelectionModel().getSelectedItem().toString().isEmpty()){
+            // Creating an Error Alert
+            Alert errorAlert = new Alert(Alert.AlertType.ERROR);
+            errorAlert.setTitle("Error Dialog");
+            errorAlert.setHeaderText("An Error Occurred");
+            errorAlert.setContentText("Please enter user details!");
+
+            // Display the alert
+            errorAlert.showAndWait();
+            return;
+        }
+
         boolean addedUser = userService.addUser(txtUserName.getText(), txtUserEmail.getText(), txtUserPassword.getText(), cbUserRole.getSelectionModel().getSelectedItem().toString());
         if (addedUser){
             Alert alert = new Alert(Alert.AlertType.INFORMATION);
@@ -301,15 +337,41 @@ public class DashboardFormController implements Initializable {
         }
     }
 
+    private UserTable selectedUser;
+
     public void btnUserSearchOnAction(ActionEvent actionEvent) {
-        User searchedUser = userService.searchUser(txtUserEmail.getText());
-        txtUserName.setText(searchedUser.getName());
-        txtUserEmail.setText(searchedUser.getEmail());
-        txtUserPassword.setText(searchedUser.getPassword());
-        cbUserRole.setValue(searchedUser.getRole());
+        selectedUser = (UserTable) tblUser.getSelectionModel().getSelectedItem();
+        if (selectedUser!=null){
+            User searchedUser = userService.searchUser(selectedUser.getEmail());
+            txtUserName.setText(searchedUser.getName());
+            txtUserEmail.setText(searchedUser.getEmail());
+            txtUserPassword.setText(searchedUser.getPassword());
+            cbUserRole.setValue(searchedUser.getRole());
+        }else {
+            // Creating an Error Alert
+            Alert errorAlert = new Alert(Alert.AlertType.ERROR);
+            errorAlert.setTitle("Error Dialog");
+            errorAlert.setHeaderText("An Error Occurred");
+            errorAlert.setContentText("Select user on the user table!");
+
+            // Display the alert
+            errorAlert.showAndWait();
+        }
     }
 
     public void btnUserUpdateOnAction(ActionEvent actionEvent) {
+        if (txtUserName.getText().isEmpty() || txtUserEmail.getText().isEmpty() || txtUserPassword.getText().isEmpty() || cbUserRole.getSelectionModel().getSelectedItem().toString().isEmpty()){
+            // Creating an Error Alert
+            Alert errorAlert = new Alert(Alert.AlertType.ERROR);
+            errorAlert.setTitle("Error Dialog");
+            errorAlert.setHeaderText("An Error Occurred");
+            errorAlert.setContentText("Please choose first select user in the user table and then select user search!");
+
+            // Display the alert
+            errorAlert.showAndWait();
+            return;
+        }
+
         boolean updatedUser = userService.updateUser(txtUserName.getText(), txtUserEmail.getText(), txtUserPassword.getText(), cbUserRole.getSelectionModel().getSelectedItem().toString());
         if (updatedUser){
             Alert alert = new Alert(Alert.AlertType.INFORMATION);
@@ -318,10 +380,31 @@ public class DashboardFormController implements Initializable {
             alert.showAndWait();
             loardUserTable();
             clearAreas();
+        }else {
+            // Creating an Error Alert
+            Alert errorAlert1 = new Alert(Alert.AlertType.ERROR);
+            errorAlert1.setTitle("Error Dialog");
+            errorAlert1.setHeaderText("An Error Occurred");
+            errorAlert1.setContentText("User Updated Unsuccessfully!");
+
+            // Display the alert
+            errorAlert1.showAndWait();
         }
     }
 
     public void btnUserDeleteOnAction(ActionEvent actionEvent) {
+        if (txtUserName.getText().isEmpty() || txtUserEmail.getText().isEmpty() || txtUserPassword.getText().isEmpty() || cbUserRole.getSelectionModel().getSelectedItem().toString().isEmpty()){
+            // Creating an Error Alert
+            Alert errorAlert = new Alert(Alert.AlertType.ERROR);
+            errorAlert.setTitle("Error Dialog");
+            errorAlert.setHeaderText("An Error Occurred");
+            errorAlert.setContentText("Please choose first select user in the user table and then select user search!");
+
+            // Display the alert
+            errorAlert.showAndWait();
+            return;
+        }
+
         boolean deletedUser = userService.deleteUser(txtUserEmail.getText());
         if (deletedUser){
             Alert alert = new Alert(Alert.AlertType.INFORMATION);
@@ -330,6 +413,15 @@ public class DashboardFormController implements Initializable {
             alert.showAndWait();
             loardUserTable();
             clearAreas();
+        }else {
+            // Creating an Error Alert
+            Alert errorAlert1 = new Alert(Alert.AlertType.ERROR);
+            errorAlert1.setTitle("Error Dialog");
+            errorAlert1.setHeaderText("An Error Occurred");
+            errorAlert1.setContentText("User Deleted Unsuccessfully!");
+
+            // Display the alert
+            errorAlert1.showAndWait();
         }
     }
 
@@ -549,6 +641,18 @@ public class DashboardFormController implements Initializable {
     }
 
     public void btnEmployeeAddOnAction(ActionEvent actionEvent) throws SQLException {
+        if (txtEmployeeName2.getText().isEmpty() || txtEmployeeEmail.getText().isEmpty() || txtEmployeePassword.getText().isEmpty() || cbEmployeeUserRole.getValue()==null || cbEmployeeEmployeeRole.getValue()==null){
+            // Creating an Error Alert
+            Alert errorAlert1 = new Alert(Alert.AlertType.ERROR);
+            errorAlert1.setTitle("Error Dialog");
+            errorAlert1.setHeaderText("An Error Occurred");
+            errorAlert1.setContentText("Please Enter Employee Details!");
+
+            // Display the alert
+            errorAlert1.showAndWait();
+            return;
+        }
+
         User user = new User(null, txtEmployeeName2.getText(), txtEmployeeEmail.getText(), txtEmployeePassword.getText(), cbEmployeeUserRole.getSelectionModel().getSelectedItem().toString(), null);
         Employee employee = new Employee(null, txtEmployeeName2.getText(), txtEmployeeEmail.getText(), cbEmployeeEmployeeRole.getSelectionModel().getSelectedItem().toString(), null);
         boolean addedEmployee = employeeService.addEmployee(user, employee);
@@ -568,6 +672,19 @@ public class DashboardFormController implements Initializable {
 
     public void btnEmployeeSearchOnAction(ActionEvent actionEvent) {
         selectedEmployee = (EmployeeTable) tblEmployee.getSelectionModel().getSelectedItem();
+
+        if (selectedEmployee==null){
+            // Creating an Error Alert
+            Alert errorAlert1 = new Alert(Alert.AlertType.ERROR);
+            errorAlert1.setTitle("Error Dialog");
+            errorAlert1.setHeaderText("An Error Occurred");
+            errorAlert1.setContentText("Please select employee on employee table");
+
+            // Display the alert
+            errorAlert1.showAndWait();
+            return;
+        }
+
         selectUser = employeeService.getSelectUser(selectedEmployee.getAdminId());
         txtEmployeeName2.setText(selectedEmployee.getName());
         txtEmployeeEmail.setText(selectedEmployee.getEmail());
@@ -577,6 +694,18 @@ public class DashboardFormController implements Initializable {
     }
 
     public void btnEmployeeUpdateOnAction(ActionEvent actionEvent) throws SQLException {
+        if (txtEmployeeName2.getText().isEmpty() || txtEmployeeEmail.getText().isEmpty() || txtEmployeePassword.getText().isEmpty() || cbEmployeeUserRole.getValue()==null || cbEmployeeEmployeeRole.getValue()==null){
+            // Creating an Error Alert
+            Alert errorAlert1 = new Alert(Alert.AlertType.ERROR);
+            errorAlert1.setTitle("Error Dialog");
+            errorAlert1.setHeaderText("An Error Occurred");
+            errorAlert1.setContentText("Please enter employee details!");
+
+            // Display the alert
+            errorAlert1.showAndWait();
+            return;
+        }
+
         User user = new User(selectUser.getUserId(), txtEmployeeName2.getText(), txtEmployeeEmail.getText(), txtEmployeePassword.getText(), cbEmployeeUserRole.getSelectionModel().getSelectedItem().toString(), null);
         Employee employee = new Employee(selectedEmployee.getEmployeeId(), txtEmployeeName2.getText(), txtEmployeeEmail.getText(), cbEmployeeEmployeeRole.getSelectionModel().getSelectedItem().toString(), selectUser.getUserId());
         boolean updatedEmployee = employeeService.updateEmployee(user, employee);
@@ -593,6 +722,18 @@ public class DashboardFormController implements Initializable {
     }
 
     public void btnEmployeeDeleteOnAction(ActionEvent actionEvent) throws SQLException {
+        if (selectedEmployee==null){
+            // Creating an Error Alert
+            Alert errorAlert1 = new Alert(Alert.AlertType.ERROR);
+            errorAlert1.setTitle("Error Dialog");
+            errorAlert1.setHeaderText("An Error Occurred");
+            errorAlert1.setContentText("Please select employee on employee table");
+
+            // Display the alert
+            errorAlert1.showAndWait();
+            return;
+        }
+
         boolean deletedEmployee = employeeService.deleteEmployee(selectUser.getUserId(), selectedEmployee.getEmployeeId());
         if (deletedEmployee){
             Alert alert = new Alert(Alert.AlertType.INFORMATION);
@@ -627,11 +768,6 @@ public class DashboardFormController implements Initializable {
         txtEmployeePassword.clear();
         cbEmployeeUserRole.setValue("Select User Role");
         cbEmployeeEmployeeRole.setValue("Select Employee Role");
-    }
-
-    public void dashbordButtonShow(String role){
-        if (role.equals("Employee")){
-        }
     }
 
     public void btnCustomerReportOnAction(ActionEvent actionEvent) {
