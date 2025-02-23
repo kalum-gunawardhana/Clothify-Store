@@ -27,6 +27,7 @@ import net.sf.jasperreports.engine.*;
 import net.sf.jasperreports.engine.design.JasperDesign;
 import net.sf.jasperreports.engine.xml.JRXmlLoader;
 import net.sf.jasperreports.view.JasperViewer;
+import repository.custom.impl.OrdersDaoImpl;
 import service.ServiceFactory;
 import service.custom.*;
 import util.ServiceType;
@@ -121,6 +122,14 @@ public class DashboardFormController implements Initializable {
     public JFXButton btnOrders;
     public JFXButton btnSupplier;
     public JFXButton btnEmployee;
+    public AnchorPane apOrderDetails;
+    public TableView tblOrderProducts;
+    public TableColumn colOrderId;
+    public TableColumn colOrderDate;
+    public TableColumn colTotalCost;
+    public TableColumn colPaymentType;
+    public TableColumn colEmployeeId;
+    public TableColumn colCustomerId;
 
     UserService userService= ServiceFactory.getInstance().getServiceType(ServiceType.USER);
     SupplierService supplierService=ServiceFactory.getInstance().getServiceType(ServiceType.SUPPLIER);
@@ -153,6 +162,7 @@ public class DashboardFormController implements Initializable {
         loardEmployeeRoleCombo();
         loardLineChart();
         loardBarChart();
+        loadOrderDetailTable();
     }
 
     public void btnSupplierOnAction(ActionEvent actionEvent) throws IOException {
@@ -298,6 +308,9 @@ public class DashboardFormController implements Initializable {
             alert.setTitle("Order Confirmation");
             alert.setContentText("Order placed successfully!");
             alert.showAndWait();
+
+            loadOrderDetailTable();
+            setOrderId();
         }
     }
 
@@ -879,5 +892,22 @@ public class DashboardFormController implements Initializable {
         } catch (IOException e) {
             throw new RuntimeException(e);
         }
+    }
+
+    public void btnOrderDetailsOnAction(ActionEvent actionEvent) {
+        apOrderDetails.toFront();
+    }
+
+    private void loadOrderDetailTable(){
+        ObservableList<OrderDetailTable> orderDetail = ordersService.getOrderDetail();
+
+        colOrderId.setCellValueFactory(new PropertyValueFactory<>("orderId"));
+        colOrderDate.setCellValueFactory(new PropertyValueFactory<>("orderDate"));
+        colTotalCost.setCellValueFactory(new PropertyValueFactory<>("totalCost"));
+        colPaymentType.setCellValueFactory(new PropertyValueFactory<>("paymentType"));
+        colEmployeeId.setCellValueFactory(new PropertyValueFactory<>("employeeId"));
+        colCustomerId.setCellValueFactory(new PropertyValueFactory<>("customerId"));
+
+        tblOrderProducts.setItems(orderDetail);
     }
 }

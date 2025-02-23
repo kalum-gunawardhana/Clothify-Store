@@ -1,6 +1,8 @@
 package repository.custom;
 
+import entity.OrderDetailTableEntity;
 import entity.OrdersEntity;
+import javafx.collections.ObservableList;
 import model.OrderProduct;
 import model.Orders;
 import repository.CrudDao;
@@ -21,4 +23,5 @@ public interface OrdersDao extends CrudDao<OrdersEntity,Integer> {
     List<String> getEmployeeId();
     String selectEmployoleeName(String id);
     List<String> getOrderId();
+    ObservableList<OrderDetailTableEntity> getOrderDetails();
 }

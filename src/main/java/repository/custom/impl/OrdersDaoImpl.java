@@ -1,7 +1,10 @@
 package repository.custom.impl;
 
 import DBConnection.connection;
+import entity.OrderDetailTableEntity;
 import entity.OrdersEntity;
+import javafx.collections.FXCollections;
+import javafx.collections.ObservableList;
 import model.OrderProduct;
 import repository.custom.OrdersDao;
 
@@ -234,5 +237,22 @@ public class OrdersDaoImpl implements OrdersDao {
             throw new RuntimeException(e);
         }
         return List.of();
+    }
+
+    @Override
+    public ObservableList<OrderDetailTableEntity> getOrderDetails() {
+        ObservableList<OrderDetailTableEntity> observableList = FXCollections.observableArrayList();
+        try {
+            PreparedStatement preparedStatement = connection.getInstance().getConnection().prepareStatement("select * from orders");
+            ResultSet resultSet = preparedStatement.executeQuery();
+
+            while (resultSet.next()){
+                OrderDetailTableEntity orderDetailTableEntity = new OrderDetailTableEntity(resultSet.getInt("OrderID"), resultSet.getDate("OrderDate"), resultSet.getDouble("TotalCost"), resultSet.getString("PaymentType"), resultSet.getInt("EmployeeID"), resultSet.getInt("CustomerID"));
+                observableList.add(orderDetailTableEntity);
+            }
+            return observableList;
+        } catch (SQLException e) {
+            throw new RuntimeException(e);
+        }
     }
 }

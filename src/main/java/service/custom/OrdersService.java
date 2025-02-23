@@ -1,5 +1,7 @@
 package service.custom;
 
+import javafx.collections.ObservableList;
+import model.OrderDetailTable;
 import model.Orders;
 import service.SuperService;
 
@@ -15,4 +17,5 @@ public interface OrdersService extends SuperService {
     List<String> getEmployeeId();
     String selectEmployoleeName(String id);
     List<String> getOrderId();
+    ObservableList<OrderDetailTable> getOrderDetail();
 }
